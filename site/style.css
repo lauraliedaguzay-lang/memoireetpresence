@@ -1349,11 +1349,11 @@ article.page-inner {
 }
 
 .showcase__plaque-frame {
-  padding: 4px;
+  padding: 0;
   border-radius: 16px;
   max-width: 420px;
   margin: 0 auto;
-  background: var(--c-zone-light);
+  background: transparent;
   border: none;
   box-shadow: var(--shadow-plaque-hero);
 }
