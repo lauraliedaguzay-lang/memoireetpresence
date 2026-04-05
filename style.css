@@ -906,7 +906,8 @@ body > #nav-principale.site-nav {
 }
 
 @media (min-width: 768px) {
-  .site-nav__group {
+  .site-nav__group,
+  .nav-secondary {
     display: none;
   }
 }
