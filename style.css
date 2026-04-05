@@ -560,9 +560,11 @@ button:focus-visible {
     justify-content: flex-start;
   }
 
-  /* Burger à gauche, marque au centre (flex), CTA à droite — pattern mobile habituel */
+  /* Burger à gauche, logo au centre, CTA à droite */
   .nav-toggle {
+    display: flex !important;
     order: 0;
+    flex-shrink: 0;
   }
 
   .brand-lockup {
