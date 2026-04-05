@@ -1,9 +1,8 @@
 {
   "name": "memoire-presence-site",
   "private": true,
-  "description": "Site vitrine Mémoire & Présence — aperçu local avec rechargement automatique",
   "scripts": {
-    "dev": "live-server . --port=5500 --open=/index.html"
+    "dev": "live-server site --port=5500 --open=/index.html"
   },
   "devDependencies": {
     "live-server": "^1.2.2"

@@ -18,3 +18,14 @@ node_modules/
 # Cursor IDE
 .cursor/
 AGENTS.md
+
+# Scripts et docs internes (non déployés)
+*.cmd
+*.ps1
+ACTIVER-*.md
+CONNECTER-*.md
+COPIER-*.txt
+LIEN-*.md
+POUR-*.md
+SITE-CLIQUABLE*.md
+
