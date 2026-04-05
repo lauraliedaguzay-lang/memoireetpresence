@@ -1,0 +1,25 @@
+=== Si "execution des scripts est desactivee" sur PowerShell ===
+Double-clic sur deploy-github.cmd dans le dossier memoire-presence-site (contourne la restriction).
+Ou coller le bloc PowerShell ci-dessous (pas de .ps1 direct).
+
+=== Copier tout le bloc ci-dessous, coller dans PowerShell, Entree ===
+
+cd "C:\Users\laura\Downloads\memoire-presence-site"
+$g = "C:\Program Files\Git\bin\git.exe"
+& $g add .
+& $g diff --cached --quiet
+if ($LASTEXITCODE -ne 0) { & $g commit -m "Mise a jour site" }
+& $g push origin main
+
+=== Fin du bloc ===
+
+Pour changer le message du commit, remplacer la ligne du commit par par exemple :
+& $g commit -m "Votre texte ici"
+
+Si Git est dans le PATH (commande git reconnue), vous pouvez utiliser a la place :
+
+cd "C:\Users\laura\Downloads\memoire-presence-site"
+git add .
+git diff --cached --quiet
+if ($LASTEXITCODE -ne 0) { git commit -m "Mise a jour site" }
+git push origin main

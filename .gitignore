@@ -1,0 +1,20 @@
+.DS_Store
+Thumbs.db
+Desktop.ini
+*.log
+.env
+.env.*
+.idea/
+.vscode/
+*.swp
+*~
+
+# Netlify CLI (dossier local)
+.netlify/
+
+# Aperçu local (npm run dev)
+node_modules/
+
+# Cursor IDE
+.cursor/
+AGENTS.md

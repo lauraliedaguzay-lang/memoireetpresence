@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 530" fill="none" aria-hidden="true">
+  <rect width="400" height="530" fill="#e8dfd2" rx="8"/>
+  <rect x="24" y="24" width="352" height="482" rx="4" stroke="#a89272" stroke-width="1.5" stroke-dasharray="6 4"/>
+  <text x="200" y="255" text-anchor="middle" fill="#6e685e" font-family="system-ui,sans-serif" font-size="15">Visuel non chargé</text>
+  <text x="200" y="285" text-anchor="middle" fill="#8ca88e" font-family="system-ui,sans-serif" font-size="11">Vérifiez le dossier images sur le serveur</text>
+</svg>
