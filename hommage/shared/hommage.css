@@ -1,0 +1,611 @@
+:root {
+  --h-space-gutter: clamp(0.85rem, 2.4vw, 1.2rem);
+  --h-bg-sable-image: url("../../images/bg-sable.png");
+  --h-bg-sable-blur-d: 14px;
+  --h-bg-sable-blur-m: 7px;
+  --h-bg: #e2d5bc;
+  --h-card: #f2e8d5;
+  --h-zone-shadow: #cfc3a8;
+  --h-text: #2c3628;
+  --h-soft: #5a5248;
+  --h-pale: #8a8070;
+  --h-green: #3d6b4f;
+  --h-green-hover: #6a9e7a;
+  --h-gold: #b8975a;
+  --h-line: rgba(100, 82, 56, 0.34);
+  --h-warm: #f4efe4;
+  --h-zone-lumiere: 0 2px 8px rgba(139, 115, 75, 0.08), inset 0 1px 0 rgba(255, 248, 225, 0.8);
+  --h-portee: 0 4px 16px rgba(139, 115, 75, 0.12), 0 1px 3px rgba(139, 115, 75, 0.08);
+  --h-serif: "Cormorant Garamond", "Times New Roman", Times, serif;
+  --h-sans: "Jost", system-ui, sans-serif;
+  --ease: cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html:has(body.hommage-body) {
+  background-color: var(--h-bg);
+}
+
+body.hommage-body {
+  margin: 0;
+  min-height: 100vh;
+  min-height: 100dvh;
+  font-family: var(--h-sans);
+  font-size: 0.9375rem;
+  font-weight: 400;
+  line-height: 1.62;
+  color: var(--h-soft);
+  background-color: transparent;
+  position: relative;
+  -webkit-font-smoothing: antialiased;
+}
+
+body.hommage-body::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 0;
+  pointer-events: none;
+  background-color: var(--h-bg);
+  background-image: var(--h-bg-sable-image);
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  transform: scale(1.04);
+  transform-origin: center center;
+  filter: blur(var(--h-bg-sable-blur-m)) saturate(0.82) brightness(1.04) contrast(0.96);
+}
+
+@media (min-width: 768px) {
+  body.hommage-body::before {
+    position: fixed;
+    top: -64px;
+    left: -64px;
+    right: -64px;
+    bottom: -64px;
+    width: auto;
+    height: auto;
+    transform: scale(1.08);
+    filter: blur(var(--h-bg-sable-blur-d)) saturate(0.8) brightness(1.05) contrast(0.95);
+  }
+}
+
+@supports not (filter: blur(1px)) {
+  body.hommage-body::before {
+    filter: none;
+    opacity: 0.32;
+    transform: scale(1.03);
+  }
+}
+
+body.hommage-body::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 0;
+  pointer-events: none;
+  background-color: rgba(241, 234, 220, 0.28);
+  background-image:
+    linear-gradient(
+      168deg,
+      rgba(252, 250, 246, 0.42) 0%,
+      rgba(236, 228, 212, 0.36) 38%,
+      rgba(222, 212, 194, 0.32) 72%,
+      rgba(216, 206, 188, 0.28) 100%
+    ),
+    radial-gradient(ellipse 90% 55% at 50% 0%, rgba(255, 252, 246, 0.22) 0%, transparent 52%),
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='600' height='600'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.022' numOctaves='4' seed='5' stitchTiles='stitch'/%3E%3CfeColorMatrix type='matrix' values='0 0 0 0 0.65 0 0 0 0 0.55 0 0 0 0 0.38 0 0 0 1 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  background-size: auto, auto, 480px 480px;
+  background-repeat: no-repeat, no-repeat, repeat;
+}
+
+@media (min-width: 768px) {
+  body.hommage-body::after {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    width: auto;
+    height: auto;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  body.hommage-body::before {
+    filter: saturate(0.78) brightness(1.03) contrast(0.97);
+    transform: scale(1.02);
+  }
+
+  body.hommage-body::after {
+    background-color: rgba(241, 234, 220, 0.55);
+  }
+}
+
+/* Exclure menu mobile (#nav-principale, #site-nav-backdrop) : en fin de <body>, fixed + z-index (style.css). */
+body.hommage-body > *:not(#nav-principale):not(#site-nav-backdrop) {
+  position: relative;
+  z-index: 1;
+}
+
+.hommage-topnav {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  gap: 0.35rem 0.55rem;
+  padding: 0.65rem var(--h-space-gutter);
+  font-family: var(--h-sans);
+  font-size: 0.68rem;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--h-pale);
+  background: rgba(241, 234, 220, 0.82);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border-bottom: 1px solid var(--h-line);
+}
+
+@media (max-width: 767px) {
+  .hommage-topnav {
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+  }
+}
+
+.hommage-topnav a {
+  text-decoration: none;
+  color: var(--h-green);
+}
+
+.hommage-topnav a:hover {
+  color: var(--h-green-hover);
+}
+
+.hommage-topnav__sep {
+  opacity: 0.45;
+  user-select: none;
+  pointer-events: none;
+}
+
+.hommage-body ::selection {
+  background: rgba(139, 115, 75, 0.22);
+  color: var(--h-text);
+}
+
+.hommage-body a {
+  color: var(--h-green);
+  transition: color 150ms var(--ease);
+}
+
+.hommage-body a:hover {
+  color: var(--h-green-hover);
+}
+
+.hommage-gate,
+.hommage-content {
+  max-width: 26rem;
+  margin: 0 auto;
+  padding: clamp(1.35rem, 5vw, 2.35rem) var(--h-space-gutter);
+}
+
+.hommage-gate {
+  min-height: calc(100vh - 3rem);
+  min-height: calc(100dvh - 3rem);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+/* Avec en-tête site (burger + menu), réserver la hauteur du header mobile. */
+.hommage-body:has(.site-header) .hommage-gate {
+  min-height: calc(100vh - var(--header-h-mobile, 72px) - 2.5rem);
+  min-height: calc(100dvh - var(--header-h-mobile, 72px) - 2.5rem);
+}
+
+.hommage-gate__brand {
+  margin: 0 0 2rem;
+  font-family: var(--h-serif);
+  font-size: 0.85rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  text-align: center;
+  color: var(--h-text);
+  position: relative;
+  padding-bottom: 1.1rem;
+}
+
+.hommage-gate__brand::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  bottom: 0;
+  transform: translateX(-50%);
+  width: 2rem;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--h-gold), transparent);
+}
+
+.hommage-gate h1 {
+  margin: 0 0 0.75rem;
+  font-family: var(--h-serif);
+  font-size: clamp(1.85rem, 6vw, 2.35rem);
+  font-weight: 600;
+  text-align: center;
+  line-height: 1.08;
+  color: var(--h-text);
+  text-shadow: 0 1px 2px rgba(139, 115, 75, 0.15);
+}
+
+.hommage-gate__intro {
+  margin: 0 0 1.35rem;
+  font-size: 0.9375rem;
+  font-weight: 400;
+  color: var(--h-soft);
+  text-align: center;
+  line-height: 1.62;
+}
+
+.hommage-form label {
+  display: block;
+  margin-bottom: 0.4rem;
+  font-family: var(--h-sans);
+  font-size: 0.73rem;
+  font-weight: 500;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--h-soft);
+}
+
+.hommage-form input[type="password"] {
+  width: 100%;
+  padding: 12px 14px;
+  font-family: var(--h-sans);
+  font-size: 0.88rem;
+  color: var(--h-text);
+  background: rgba(255, 248, 230, 0.72);
+  border: 1px solid var(--h-line);
+  border-radius: 10px;
+  margin-bottom: 1rem;
+  box-shadow: none;
+}
+
+@media (max-width: 767px) {
+  .hommage-form input[type="password"] {
+    font-size: 1rem;
+  }
+}
+
+.hommage-form input:focus {
+  outline: none;
+  border-color: rgba(139, 115, 75, 0.45);
+  box-shadow: 0 0 0 3px rgba(139, 115, 75, 0.15), 0 2px 8px rgba(139, 115, 75, 0.1);
+}
+
+.hommage-form button {
+  width: 100%;
+  padding: 13px 26px;
+  font-family: var(--h-sans);
+  font-size: 0.81rem;
+  font-weight: 500;
+  letter-spacing: 0.04em;
+  color: var(--h-warm);
+  background: var(--h-green);
+  border: none;
+  border-radius: 50px;
+  cursor: pointer;
+  transition: transform 150ms var(--ease), background 150ms var(--ease);
+}
+
+.hommage-form button:hover {
+  transform: scale(1.02);
+  background: var(--h-green-hover);
+}
+
+.hommage-form button:focus-visible {
+  outline: 2px solid rgba(139, 115, 75, 0.45);
+  outline-offset: 3px;
+}
+
+.hommage-err {
+  margin: 0.75rem 0 0;
+  font-size: 0.88rem;
+  color: var(--h-soft);
+  text-align: center;
+}
+
+.hommage-note {
+  margin: 2rem 0 0;
+  font-size: 0.76rem;
+  font-weight: 300;
+  color: var(--h-pale);
+  text-align: center;
+  line-height: 1.75;
+}
+
+.hommage-note a {
+  color: var(--h-green);
+}
+
+.hommage-content[hidden],
+.hommage-gate[hidden] {
+  display: none !important;
+}
+
+.hommage-content {
+  padding-top: clamp(1.5rem, 5vw, 2.5rem);
+  padding-bottom: 1.85rem;
+}
+
+.hommage-content__kicker {
+  margin: 0 0 0.5rem;
+  font-family: var(--h-sans);
+  font-size: 0.67rem;
+  font-weight: 500;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--h-green);
+  text-align: center;
+}
+
+.hommage-content h2 {
+  margin: 0 0 0.35rem;
+  font-family: var(--h-serif);
+  font-size: clamp(1.85rem, 6vw, 2.7rem);
+  font-weight: 600;
+  text-align: center;
+  line-height: 1.08;
+  color: var(--h-text);
+  text-shadow: 0 1px 2px rgba(139, 115, 75, 0.15);
+}
+
+.hommage-content__dates {
+  margin: 0 0 1.5rem;
+  font-size: 0.88rem;
+  font-weight: 400;
+  text-align: center;
+  color: var(--h-soft);
+}
+
+.hommage-content__demo-tag {
+  margin: -0.85rem 0 1.25rem;
+  font-size: 0.65rem;
+  font-weight: 500;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  text-align: center;
+  color: var(--h-pale);
+}
+
+.hommage-content__photo {
+  width: 100%;
+  max-width: 18rem;
+  aspect-ratio: 4 / 3;
+  margin: 0 auto 1.75rem;
+  padding: 0;
+  border-radius: 12px;
+  overflow: hidden;
+  background: var(--h-card);
+  border: 1px solid var(--h-line);
+  box-shadow: var(--h-zone-lumiere), var(--h-portee);
+}
+
+.hommage-content__photo img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.hommage-content__text {
+  margin: 0 0 0.9rem;
+  font-size: 0.9375rem;
+  font-weight: 400;
+  color: var(--h-soft);
+  line-height: 1.62;
+  text-align: center;
+}
+
+.hommage-content__text--lead {
+  font-family: var(--h-serif);
+  font-size: clamp(1.05rem, 2.5vw, 1.2rem);
+  font-weight: 400;
+  font-style: italic;
+  color: var(--h-soft);
+  line-height: 1.65;
+}
+
+.hommage-content__text--note {
+  font-size: 0.81rem;
+  line-height: 1.75;
+  color: var(--h-pale);
+}
+
+.hommage-content__panel {
+  margin: 0 0 1.5rem;
+  padding: 1rem 1.1rem;
+  text-align: left;
+  background: var(--h-card);
+  border: 1px solid var(--h-line);
+  border-radius: 12px;
+  box-shadow: var(--h-zone-lumiere);
+}
+
+.hommage-content__panel h3 {
+  margin: 0 0 0.65rem;
+  font-family: var(--h-serif);
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--h-text);
+  text-align: center;
+}
+
+.hommage-content__panel p {
+  margin: 0 0 0.65rem;
+  font-size: 0.86rem;
+  line-height: 1.8;
+  color: var(--h-soft);
+}
+
+.hommage-content__panel p:last-child {
+  margin-bottom: 0;
+}
+
+.hommage-content__panel-links {
+  margin-top: 0.75rem;
+  padding-top: 0.75rem;
+  border-top: 1px solid var(--h-line);
+  font-size: 0.78rem;
+  text-align: center;
+  line-height: 1.65;
+}
+
+.hommage-content__panel-links a {
+  white-space: nowrap;
+}
+
+.hommage-content__gallery-wrap {
+  margin: 0 0 1.75rem;
+  padding: 1rem;
+  background: var(--h-card);
+  border: 1px solid var(--h-line);
+  border-radius: 12px;
+  box-shadow: var(--h-zone-lumiere);
+}
+
+.hommage-content__h3 {
+  margin: 0 0 0.85rem;
+  font-family: var(--h-serif);
+  font-size: 1.1rem;
+  font-weight: 600;
+  text-align: center;
+  color: var(--h-text);
+}
+
+.hommage-gallery {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.5rem;
+}
+
+.hommage-gallery__cell {
+  margin: 0;
+  aspect-ratio: 1;
+  border-radius: 10px;
+  overflow: hidden;
+  background: var(--h-card);
+  border: 1px solid var(--h-line);
+  box-shadow: var(--h-zone-lumiere);
+}
+
+.hommage-gallery__cell img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.hommage-back {
+  display: block;
+  margin-top: 2.5rem;
+  font-size: 0.81rem;
+  font-weight: 500;
+  text-align: center;
+  color: var(--h-green);
+}
+
+.hommage-body .site-main {
+  opacity: 1;
+}
+
+.hommage-body .site-main.site-main--ready {
+  animation: none;
+}
+
+@keyframes hommageMainFadeIn {
+  to {
+    opacity: 1;
+  }
+}
+
+.hommage-body .fade-in-section {
+  opacity: 0;
+  transform: translateY(12px);
+  transition: opacity 500ms var(--ease), transform 500ms var(--ease);
+}
+
+.hommage-body .fade-in-section.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+@media (max-width: 767px) and (prefers-reduced-motion: no-preference) {
+  .hommage-form button:active {
+    transform: scale(0.97);
+  }
+
+  .hommage-topnav a {
+    transition: color 180ms var(--ease), opacity 180ms var(--ease);
+  }
+
+  .hommage-topnav a:active {
+    opacity: 0.65;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hommage-body .site-main {
+    opacity: 1;
+  }
+
+  .hommage-body .site-main.site-main--ready {
+    animation: none;
+  }
+
+  .hommage-body .fade-in-section {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+
+  .hommage-form button {
+    transition: none;
+  }
+
+  .hommage-form button:hover {
+    transform: none;
+  }
+
+  .hommage-form button:active {
+    transform: none;
+  }
+
+  .hommage-topnav a:active {
+    opacity: 1;
+  }
+}
+
+.hommage-topnav a:focus-visible,
+.hommage-body .hommage-form button:focus-visible,
+.hommage-body .hommage-form input:focus-visible,
+.hommage-content a:focus-visible {
+  outline: 2px solid var(--h-green);
+  outline-offset: 3px;
+  border-radius: 2px;
+}
