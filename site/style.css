@@ -1290,25 +1290,20 @@ article.page-inner {
 
 @media (min-width: 768px) {
   .hero__actions--home {
-    display: grid;
-    grid-template-columns: 1fr auto 1fr;
+    display: flex;
+    flex-wrap: nowrap;
     align-items: center;
-    gap: 0.75rem 1rem;
+    gap: 1rem;
     width: 100%;
-    max-width: 44rem;
+    max-width: 36rem;
   }
 
-  .hero__actions--home .btn:nth-child(1) {
-    justify-self: end;
-  }
-
-  .hero__actions--home .btn:nth-child(2) {
-    justify-self: center;
+  .hero__actions--home .btn {
+    flex: 1 1 0;
+    min-width: 0;
+    justify-content: center;
     text-align: center;
-  }
-
-  .hero__actions--home .btn:nth-child(3) {
-    justify-self: start;
+    white-space: normal;
   }
 }
 
