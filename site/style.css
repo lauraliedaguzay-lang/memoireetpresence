@@ -717,6 +717,35 @@ button:focus-visible {
   display: none;
 }
 
+/* Logo officiel (fichier image fourni — arbre + typographie + baseline) */
+.brand-lockup--reference {
+  gap: 0;
+  align-items: center;
+}
+
+.brand-lockup__logo-officiel {
+  display: block;
+  height: clamp(40px, 11vw, 54px);
+  width: auto;
+  max-width: min(228px, 64vw);
+  object-fit: contain;
+  object-position: left center;
+}
+
+@media (min-width: 768px) {
+  .brand-lockup__logo-officiel {
+    height: clamp(48px, 5.5vw, 58px);
+    max-width: 248px;
+  }
+}
+
+@media (max-width: 380px) {
+  .brand-lockup__logo-officiel {
+    height: 34px;
+    max-width: min(210px, 78vw);
+  }
+}
+
 .nav-toggle {
   display: flex;
   flex-direction: column;
