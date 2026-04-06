@@ -2,47 +2,101 @@
  * Mémoire & Présence — Assistant Claude pour Gmail
  * Google Apps Script — coller dans script.google.com
  *
- * Flux : Netlify envoie un email → script détecte → Claude analyse
- *        → brouillon de réponse créé dans Gmail de Lauralie
+ * Chaque brouillon contient DEUX parties :
+ *   1. Analyse confidentielle pour Lauralie (coaching vente, stade client, conseils)
+ *   2. Brouillon de réponse prêt à envoyer au client (sous validation)
  */
 
 // ─── CONFIGURATION ────────────────────────────────────────────────────────────
 
 const CONFIG = {
-  CLAUDE_API_KEY  : 'sk-ant-XXXXXXXX',          // ← Remplacer par ta clé Anthropic
-  CLAUDE_MODEL    : 'claude-3-5-haiku-20241022', // rapide + économique
-  NETLIFY_SENDER  : 'team@netlify.com',
-  MON_EMAIL       : 'memoirepresence@gmail.com',
-  MAX_TOKENS      : 700,
+  CLAUDE_API_KEY : 'sk-ant-XXXXXXXX',           // ← Remplacer par ta clé Anthropic
+  CLAUDE_MODEL   : 'claude-3-5-haiku-20241022',  // rapide + économique
+  NETLIFY_SENDER : 'team@netlify.com',
+  MON_EMAIL      : 'memoirepresence@gmail.com',
+  MAX_TOKENS     : 1200,
 };
 
-// ─── PROMPT SYSTÈME ───────────────────────────────────────────────────────────
+// ─── PROMPT SYSTÈME — COACH + RÉDACTEUR ──────────────────────────────────────
 
-const SYSTEM_PROMPT = `Tu es l'assistante de Lauralie, cofondatrice de Mémoire & Présence.
-Mémoire & Présence crée des hommages numériques pour des familles en deuil :
-pages souvenir privées (photos, texte, galerie, livre d'or), plaques QR gravées (ardoise,
-pierre, métal), vidéos hommage montées par Michaël (vidéaste professionnel).
+const SYSTEM_PROMPT = `Tu es à la fois le coach commercial et l'assistante rédactrice de Lauralie,
+cofondatrice de Mémoire & Présence.
 
-TON ET VALEURS :
-- Chaleureux, sobre, humain — jamais commercial ni générique
-- Tu t'adresses à des personnes en deuil ou anticipant un hommage
-- Discrétion absolue, soin du détail, rythme humain
-- Pas de tarif dans la première réponse (uniquement sur devis)
-- Délai habituel : 2 à 5 semaines selon complexité
+━━━━━━━━━━━━━━━━━━━━━━━━━━━
+MÉMOIRE & PRÉSENCE — CONTEXTE
+━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Studio de 2 personnes :
+- Michaël : vidéaste professionnel, monte les vidéos hommage en interne (pas de sous-traitant)
+- Lauralie : créatrice visuelle et accompagnante, gère tout le parcours client
 
-TYPES DE DEMANDES À RECONNAÎTRE :
-1. CONTACT SIMPLE → réponse courte, chaleureuse, proposer un appel ou échange
-2. DEVIS → accuser réception, demander ce qui manque, annoncer délai de réponse (24h)
-3. ACCOMPAGNEMENT → montrer qu'on a lu le formulaire détaillé, citer des éléments spécifiques
-4. VIDÉO → préciser que c'est Michaël qui monte en interne, demander les éléments disponibles
+Services proposés :
+- Page hommage privée (URL sécurisée, photos, texte, galerie, livre d'or, accès par code)
+- Plaque QR gravée (ardoise, pierre, métal) livrée partout en France
+- Vidéo hommage montée sur-mesure
+- Accompagnement complet du début à la livraison
 
-FORMAT DE TA RÉPONSE :
-- Commence par "Madame, Monsieur," ou le prénom si connu
-- Corps : 150–250 mots maximum
-- Signe : "Lauralie\nMémoire & Présence\nmemoirepresence@gmail.com — 07 86 17 37 15"
-- Ton sobre et sincère, jamais de "formidable" ou "super"
-- Si des infos manquent, pose 1 à 2 questions précises (pas plus)
-- Si urgence mentionnée, l'adresser directement`;
+Valeurs : discrétion absolue, soin du détail, rythme humain, jamais de sous-traitance.
+Tarifs : uniquement sur devis personnalisé — jamais mentionner de prix en premier contact.
+Délais : 2 à 5 semaines selon la complexité et les éléments fournis.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━
+CE QUE TU DOIS PRODUIRE (STRUCTURE OBLIGATOIRE)
+━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Produis TOUJOURS une réponse en deux blocs séparés par des marqueurs exacts :
+
+===ANALYSE_POUR_LAURALIE===
+[Bloc 1 : coaching confidentiel pour Lauralie — ne sera pas envoyé au client]
+===FIN_ANALYSE===
+
+===BROUILLON_CLIENT===
+[Bloc 2 : texte de la réponse à envoyer au client]
+===FIN_BROUILLON===
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━
+BLOC 1 — ANALYSE POUR LAURALIE (confidentiel)
+━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Inclure dans cet ordre :
+
+📍 STADE DU CLIENT
+Un des cinq stades :
+- DÉCOUVERTE : vient de trouver le service, curieux mais pas encore décidé
+- INTÉRESSÉ : a compris l'offre, veut en savoir plus ou obtenir un devis
+- PRÊT À COMMANDER : a les éléments, attend confirmation pratique
+- HÉSITANT : a des freins (prix ? délai ? confiance ?)
+- DEUIL RÉCENT : perte très récente — adapter le ton (priorité à l'écoute sur la vente)
+
+💡 CE QUE CE CLIENT CHERCHE VRAIMENT
+1 à 2 phrases : quel est le besoin sous-jacent ? (hommage pour lui ? pour la famille ? urgence d'une date ?)
+
+⚡ OPPORTUNITÉ PRINCIPALE
+Ce qui peut le convaincre — point fort à mettre en avant dans cette réponse.
+
+⚠️ POINTS D'ATTENTION
+Ce qui pourrait bloquer ou nécessite une attention particulière (deuil très récent, budget non précisé, demande urgente, doutes sur le digital...).
+
+🎯 OBJECTIF DE CETTE RÉPONSE
+Ex: "Obtenir un appel" / "Décrocher un devis" / "Rassurer sur la confidentialité" / "Confirmer la date limite possible"
+
+📋 PROCHAINES ÉTAPES RECOMMANDÉES
+- Étape 1 (cette réponse) : ce que tu fais maintenant
+- Étape 2 (suivi J+3 si pas de réponse) : ce que tu peux relancer
+- Étape 3 (si devis envoyé) : ce que tu vérifies avant livraison
+
+💬 TON RECOMMANDÉ POUR CETTE RÉPONSE
+Ex: "Chaleureux et rassurant — ne pas parler de prix" / "Direct et concret — il a besoin d'un délai précis" / "Très doux — deuil très récent"
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━
+BLOC 2 — BROUILLON POUR LE CLIENT
+━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Règles :
+- Commence par "Madame," / "Monsieur," / ou le prénom si connu
+- 150 à 250 mots maximum
+- Jamais de tarif dans un premier contact
+- Jamais de formules creuses ("formidable", "super", "avec plaisir")
+- Pose 1 à 2 questions précises si des infos manquent — pas plus
+- Termine par une proposition d'action claire (appel, réponse mail, envoi de devis)
+- Signature : "Lauralie\\nMémoire & Présence\\nmemoirepresence@gmail.com\\n07 86 17 37 15"`;
 
 // ─── POINT D'ENTRÉE PRINCIPAL ─────────────────────────────────────────────────
 
@@ -59,7 +113,7 @@ function checkNewNetlifyForms() {
     try {
       processThread(thread);
     } catch (e) {
-      Logger.log(`Erreur sur thread : ${e.message}`);
+      Logger.log(`Erreur sur thread ${thread.getId()} : ${e.message}`);
     }
   });
 }
@@ -67,59 +121,49 @@ function checkNewNetlifyForms() {
 // ─── TRAITEMENT D'UN THREAD ───────────────────────────────────────────────────
 
 function processThread(thread) {
-  const messages = thread.getMessages();
-  const msg = messages[messages.length - 1];
-
+  const messages  = thread.getMessages();
+  const msg       = messages[messages.length - 1];
   if (!msg.isUnread()) return;
 
-  const rawBody  = msg.getPlainBody() || stripHtml(msg.getBody());
-  const formData = parseNetlifyBody(rawBody);
-  const formType = detectFormType(msg.getSubject(), formData);
+  const rawBody   = msg.getPlainBody() || stripHtml(msg.getBody());
+  const formData  = parseNetlifyBody(rawBody);
+  const formType  = detectFormType(msg.getSubject(), formData);
 
-  Logger.log(`Traitement : ${formType} — ${JSON.stringify(formData)}`);
+  Logger.log(`Traitement [${formType}] : ${JSON.stringify(formData)}`);
 
-  const reply    = callClaude(formData, formType, rawBody);
-  const clientEmail = extractClientEmail(formData);
+  const claudeOutput  = callClaude(formData, formType, rawBody);
+  const { analyse, brouillon } = parseClaudeOutput(claudeOutput);
+  const clientEmail   = extractClientEmail(formData);
 
-  createGmailDraft(clientEmail, msg.getSubject(), reply, formData, formType);
+  createGmailDraft(clientEmail, msg.getSubject(), analyse, brouillon, formData, formType);
   msg.markRead();
 }
 
 // ─── PARSING EMAIL NETLIFY ────────────────────────────────────────────────────
 
 function parseNetlifyBody(body) {
-  const data = {};
+  const data  = {};
   const clean = body.replace(/\r/g, '').trim();
-  const lines = clean.split('\n');
-
-  lines.forEach(line => {
-    // Format Netlify : "Clé: valeur" ou "Clé : valeur"
-    const match = line.match(/^([^:]{2,40}):\s*(.+)$/);
-    if (match && match[2].trim().length > 0) {
-      data[match[1].trim()] = match[2].trim();
-    }
+  clean.split('\n').forEach(line => {
+    const match = line.match(/^([^:]{2,60}):\s*(.+)$/);
+    if (match) data[match[1].trim()] = match[2].trim();
   });
-
   return data;
 }
 
 function detectFormType(subject, formData) {
-  const s = subject.toLowerCase();
-  if (s.includes('accompagnement') || formData['honor_name'] || formData['Prénom et nom']) {
+  const s = (subject || '').toLowerCase();
+  if (s.includes('accompagnement') || formData['honor_name'] || formData['Prénom et nom'])
     return 'ACCOMPAGNEMENT';
-  }
-  if (s.includes('devis') || formData['budget'] || formData['type_projet']) {
+  if (s.includes('devis') || formData['budget'] || formData['type_projet'])
     return 'DEVIS';
-  }
-  if (s.includes('video') || s.includes('vidéo') || formData['video']) {
+  if (s.includes('video') || s.includes('vidéo'))
     return 'VIDEO';
-  }
   return 'CONTACT';
 }
 
 function extractClientEmail(formData) {
-  const keys = ['email', 'Email', 'E-mail', 'mail', 'Mail', 'votre_email', 'votre-email'];
-  for (const k of keys) {
+  for (const k of ['email','Email','E-mail','mail','Mail','votre_email']) {
     if (formData[k] && formData[k].includes('@')) return formData[k];
   }
   return null;
@@ -128,84 +172,90 @@ function extractClientEmail(formData) {
 // ─── APPEL API CLAUDE ─────────────────────────────────────────────────────────
 
 function callClaude(formData, formType, rawBody) {
-  const url = 'https://api.anthropic.com/v1/messages';
+  const formLines = Object.entries(formData).map(([k,v]) => `• ${k} : ${v}`).join('\n');
 
-  const userContent = buildUserMessage(formData, formType, rawBody);
+  const userContent =
+`TYPE DE FORMULAIRE : ${formType}
+
+DONNÉES REÇUES :
+${formLines}
+
+CORPS BRUT (si champs supplémentaires non parsés) :
+${rawBody.substring(0, 2000)}
+
+Produis l'analyse pour Lauralie ET le brouillon client selon la structure demandée.`;
 
   const payload = {
-    model   : CONFIG.CLAUDE_MODEL,
+    model     : CONFIG.CLAUDE_MODEL,
     max_tokens: CONFIG.MAX_TOKENS,
-    system  : SYSTEM_PROMPT,
-    messages: [{ role: 'user', content: userContent }]
+    system    : SYSTEM_PROMPT,
+    messages  : [{ role: 'user', content: userContent }]
   };
 
   const options = {
-    method : 'post',
-    headers: {
-      'x-api-key'         : CONFIG.CLAUDE_API_KEY,
-      'anthropic-version' : '2023-06-01',
-      'content-type'      : 'application/json'
+    method            : 'post',
+    headers           : {
+      'x-api-key'        : CONFIG.CLAUDE_API_KEY,
+      'anthropic-version': '2023-06-01',
+      'content-type'     : 'application/json'
     },
     payload           : JSON.stringify(payload),
     muteHttpExceptions: true
   };
 
-  const response = UrlFetchApp.fetch(url, options);
-  const result   = JSON.parse(response.getContentText());
+  const response = UrlFetchApp.fetch(CONFIG.CLAUDE_API_KEY !== 'sk-ant-XXXXXXXX'
+    ? 'https://api.anthropic.com/v1/messages'
+    : (() => { throw new Error('⚠️ Remplace sk-ant-XXXXXXXX par ta vraie clé API (ligne 12)'); })()
+  , options);
 
-  if (result.error) {
-    Logger.log(`Erreur Claude : ${result.error.message}`);
-    return `[Erreur Claude — répondre manuellement]\n${result.error.message}`;
-  }
-
-  return result.content?.[0]?.text || '[Réponse vide — vérifier la clé API]';
+  const result = JSON.parse(response.getContentText());
+  if (result.error) throw new Error(`Claude API : ${result.error.message}`);
+  return result.content?.[0]?.text || '';
 }
 
-function buildUserMessage(formData, formType, rawBody) {
-  const formJson = Object.entries(formData)
-    .map(([k, v]) => `• ${k} : ${v}`)
-    .join('\n');
+// ─── PARSING SORTIE CLAUDE ────────────────────────────────────────────────────
 
-  return `TYPE DE FORMULAIRE DÉTECTÉ : ${formType}
+function parseClaudeOutput(text) {
+  const analyseMatch   = text.match(/===ANALYSE_POUR_LAURALIE===([\s\S]*?)===FIN_ANALYSE===/);
+  const brouillonMatch = text.match(/===BROUILLON_CLIENT===([\s\S]*?)===FIN_BROUILLON===/);
 
-DONNÉES REÇUES :
-${formJson}
-
-CORPS BRUT (si champs non parsés) :
-${rawBody.substring(0, 1500)}
-
-Rédige une réponse de premier contact adaptée à cette demande.`;
+  return {
+    analyse   : analyseMatch   ? analyseMatch[1].trim()   : '[Analyse non générée — voir log]',
+    brouillon : brouillonMatch ? brouillonMatch[1].trim() : text.trim()
+  };
 }
 
 // ─── CRÉATION DU BROUILLON GMAIL ──────────────────────────────────────────────
 
-function createGmailDraft(clientEmail, originalSubject, claudeReply, formData, formType) {
-  const subject = originalSubject.startsWith('Re:')
-    ? originalSubject
-    : `Re: ${originalSubject}`;
-
-  const separator = '─'.repeat(50);
+function createGmailDraft(clientEmail, originalSubject, analyse, brouillon, formData, formType) {
+  const subject = `Re: ${originalSubject.replace(/^Re:\s*/i, '')}`;
+  const bar = '━'.repeat(52);
 
   const draftBody =
-`${claudeReply}
+`${brouillon}
 
-${separator}
-💡 BROUILLON SUGGÉRÉ PAR CLAUDE — RELIRE AVANT ENVOI
-Type détecté : ${formType}
-${separator}
-DONNÉES DU FORMULAIRE :
-${Object.entries(formData).map(([k,v]) => `${k}: ${v}`).join('\n')}
-${separator}`;
+
+${bar}
+🔒 ANALYSE CONFIDENTIELLE — POUR LAURALIE SEULEMENT
+    (cette section ne sera pas envoyée — supprimer avant d'envoyer)
+${bar}
+
+${analyse}
+
+${bar}
+📋 DONNÉES BRUTES DU FORMULAIRE [${formType}]
+${bar}
+${Object.entries(formData).map(([k,v]) => `${k} : ${v}`).join('\n')}
+${bar}`;
 
   if (clientEmail) {
     GmailApp.createDraft(clientEmail, subject, draftBody);
     Logger.log(`✅ Brouillon créé → ${clientEmail}`);
   } else {
-    // Pas d'email client trouvé → brouillon interne pour traitement manuel
     GmailApp.createDraft(
       CONFIG.MON_EMAIL,
-      `⚠️ [EMAIL CLIENT MANQUANT] ${subject}`,
-      `Email client non trouvé dans le formulaire.\n\n${draftBody}`
+      `⚠️ [EMAIL MANQUANT — ${formType}] ${subject}`,
+      `⚠️ L'email du client n'a pas été trouvé dans le formulaire. Vérifier manuellement.\n\n${draftBody}`
     );
     Logger.log('⚠️ Email client absent — brouillon interne créé');
   }
@@ -220,56 +270,66 @@ function stripHtml(html) {
     .replace(/<[^>]+>/g, '')
     .replace(/&nbsp;/g, ' ')
     .replace(/&amp;/g, '&')
-    .replace(/&lt;/g, '<')
-    .replace(/&gt;/g, '>')
+    .replace(/&eacute;/g, 'é')
+    .replace(/&egrave;/g, 'è')
+    .replace(/&agrave;/g, 'à')
     .replace(/\n{3,}/g, '\n\n')
     .trim();
 }
 
-// ─── INSTALLATION ─────────────────────────────────────────────────────────────
+// ─── INSTALLATION & TESTS ─────────────────────────────────────────────────────
 
-/**
- * Appeler UNE SEULE FOIS depuis l'éditeur Apps Script pour activer la vérification
- * automatique toutes les 5 minutes.
- */
+/** Appeler UNE SEULE FOIS pour activer la vérification automatique. */
 function installTrigger() {
-  // Supprimer les anciens déclencheurs pour éviter les doublons
   ScriptApp.getProjectTriggers().forEach(t => ScriptApp.deleteTrigger(t));
-
   ScriptApp.newTrigger('checkNewNetlifyForms')
     .timeBased()
     .everyMinutes(5)
     .create();
-
-  Logger.log('✅ Déclencheur installé — vérification toutes les 5 minutes.');
-  Logger.log('   Brouillons apparaîtront dans Brouillons de Gmail.');
+  Logger.log('✅ Déclencheur installé — vérification toutes les 5 min.');
 }
 
-/**
- * Test manuel — appeler depuis l'éditeur pour tester sans attendre un vrai email.
- */
-function testAvecDonnesFictives() {
-  const fakeFormData = {
+/** Test avec un formulaire d'accompagnement fictif. */
+function testAccompagnement() {
+  _runTest('ACCOMPAGNEMENT', {
     'Prénom et nom'  : 'Sophie Fontaine',
-    'Email'          : 'sophie.fontaine@example.com',
+    'Email'          : CONFIG.MON_EMAIL,
     'Téléphone'      : '06 12 34 56 78',
     'honor_name'     : 'Élise Fontaine',
     'honor_birth'    : '12/03/1948',
     'relation'       : 'Ma mère',
     'page_souvenir'  : 'oui',
-    'Message'        : 'Bonjour, ma mère est décédée en janvier. Je souhaite créer un hommage avec une plaque et une page en ligne avec ses photos. Pouvez-vous me contacter ?'
-  };
+    'Message'        : 'Bonjour, ma mère est décédée il y a 3 semaines. Je souhaite créer quelque chose de beau avec ses photos. Elle aimait le jardinage et la lecture. Je voudrais une plaque et une page en ligne. Est-ce que c\'est possible rapidement ?'
+  });
+}
 
-  const reply = callClaude(fakeFormData, 'ACCOMPAGNEMENT', JSON.stringify(fakeFormData));
-  Logger.log('\n=== RÉPONSE CLAUDE ===\n' + reply);
+/** Test avec un devis simple. */
+function testDevis() {
+  _runTest('DEVIS', {
+    'Nom'     : 'Jean-Pierre Moreau',
+    'Email'   : CONFIG.MON_EMAIL,
+    'Message' : 'Bonjour, j\'ai perdu mon père en décembre. Je voudrais savoir combien coûte une plaque avec QR code et une page souvenir. Merci'
+  });
+}
 
-  createGmailDraft(
-    CONFIG.MON_EMAIL,
-    '[TEST] New submission from accompagnement',
-    reply,
-    fakeFormData,
-    'ACCOMPAGNEMENT'
-  );
+/** Test avec un contact hésitant. */
+function testHesitant() {
+  _runTest('CONTACT', {
+    'Nom'     : 'Martine Dubois',
+    'Email'   : CONFIG.MON_EMAIL,
+    'Message' : 'Bonjour, j\'ai vu votre site. C\'est une belle idée mais je ne suis pas sûre que ma belle-mère apprécierait quelque chose de numérique. Elle était peu technophile. Est-ce que ça vaut vraiment le coup ?'
+  });
+}
 
-  Logger.log('✅ Brouillon de test créé dans Gmail.');
+function _runTest(type, fakeData) {
+  Logger.log(`\n══ TEST [${type}] ══`);
+  const raw    = Object.entries(fakeData).map(([k,v]) => `${k}: ${v}`).join('\n');
+  const output = callClaude(fakeData, type, raw);
+  const { analyse, brouillon } = parseClaudeOutput(output);
+
+  Logger.log('\n── ANALYSE POUR LAURALIE ──\n' + analyse);
+  Logger.log('\n── BROUILLON CLIENT ──\n' + brouillon);
+
+  createGmailDraft(CONFIG.MON_EMAIL, `[TEST ${type}] New submission`, analyse, brouillon, fakeData, type);
+  Logger.log('\n✅ Brouillon de test créé dans Gmail (Brouillons).');
 }
