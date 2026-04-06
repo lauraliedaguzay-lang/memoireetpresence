@@ -21,6 +21,8 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600;1,700&family=Jost:ital,wght@0,300;0,400;0,500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://unpkg.com/aos@2.3.4/dist/aos.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/glightbox@3.3.0/dist/css/glightbox.min.css">
   <link rel="stylesheet" href="style.css?v=83">
 </head>
 <body class="page-site">
@@ -105,6 +107,16 @@
       <p class="site-footer__meta">© <span id="year"></span> Mémoire &amp; Présence — Tous droits réservés.</p>
     </div>
   </footer>
-  <script src="script.js?v=26" defer></script>
+  
+  <script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/glightbox@3.3.0/dist/js/glightbox.min.js"></script>
+  <script>
+    document.addEventListener("DOMContentLoaded", function () {
+      AOS.init({ duration: 650, once: true, offset: 50, easing: "ease-out-quart" });
+      if (typeof GLightbox !== "undefined") {
+        GLightbox({ selector: ".glightbox", touchNavigation: true, loop: false, closeButton: true });
+      }
+    });
+  </script>  <script src="script.js?v=26" defer></script>
 </body>
 </html>
