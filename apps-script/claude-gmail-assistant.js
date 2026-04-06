@@ -1,4 +1,4 @@
-/**
+﻿/**
  * Mémoire & Présence — Assistant Claude pour Gmail
  * Google Apps Script — coller dans script.google.com
  *
@@ -94,40 +94,71 @@ Ex: "Obtenir un appel" / "Décrocher un devis" / "Rassurer sur la confidentialit
 Ex: "Chaleureux et rassurant — ne pas parler de prix" / "Direct et concret — il a besoin d'un délai précis" / "Très doux — deuil très récent"
 
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━
-BLOC 2 — BRIEF POUR MICHAËL
-━━━━━━━━━━━━━━━━━━━━━━━━━━━
-Ce bloc est une note interne que Lauralie va transférer à Michaël.
-Il doit être clair, actionnable, sans jargon commercial.
 
-Si le projet ne nécessite PAS l'intervention de Michaël (contact simple, devis sans vidéo,
-question générale), écrire simplement : "RAS — pas d'intervention Michaël à ce stade."
 
-Sinon, inclure :
+???????????????????????????
+BLOC 2 - BRIEF MICHAEL (instructions de montage precises)
+???????????????????????????
+Ce bloc est transmis directement a Michael (videaste professionnel).
+Ton : direct, technique, entre collegues. Pas de formules commerciales.
 
-🎬 TYPE DE MISSION
-Ex: "Vidéo hommage", "Retouche photo", "Montage diaporama animé", "Export clé USB"
+Si le projet ne necessite PAS Michael, ecrire : "RAS - pas d'intervention Michael a ce stade."
 
-📦 ÉLÉMENTS DISPONIBLES CÔTÉ CLIENT
-Ce que le client a mentionné : photos (combien ?), vidéos courtes, musique choisie, voix off souhaitée ou non.
+Sinon, produire un brief structure :
 
-📐 SPÉCIFICATIONS TECHNIQUES ATTENDUES
-- Format de rendu : MP4 HD 1080p (standard page hommage) ou 4K si export physique
-- Durée estimée : ex. "2-3 min" selon le nombre de photos
-- Style : sobre, transitions douces, palette chaude — cohérent avec la charte M&P
-- Musique : à choisir en bibliothèque libre de droits ou fournie par le client
-- Voix off : oui / non / à préciser avec le client
+TYPE DE MISSION
+Ex: "Video hommage complete" / "Diaporama anime" / "Conversion VHS" / "Export cle USB"
 
-⏱️ DÉLAI
-Basé sur la demande client et le délai standard 2-5 semaines.
-Ex: "Livraison souhaitée avant le 15 mai — prévoir rendu Michaël pour le 10 mai."
+MATIERE PREMIERE DISPONIBLE
+- Photos : nombre, format (numerique / scan / tirage papier)
+- Videos : duree approx, source (telephone, VHS, camescope)
+- Musique : fournie par client (titre + artiste) ou a choisir en bibliotheque libre
+- Voix off : oui / non / a enregistrer / deja enregistree
+- Autres : lettres scannees, dessins, objets a photographier
 
-✅ VALIDATION
-"Lauralie valide avant envoi au client — 1 cycle de retouche inclus."
+STRUCTURE NARRATIVE RECOMMANDEE
+Decoupage sequentiel adapte au profil du defunt et volume de photos.
+Pour chaque sequence preciser : photos concernees, type de transition (fondu/translation/coupe), duree, rythme (1 photo / Xs).
+Exemple pour 30 photos, artisan retraite :
+  Seq.1 - Ouverture (0:00-0:20) : portrait seul, fondu depuis noir 2s, titre centre "Prenom NOM - AAAA-AAAA", serif fin blanc 85% opacite
+  Seq.2 - Enfance (0:20-0:55) : 5 photos chrono, fondu enchaine 1,2s, 1 photo/5s
+  Seq.3 - Vie active (0:55-1:40) : 8 photos metier+hobby, Ken Burns 3% max, si video dispo max 20s son a -18dB
+  Seq.4 - Famille (1:40-2:15) : 6 photos groupe, fondu 1,5s rythme lent
+  Seq.5 - Cloture (2:15-2:40) : retour portrait, fondu noir 3s, sous-titre "Memoire & Presence" fin opacite 40%
 
-❓ QUESTIONS POUR MICHAËL
-Ce que Lauralie doit lui demander avant de lancer (si des infos manquent).
+DIRECTION COLORIMETRIQUE
+- Saturation : -10 a -20% (sobre, pas de filtre)
+- Lift ombres : legerement releve pour vieilles photos (pas de noir pur)
+- Photos argentiques/scannees : grain leger + desaturation partielle pour homogeneiser
+- Tons chauds (campagne, interieur) ou froids (cote, montagne) selon contexte de vie
 
-━━━━━━━━━━━━━━━━━━━━━━━━━━━
+MUSIQUE
+- Tempo recommande selon rythme narratif (ex : "60-70 BPM, calme")
+- Instrumentation selon profil defunt (piano solo / cordes acoustiques / guitare classique)
+- Bibliotheques libres de droits : Epidemic Sound, Artlist, ccMixter
+- Entree : des l'image 1 ou apres 2s de silence selon ambiance
+- Fade out : demarre 4s avant la fin, progressif
+
+TEXTES ET TITRES
+- Police : serif fin uniquement (Cormorant Garamond, EB Garamond) - coherent charte M&P
+- Couleur : blanc ou creme selon fond, opacite 80-85%, fade in/out 0,5s
+- Textes a integrer : titre principal "Prenom NOM - AAAA-AAAA", sous-titres de section si pertinent, citation ou date en cloture
+
+EXPORT
+- Web (page hommage) : MP4 H.264 1280x720 streaming, AAC 192kbps -14 LUFS
+- Principal : MP4 H.264 1920x1080 25fps 8-12 Mbps
+- Cle USB (si demande) : idem + MOV ProRes si cle >= 16Go
+- Nommage : "MP_[NomDefunt]_[AAAAMMJJ]_v1.mp4"
+
+PLANNING
+- Livraison client : [deduire de la demande ou noter A DEFINIR]
+- Rendu Michael pour validation Lauralie : J-5
+- Correction apres retour Lauralie : 48h max
+- Circuit : Lauralie visionne -> retour ecrit -> Michael corrige -> livraison. 1 cycle inclus.
+
+POINTS A CLARIFIER AVANT DE COMMENCER
+Lister ce que Lauralie doit encore obtenir du client avant que Michael demarre.
+
 BLOC 3 — BROUILLON POUR LE CLIENT
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━
 Règles :
