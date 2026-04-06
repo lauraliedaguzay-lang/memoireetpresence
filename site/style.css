@@ -619,18 +619,18 @@ button:focus-visible {
   color: inherit;
 }
 
-.brand-lockup__img {
+.brand-lockup__icon {
   display: block;
-  height: 44px;
-  width: auto;
-  max-width: 260px;
+  height: 40px;
+  width: 40px;
+  flex-shrink: 0;
   object-fit: contain;
 }
 
 @media (min-width: 768px) {
-  .brand-lockup__img {
-    height: 52px;
-    max-width: 300px;
+  .brand-lockup__icon {
+    height: 46px;
+    width: 46px;
   }
 }
 
@@ -667,9 +667,9 @@ button:focus-visible {
     border: 0;
   }
 
-  .brand-lockup__img {
-    height: 36px;
-    max-width: 220px;
+  .brand-lockup__icon {
+    height: 34px;
+    width: 34px;
   }
 
   .btn.btn--header.site-header__cta {
