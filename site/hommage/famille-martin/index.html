@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="fr">
 <head>
   <meta charset="UTF-8">
@@ -10,9 +10,9 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Source+Sans+3:wght@300;400;500;600&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="../../style.css?v=95">
+  <link rel="stylesheet" href="../../style.css?v=96">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css">
-  <link rel="stylesheet" href="../shared/hommage.css?v=21">
+  <link rel="stylesheet" href="../shared/hommage.css?v=24">
 </head>
 <body class="hommage-body" data-hommage-slug="famille-martin" data-hommage-access="code">
   <a class="skip-link" href="#hommage-gate">Aller au formulaire d’accès</a>
@@ -63,16 +63,24 @@
   </header>
 
   <div class="hommage-site-hint hommage-site-hint--reserved" role="note">
-    <p><strong>Démo « comme chez les proches »</strong> — données fictives. Le code d’essai est sur <a href="../../acces-hommage-demo.html">Maquettes hommage</a> (carte Martin). Sans code&nbsp;? <a href="../exemple-defunt/">Claire Fontenay</a>. · <a href="../../index.html">Accueil</a></p>
+    <p><strong>Démo « comme chez les proches »</strong> — données fictives. Saisissez <strong>presence</strong> sur cette page pour déverrouiller (ou voir <a href="../../acces-hommage-demo.html">Maquettes hommage</a>). Sans code&nbsp;? <a href="../exemple-defunt/">Claire Fontenay</a>. · <a href="../../index.html">Accueil</a></p>
   </div>
 
   <section id="hommage-gate" class="hommage-gate" aria-labelledby="hommage-gate-title" data-demo-codes="presence">
     <div class="hommage-gate__card">
       <h1 class="hommage-gate__title" id="hommage-gate-title">Accès réservé</h1>
-      <p class="hommage-gate__text">Comme pour un hommage livré à la famille, un <strong>code discret</strong> ouvre la page. Pour cette démo, le mot de passe est indiqué sur <a href="../../acces-hommage-demo.html">Maquettes hommage</a>.</p>
+      <p class="hommage-gate__text">Sur un vrai hommage, seuls les proches qui ont le <strong>code</strong> voient la page. Ici, c’est une <strong>démo</strong>&nbsp;: le mot de passe à taper est affiché dans l’encadré ci-dessous.</p>
+
+      <div class="hommage-gate__code-box" id="hommage-gate-code-help" role="region" aria-labelledby="hommage-gate-code-help-title">
+        <p class="hommage-gate__code-box-title" id="hommage-gate-code-help-title">Code pour cette démonstration</p>
+        <p class="hommage-gate__code-box-lead">Recopiez ce mot (tout en minuscules, sans espace)&nbsp;:</p>
+        <p class="hommage-gate__code-box-value"><code translate="no">presence</code></p>
+        <p class="hommage-gate__code-box-steps">Collez-le ou tapez-le dans le champ, puis validez — l’hommage s’affiche.</p>
+      </div>
+
       <form id="hommage-gate-form" class="hommage-gate__form" novalidate>
-        <label class="hommage-gate__label" for="hommage-gate-code">Code d’accès</label>
-        <input class="hommage-gate__input" type="text" id="hommage-gate-code" name="code" autocomplete="off" autocapitalize="none" spellcheck="false" required maxlength="64" aria-describedby="hommage-gate-error">
+        <label class="hommage-gate__label" for="hommage-gate-code">Votre code d’accès</label>
+        <input class="hommage-gate__input" type="text" id="hommage-gate-code" name="code" autocomplete="off" autocapitalize="none" spellcheck="false" required maxlength="64" placeholder="presence" inputmode="text" aria-describedby="hommage-gate-code-help hommage-gate-error">
         <button type="submit" class="hommage-gate__submit">Valider et afficher l’hommage</button>
         <p id="hommage-gate-error" class="hommage-gate__error" role="alert" hidden></p>
       </form>
@@ -125,6 +133,6 @@
   <script src="../shared/hommage-gate.js?v=6" defer></script>
   <script src="../../script.js?v=26" defer></script>
   <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js" defer></script>
-  <script src="../shared/hommage-swiper-init.js?v=21" defer></script>
+  <script src="../shared/hommage-swiper-init.js?v=22" defer></script>
 </body>
 </html>
