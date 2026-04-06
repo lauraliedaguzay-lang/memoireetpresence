@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="fr">
 <head>
   <meta charset="UTF-8">
@@ -24,7 +24,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600;1,700&family=Source+Sans+3:wght@300;400;500;600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://unpkg.com/aos@2.3.4/dist/aos.css">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/glightbox@3.3.0/dist/css/glightbox.min.css">
-  <link rel="stylesheet" href="style.css?v=90">
+  <link rel="stylesheet" href="style.css?v=95">
   <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
 </head>
@@ -46,12 +46,12 @@
       <nav class="site-nav" id="nav-principale" aria-label="Navigation principale">
         <ul class="site-nav__list site-nav__list--full">
           <li class="site-nav__group" aria-hidden="true">
-            <span class="site-nav__group-title">Offre &amp; contenus</span>
+            <span class="site-nav__group-title">Découvrir le service</span>
           </li>
           <li><a href="offre.html#parcours-delais">Parcours &amp; délais</a></li>
           <li><a href="video-hommage.html">Vidéo hommage</a></li>
           <li><a href="plaques-qr.html">Plaques &amp; QR</a></li>
-          <li><a href="acces-hommage-demo.html">Voir un hommage</a></li>
+          <li><a href="acces-hommage-demo.html">Maquettes hommage</a></li>
           <li class="nav-secondary"><a href="accompagnement.html">Accompagnement</a></li>
           <li class="nav-secondary"><a href="partage-hommage.html">Liens &amp; partage</a></li>
           <li class="site-nav__group" aria-hidden="true">
@@ -106,6 +106,12 @@
 
   <main class="page-main site-main" id="contenu-principal">
     <article class="page-inner page-inner--wide">
+      <nav class="site-breadcrumb" aria-label="Vous êtes ici">
+        <ol class="site-breadcrumb__list">
+          <li><a href="index.html">Accueil</a></li>
+          <li aria-current="page">Démo parcours projet</li>
+        </ol>
+      </nav>
 
       <p class="page-title__kicker" data-aos="fade-up">Parcours complet &mdash; maquette fictive</p>
       <h1 class="page-title" data-aos="fade-up">Du premier &eacute;change &agrave; la plaque livr&eacute;e</h1>
@@ -115,7 +121,7 @@
 
       <div class="demo-banner" data-aos="fade-up">
         <svg class="demo-banner__icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M12 8v4m0 4h.01"/></svg>
-        <span>Maquette de d&eacute;monstration &mdash; aucune donn&eacute;e r&eacute;elle. La page hommage ci-dessous est accessible avec le code <strong>memoire</strong>.</span>
+        <span>Maquette de d&eacute;monstration &mdash; aucune donn&eacute;e r&eacute;elle. La page hommage ci-dessous s&rsquo;affiche directement dans l&rsquo;aper&ccedil;u (aucun code &agrave; saisir).</span>
       </div>
 
       <section class="page-section" aria-labelledby="df-contexte" data-aos="fade-up">
@@ -202,7 +208,7 @@
 
       <section class="page-section" aria-labelledby="df-maquette" data-aos="fade-up">
         <h2 id="df-maquette">La page hommage &mdash; aperçu en direct</h2>
-        <p style="margin-bottom:1rem;font-size:.93rem;color:#4a5568;">Ci-dessous, la maquette de la page hommage &laquo;&nbsp;Claire Fontenay&nbsp;&raquo; &mdash; personnage fictif. Code d&rsquo;acc&egrave;s&nbsp;: <strong>memoire</strong>.</p>
+        <p style="margin-bottom:1rem;font-size:.93rem;color:#4a5568;">Ci-dessous, la maquette de la page hommage &laquo;&nbsp;Claire Fontenay&nbsp;&raquo; &mdash; personnage fictif. Aper&ccedil;u int&eacute;gr&eacute;, sans saisie de code.</p>
         <div class="demo-browser">
           <div class="demo-browser__bar" aria-hidden="true">
             <div class="demo-browser__dots">
@@ -210,8 +216,8 @@
             </div>
             <span class="demo-browser__url">memoire-et-presence.fr/hommage/claire-fontenay/</span>
           </div>
-          <iframe class="demo-browser__frame" src="hommage/exemple-defunt/" title="Maquette page hommage Claire Fontenay fictive" loading="lazy" sandbox="allow-scripts allow-same-origin allow-forms"></iframe>
-          <p class="demo-browser__note">Maquette de d&eacute;monstration &mdash; donn&eacute;es fictives &mdash; code d&rsquo;acc&egrave;s&nbsp;: <strong>memoire</strong></p>
+          <iframe class="demo-browser__frame" src="hommage/exemple-defunt/" title="Maquette page hommage Claire Fontenay fictive" loading="eager" sandbox="allow-scripts allow-same-origin allow-forms"></iframe>
+          <p class="demo-browser__note">Maquette de d&eacute;monstration &mdash; donn&eacute;es fictives. <a href="hommage/exemple-defunt/" target="_blank" rel="noopener">Ouvrir la maquette en plein onglet</a></p>
         </div>
       </section>
 
@@ -256,6 +262,12 @@
           <p class="site-footer__siret">SIRET : <span class="placeholder-inline">à compléter</span></p>
         </div>
       </div>
+      <nav class="site-footer__paths" aria-label="Pour vous orienter sur le site">
+        <a href="acces-hommage-demo.html">Maquettes hommage</a>
+        <a href="offre.html#parcours-delais">Parcours &amp; délais</a>
+        <a href="faq.html">Questions fréquentes</a>
+        <a href="contact.html">Contact</a>
+      </nav>
       <nav class="site-footer__legal" aria-label="Informations légales">
         <a href="mentions-legales.html">Mentions légales</a>
         <a href="confidentialite.html">Politique de confidentialité</a>
@@ -275,7 +287,8 @@
         GLightbox({ selector: ".glightbox", touchNavigation: true, loop: false, closeButton: true });
       }
     });
-  </script>  <script src="script.js?v=26" defer></script>
+  </script>
+  <script src="script.js?v=26" defer></script>
   <script>
     (function () {
       if (typeof gsap === "undefined") return;

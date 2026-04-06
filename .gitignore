@@ -4,6 +4,7 @@ Desktop.ini
 *.log
 .env
 .env.*
+!.env.example
 .idea/
 .vscode/
 *.swp
@@ -19,7 +20,7 @@ node_modules/
 .cursor/
 AGENTS.md
 
-# Scripts et docs internes (non déployés)
+# Scripts et docs internes (non dï¿½ployï¿½s)
 *.cmd
 *.ps1
 ACTIVER-*.md
@@ -28,4 +29,7 @@ COPIER-*.txt
 LIEN-*.md
 POUR-*.md
 SITE-CLIQUABLE*.md
+
+# Doublon non utilisÃ© (assets hommage dans hommage/shared/)
+site/shared/
 

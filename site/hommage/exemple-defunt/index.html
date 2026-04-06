@@ -2,26 +2,20 @@
 <html lang="fr">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
   <meta name="robots" content="noindex, nofollow">
   <meta name="theme-color" content="#f4efe8">
-  <meta name="description" content="Maquette d’hommage — personnage, dates et textes entièrement fictifs. Mémoire &amp; Présence.">
+  <meta name="description" content="Maquette web d’hommage — personnage, dates et textes entièrement fictifs. Démonstration ouverte, sans code ni écran de restriction. Mémoire &amp; Présence.">
   <title>En souvenir de Claire Fontenay — démonstration</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Source+Sans+3:wght@300;400;500;600&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="../../style.css?v=90">
+  <link rel="stylesheet" href="../../style.css?v=95">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css">
-  <link rel="stylesheet" href="../shared/hommage.css?v=11">
-
-<style>
-  .hommage-swiper__slide { user-select: none; }
-  .swiper-button-prev, .swiper-button-next { color: #6c8c6e; }
-  .swiper-pagination-bullet-active { background: #6c8c6e; }
-</style>
+  <link rel="stylesheet" href="../shared/hommage.css?v=21">
 </head>
-<body class="hommage-body" data-hommage-slug="exemple-defunt">
-  <a class="skip-link" href="#hommage-gate">Aller au contenu</a>
+<body class="hommage-body" data-hommage-slug="exemple-defunt" data-hommage-access="open">
+  <a class="skip-link" href="#hommage-content">Aller au contenu</a>
 
   <header class="site-header site-header--premium">
     <div class="site-header__inner">
@@ -38,18 +32,19 @@
       <nav class="site-nav" id="nav-principale" aria-label="Navigation principale">
         <ul class="site-nav__list site-nav__list--full">
           <li class="site-nav__group" aria-hidden="true">
-            <span class="site-nav__group-title">Offre &amp; contenus</span>
+            <span class="site-nav__group-title">Découvrir le service</span>
           </li>
           <li class="nav-secondary"><a href="../../index.html">Accueil</a></li>
           <li><a href="../../offre.html#parcours-delais">Parcours &amp; délais</a></li>
           <li><a href="../../video-hommage.html">Vidéo hommage</a></li>
           <li><a href="../../plaques-qr.html">Plaques &amp; QR</a></li>
-          <li><a href="../../acces-hommage-demo.html">Voir un hommage</a></li>
+          <li><a href="../../acces-hommage-demo.html">Maquettes hommage</a></li>
           <li class="nav-secondary"><a href="../../accompagnement.html">Accompagnement</a></li>
           <li class="nav-secondary"><a href="../../partage-hommage.html">Liens &amp; partage</a></li>
           <li class="nav-secondary"><a href="../../demo-fictive.html">Démo parcours</a></li>
           <li class="nav-secondary"><a href="../../fiche-projet-moreau.html">Exemple de réalisation</a></li>
-          <li><a href="index.html" aria-current="page">Exemple défunt fictif</a></li>
+          <li class="nav-secondary"><a href="../famille-martin/">Famille Martin — accès réservé (démo)</a></li>
+          <li><a href="index.html" aria-current="page">Claire Fontenay — accès libre (démo)</a></li>
           <li class="site-nav__group" aria-hidden="true">
             <span class="site-nav__group-title">Confiance</span>
           </li>
@@ -67,30 +62,16 @@
     </div>
   </header>
 
-  <div class="hommage-gate" id="hommage-gate">
-    <p class="hommage-gate__brand">Mémoire &amp; Présence</p>
-    <h1>Accès réservé</h1>
-    <p class="hommage-gate__intro">
-      Cette page hommage est protégée. Saisissez le code communiqué par la famille. Après validation, l’accès reste ouvert pour la durée de votre session sur cet appareil.
-    </p>
-    <form class="hommage-form" id="hommage-gate-form" novalidate>
-      <label for="hommage-code">Code d’accès</label>
-      <input type="password" id="hommage-code" name="code" autocomplete="off" required inputmode="text" maxlength="64" spellcheck="false">
-      <button type="submit">Entrer</button>
-      <p class="hommage-err" id="hommage-gate-err" role="alert" hidden></p>
-    </form>
-    <p class="hommage-note">
-      Maquette — code d’essai&nbsp;: <strong>memoire</strong> (voir <a href="../../acces-hommage-demo.html">la page d’explication</a>). En production, une authentification serveur remplace ce formulaire.
-      <a href="../../index.html">Retour au site</a>
-    </p>
+  <div class="hommage-site-hint hommage-site-hint--libre" role="note">
+    <p><strong>Accès libre (démo)</strong> — ici, tout est visible tout de suite. Pour voir l’autre scénario (code puis hommage), ouvrez <a href="../famille-martin/">Famille Martin</a>. <a href="../../acces-hommage-demo.html">Toutes les maquettes</a> · <a href="../../index.html">Accueil</a></p>
   </div>
 
-  <article class="hommage-content" id="hommage-content" hidden>
-    <p class="hommage-content__kicker">Démonstration — après saisie du code</p>
+  <article class="hommage-content" id="hommage-content">
+    <p class="hommage-content__kicker">Démonstration web · données fictives</p>
     <h2>Claire Fontenay</h2>
     <p class="hommage-content__dates">12 mars 1956 — 18 novembre 2024</p>
     <p class="hommage-content__demo-tag">Personnage, dates et lieux entièrement fictifs</p>
-    <div class="hommage-content__photo"><img src="portrait-fontenay.png" alt="Claire Fontenay" width="288" height="216" decoding="async" loading="lazy"></div>
+    <div class="hommage-content__photo"><img src="portrait-fontenay.svg" alt="Claire Fontenay" width="288" height="216" decoding="async" loading="lazy"></div>
     <p class="hommage-content__text hommage-content__text--lead">
       «&nbsp;Les jardins lui manqueront moins que ceux qui s’y promènent encore.&nbsp;»
     </p>
@@ -115,46 +96,31 @@
     </div>
 
     <p class="hommage-content__text hommage-content__text--note">
-      Cette page est une <strong>maquette éditoriale</strong>. L’URL de démonstration est du type <code>/hommage/exemple-defunt/</code>. Un <a href="../famille-martin/">modèle technique plus minimal</a> est disponible pour comparer la structure.
+      Cette page est une <strong>maquette à accès libre</strong> (aucun code). L’autre démo, <a href="../famille-martin/">Famille Martin</a>, montre une entrée <strong>avec code</strong> avant l’hommage.
     </p>
     
     <div class="hommage-gallery hommage-gallery--swiper" aria-labelledby="gallery-title">
       <p id="gallery-title" class="hommage-content__kicker" style="margin-top:2.5rem;">Galerie de photos</p>
-      <div class="swiper hommage-swiper">
+      <div class="swiper hommage-swiper hommage-swiper--modern" role="region" aria-roledescription="carrousel" aria-labelledby="gallery-title">
         <div class="swiper-wrapper">
-          <div class="swiper-slide hommage-swiper__slide"><img src="../../shared/images/hommage-photo-livres.jpg" alt="Lectures et livres — illustration de démonstration" loading="lazy" decoding="async"></div>
-          <div class="swiper-slide hommage-swiper__slide"><img src="../../shared/images/hommage-photo-famille.jpg" alt="En famille" loading="lazy" decoding="async"></div>
-          <div class="swiper-slide hommage-swiper__slide"><img src="../../shared/images/hommage-photo-jardin.jpg" alt="Le jardin" loading="lazy" decoding="async"></div>
-          <div class="swiper-slide hommage-swiper__slide"><img src="../../shared/images/hommage-photo-riviere.jpg" alt="La c&ocirc;te bretonne" loading="lazy" decoding="async"></div>
-          <div class="swiper-slide hommage-swiper__slide"><img src="../../shared/images/hommage-photo-mains.jpg" alt="Souvenirs" loading="lazy" decoding="async"></div>
+          <div class="swiper-slide hommage-swiper__slide"><img src="../shared/images/hommage-photo-livres.svg" alt="Lectures et livres — illustration de démonstration" width="800" height="600" loading="eager" decoding="async" fetchpriority="high"></div>
+          <div class="swiper-slide hommage-swiper__slide"><img src="../shared/images/hommage-photo-famille.svg" alt="En famille" width="800" height="600" loading="eager" decoding="async"></div>
+          <div class="swiper-slide hommage-swiper__slide"><img src="../shared/images/hommage-photo-jardin.svg" alt="Le jardin" width="800" height="600" loading="eager" decoding="async"></div>
+          <div class="swiper-slide hommage-swiper__slide"><img src="../shared/images/hommage-photo-riviere.svg" alt="La c&ocirc;te bretonne" width="800" height="600" loading="eager" decoding="async"></div>
+          <div class="swiper-slide hommage-swiper__slide"><img src="../shared/images/hommage-photo-mains.svg" alt="Souvenirs" width="800" height="600" loading="eager" decoding="async"></div>
         </div>
-        <div class="swiper-pagination"></div>
-        <div class="swiper-button-prev"></div>
-        <div class="swiper-button-next"></div>
+        <div class="swiper-pagination hommage-swiper__pagination"></div>
+        <div class="swiper-button-prev hommage-swiper__btn hommage-swiper__btn--prev"></div>
+        <div class="swiper-button-next hommage-swiper__btn hommage-swiper__btn--next"></div>
       </div>
       <p class="hommage-content__text hommage-content__text--note" style="margin-top:0.75rem;">En production, les photos transmises par la famille s'affichent ici dans un carousel.</p>
     </div>
     <a class="hommage-back" href="../../index.html">← Site Mémoire &amp; Présence</a>
   </article>
 
-  <script>
-    window.HOMMAGE_ACCESS_CODE = "memoire";
-  </script>
-  <script src="../shared/hommage-gate.js?v=3" defer></script>
+  <script src="../shared/hommage-gate.js?v=6" defer></script>
   <script src="../../script.js?v=26" defer></script>
-
-  <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
-  <script>
-    document.addEventListener("DOMContentLoaded", function() {
-      new Swiper(".hommage-swiper", {
-        loop: true,
-        slidesPerView: 1,
-        spaceBetween: 0,
-        pagination: { el: ".swiper-pagination", clickable: true },
-        navigation: { nextEl: ".swiper-button-next", prevEl: ".swiper-button-prev" },
-        autoplay: { delay: 3500, disableOnInteraction: true }
-      });
-    });
-  </script>
+  <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js" defer></script>
+  <script src="../shared/hommage-swiper-init.js?v=21" defer></script>
 </body>
 </html>

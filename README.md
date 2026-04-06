@@ -11,7 +11,7 @@
 ## Démo
 
 - **Site complet** → [lauraliedaguzay-lang.github.io/memoireetpresence](https://lauraliedaguzay-lang.github.io/memoireetpresence/)
-- **Page hommage (demo)** → `/hommage/exemple-defunt/` · code : `memoire`
+- **Maquettes hommage** → `/acces-hommage-demo.html` — **Claire Fontenay** (`/hommage/exemple-defunt/`, accès libre) · **Famille Martin** (`/hommage/famille-martin/`, accès réservé, code démo `presence`)
 - **Fiche projet exemple** → `/fiche-projet-moreau.html`
 
 ---
@@ -25,7 +25,8 @@
 | UI interactif | Alpine.js |
 | Carousel | Swiper |
 | Lightbox | GLightbox |
-| Formulaires | Netlify Forms (sans backend) |
+| Formulaires | Netlify Forms |
+| Fonctions | `verify-hommage-demo` — vérification du code hommage Martin (Netlify) |
 | Polices | Cormorant Garamond · Source Sans 3 (Google Fonts) |
 | Déploiement | GitHub Pages · Netlify |
 
@@ -48,7 +49,7 @@ site/
 ├── hommage/
 │   ├── famille-martin/         # Page hommage demo #1
 │   ├── exemple-defunt/         # Page hommage demo #2
-│   └── shared/                 # CSS + JS partagés (gate, hommage.css)
+│   └── shared/                 # hommage.css, hommage-gate.js, hommage-swiper-init.js
 ├── images/                     # Logo, plaque, assets
 ├── style.css                   # Styles globaux
 └── script.js                   # JS global (nav, formulaires)
@@ -69,6 +70,8 @@ python -m http.server 8080 --directory site
 
 Ouvrir → `http://localhost:8080`
 
+**Cache-bust** : les pages HTML référencent `style.css?v=…` (et les maquettes `hommage.css?v=…`, `hommage-gate.js?v=…`, etc.). Après une modification CSS/JS, incrémenter la même version sur les fichiers concernés pour éviter les caches navigateur.
+
 ---
 
 ## Déploiement
@@ -85,6 +88,18 @@ git archive --format=zip HEAD:site/ -o memoire-presence-NETLIFY.zip
 ```
 
 Ou connecter le repo GitHub à Netlify (branche `main`, publish dir `site`).
+
+### Code d’accès hommage (démo Martin)
+
+Sur **Netlify**, définir la variable d’environnement `HOMMAGE_DEMO_CODE_FAMILLE_MARTIN` (voir `.env.example` à la racine du dépôt). Valeur par défaut dans la fonction si la variable est absente&nbsp;: `presence`.
+
+La fonction `netlify/functions/verify-hommage-demo.js` répond en `POST` sur `/.netlify/functions/verify-hommage-demo` avec un corps JSON `{ "slug": "famille-martin", "code": "…" }`. L’URL peut être surchargée côté page via l’attribut `data-verify-url` sur `#hommage-gate` (défaut&nbsp;: chemin Netlify ci-dessus).
+
+Sur les pages hommage démo, le `<body>` porte **`data-hommage-access="open"`** (Claire Fontenay — pas de code) ou **`"code"`** (Famille Martin — porte + `hommage-gate.js`). Le même script `hommage-gate.js` est chargé sur les deux&nbsp;: en mode `open`, il garantit l’affichage du contenu et ignore toute porte erronée.
+
+Sur **GitHub Pages** seul, la même démo vérifie le code dans le navigateur ; la session n’est pas mémorisée entre rechargements. Sur **Netlify**, après succès serveur, la session peut l’être pour l’onglet.
+
+**À garder en tête (vitrine / démo)** : une page HTML statique reste lisible par des outils techniques — la porte à code protège surtout l’**expérience** des visiteurs et, sur Netlify, la **validation du mot de passe**. Pour un besoin de confidentialité maximale du contenu, on monte une autre solution avec vous.
 
 ---
 

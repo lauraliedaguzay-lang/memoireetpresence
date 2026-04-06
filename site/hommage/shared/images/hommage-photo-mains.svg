@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 600" role="img" aria-labelledby="t">
+  <title id="t">Illustration de démonstration  atelier / mains</title>
+  <defs>
+    <linearGradient id="g" x1="0%" y1="50%" x2="100%" y2="50%">
+      <stop offset="0%" stop-color="#ddd2c4"/>
+      <stop offset="100%" stop-color="#c4b5a2"/>
+    </linearGradient>
+  </defs>
+  <rect width="800" height="600" fill="url(#g)"/>
+  <ellipse cx="380" cy="300" rx="90" ry="120" fill="#a89882" opacity="0.28" transform="rotate(-12 380 300)"/>
+  <ellipse cx="440" cy="310" rx="88" ry="118" fill="#8a7a68" opacity="0.22" transform="rotate(8 440 310)"/>
+  <text x="400" y="560" text-anchor="middle" fill="#5a5044" font-family="Source Sans 3,system-ui,sans-serif" font-size="22" opacity="0.55">Maquette  atelier</text>
+</svg>

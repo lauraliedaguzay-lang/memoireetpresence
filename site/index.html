@@ -23,7 +23,7 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css">
   <link rel="stylesheet" href="https://unpkg.com/aos@2.3.4/dist/aos.css">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/glightbox@3.3.0/dist/css/glightbox.min.css">
-  <link rel="stylesheet" href="style.css?v=91">
+  <link rel="stylesheet" href="style.css?v=95">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
 <style>
@@ -52,12 +52,12 @@
       <nav class="site-nav" id="nav-principale" aria-label="Navigation principale">
         <ul class="site-nav__list site-nav__list--full">
           <li class="site-nav__group" aria-hidden="true">
-            <span class="site-nav__group-title">Offre &amp; contenus</span>
+            <span class="site-nav__group-title">Découvrir le service</span>
           </li>
           <li><a href="offre.html#parcours-delais">Parcours &amp; délais</a></li>
           <li><a href="video-hommage.html">Vidéo hommage</a></li>
           <li><a href="plaques-qr.html">Plaques &amp; QR</a></li>
-          <li><a href="acces-hommage-demo.html">Voir un hommage</a></li>
+          <li><a href="acces-hommage-demo.html" title="Pages de démonstration pour voir le rendu">Maquettes hommage</a></li>
           <li class="nav-secondary"><a href="accompagnement.html">Accompagnement</a></li>
           <li class="nav-secondary"><a href="partage-hommage.html">Liens &amp; partage</a></li>
           <li class="site-nav__group" aria-hidden="true">
@@ -87,10 +87,13 @@
                     <div class="hero__actions hero__actions--home">
             <a class="btn btn--primary btn--premium" href="devis.html">Demander un devis</a>
             <a class="btn btn--ghost btn--premium-ghost" href="video-hommage.html#exemple">Exemple de vid&eacute;o hommage</a>
-            <a class="btn btn--ghost btn--ghost--exemple" href="acces-hommage-demo.html">Voir un hommage</a>
+            <a class="btn btn--ghost btn--ghost--exemple" href="acces-hommage-demo.html">Voir les maquettes</a>
           </div>
           <p class="hero__footnote">
             Premier échange sans engagement · Devis détaillé avant toute commande
+          </p>
+          <p class="hero__map" role="navigation" aria-label="Repères sur ce site">
+            <strong>Vous découvrez&nbsp;?</strong> Les <a href="acces-hommage-demo.html">maquettes</a> montrent le rendu d’une page · <a href="offre.html#parcours-delais">Parcours &amp; délais</a> explique étapes et tarifs · le menu (☰) ouvre toutes les rubriques.
           </p>
         </div>
 
@@ -117,7 +120,7 @@
                   <div class="showcase__screen-line showcase__screen-line--photo"></div>
                   <div class="showcase__screen-line"></div>
                   <div class="showcase__screen-line showcase__screen-line--short"></div>
-                  <p class="showcase__screen-hint">Accès privé</p>
+                  <p class="showcase__screen-hint">Aperçu hommage</p>
                 </div>
               </div>
             </div>
@@ -125,12 +128,36 @@
         </div>
       </div>
     </section><!-- /hero -->
+
+    <section class="home-guide" aria-labelledby="home-guide-title">
+      <div class="home-guide__inner">
+        <h2 id="home-guide-title" class="home-guide__title">Par où commencer sur ce site&nbsp;?</h2>
+        <p class="home-guide__lead">Trois entrées selon ce que vous cherchez — tout le reste est aussi dans le menu en haut de chaque page.</p>
+        <ul class="home-guide__grid" role="list">
+          <li class="home-guide__card">
+            <span class="home-guide__step" aria-hidden="true">1</span>
+            <h3 class="home-guide__card-title"><a href="acces-hommage-demo.html">Voir à quoi ressemble une page hommage</a></h3>
+            <p class="home-guide__card-text">Deux démos pour se projeter&nbsp;: une page ouverte tout de suite, une autre avec <strong>code à l’entrée</strong> (comme un hommage partagé seulement aux proches). Textes, portrait, carrousel.</p>
+          </li>
+          <li class="home-guide__card">
+            <span class="home-guide__step" aria-hidden="true">2</span>
+            <h3 class="home-guide__card-title"><a href="offre.html#parcours-delais">Comprendre le parcours et les délais</a></h3>
+            <p class="home-guide__card-text">Déroulé d’un projet, ce qui est inclus, et comment se passe la collaboration — avec les liens vers vidéo, plaques et devis.</p>
+          </li>
+          <li class="home-guide__card">
+            <span class="home-guide__step" aria-hidden="true">3</span>
+            <h3 class="home-guide__card-title"><a href="contact.html">Poser une question ou demander un devis</a></h3>
+            <p class="home-guide__card-text">Un message suffit pour le premier contact. Réponse en principe sous 24 à 48&nbsp;h — sans engagement.</p>
+          </li>
+        </ul>
+      </div>
+    </section>
     
     <section class="home-exemple" aria-labelledby="exemple-titre" data-aos="fade-up">
       <div class="home-exemple__inner">
-        <p class="home-exemple__kicker">Un exemple pour comprendre</p>
-        <p class="home-exemple__texte">Pour percevoir ce que nous cr&eacute;ons ensemble, voici l&rsquo;hommage d&rsquo;une famille imaginaire.</p>
-        <a class="home-exemple__lien" href="acces-hommage-demo.html" title="Code d&eacute;mo, instructions et aper&ccedil;u d&rsquo;une page hommage">Voir un hommage &rarr;</a>
+        <p class="home-exemple__kicker">Raccourci vers les maquettes</p>
+        <p class="home-exemple__texte">Même entrée que l’étape 1&nbsp;: voir les deux façons d’accueillir vos invités — ouvert ou avec code discret.</p>
+        <a class="home-exemple__lien" href="acces-hommage-demo.html" title="Ouvrir la page des maquettes hommage">Ouvrir les maquettes &rarr;</a>
       </div>
     </section>
     <section class="home-fold" id="essentiel" aria-label="L’essentiel du service">
@@ -198,7 +225,7 @@
             <div class="home-fold__split">
               <div class="home-fold__col">
                 <h2 class="home-fold__h">Confidentialité &amp; accès</h2>
-                <p class="home-fold__p">Chaque hommage dispose d’une <strong>adresse dédiée</strong> (ex. <code class="home-fold__code">/hommage/nom-du-projet</code>). Elle n’est pas listée sur notre site : on y arrive par le QR, ou par un lien que vous transmettez. Selon votre choix, nous ajoutons une <strong>porte d’entrée par code</strong> — élégante, sobre — avant d’afficher le contenu. Pour une sécurité forte en production, le verrouillage côté serveur reste recommandé ; la structure que nous posons aujourd’hui prépare cette évolution.</p>
+                <p class="home-fold__p">Chaque hommage a une <strong>adresse dédiée</strong> (ex. <code class="home-fold__code">/hommage/nom-du-projet</code>). Elle ne figure pas sur notre site&nbsp;: vos proches y entrent par le <strong>QR</strong> ou le lien que vous leur donnez. Vous pouvez aussi souhaiter une <strong>porte par code</strong> — sobre, digne — avant d’afficher la page. Nous calons le dispositif sur votre besoin&nbsp;: discrétion, simplicité ou niveau de protection renforcé.</p>
                 <p class="home-fold__p home-fold__p--small"><a href="demo-fictive.html">Voir un exemple complet de parcours</a></p>
               </div>
               <div class="home-fold__col">
@@ -272,6 +299,12 @@
           <p class="site-footer__siret">SIRET : <span class="placeholder-inline">à compléter</span></p>
         </div>
       </div>
+      <nav class="site-footer__paths" aria-label="Pour vous orienter sur le site">
+        <a href="acces-hommage-demo.html">Maquettes hommage</a>
+        <a href="offre.html#parcours-delais">Parcours &amp; délais</a>
+        <a href="faq.html">Questions fréquentes</a>
+        <a href="contact.html">Contact</a>
+      </nav>
       <nav class="site-footer__legal" aria-label="Informations légales">
         <a href="mentions-legales.html">Mentions légales</a>
         <a href="confidentialite.html">Politique de confidentialité</a>
@@ -310,7 +343,8 @@
         GLightbox({ selector: ".glightbox", touchNavigation: true, loop: false, closeButton: true });
       }
     });
-  </script>  <script src="script.js?v=26" defer></script>
+  </script>
+  <script src="script.js?v=26" defer></script>
 
   <script>
     (function () {
