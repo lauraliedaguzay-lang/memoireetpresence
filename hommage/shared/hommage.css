@@ -35,6 +35,9 @@ body.hommage-body {
   margin: 0;
   min-height: 100vh;
   min-height: 100dvh;
+  overflow-x: hidden;
+  -webkit-overflow-scrolling: touch; /* momentum scroll iOS */
+  overscroll-behavior-y: none;       /* supprime rubber-band Android */
   font-family: var(--h-sans);
   font-size: 0.9375rem;
   font-weight: 400;
@@ -61,7 +64,8 @@ body.hommage-body::before {
   background-repeat: no-repeat;
   transform: scale(1.04);
   transform-origin: center center;
-  filter: blur(var(--h-bg-sable-blur-m)) saturate(0.82) brightness(1.04) contrast(0.96);
+  /* Sur mobile : pas de filter blur — trop coûteux à chaque frame de scroll */
+  filter: saturate(0.82) brightness(1.04) contrast(0.96);
 }
 
 @media (min-width: 768px) {
@@ -607,4 +611,27 @@ body.hommage-body > *:not(#nav-principale):not(#site-nav-backdrop) {
   outline: 2px solid var(--h-green);
   outline-offset: 3px;
   border-radius: 2px;
+}
+
+/* ── Perf mobile scroll ──────────────────────────────── */
+@media (prefers-reduced-motion: no-preference) {
+  html:has(body.hommage-body) {
+    scroll-behavior: smooth;
+  }
+}
+
+/* Délai tactile supprimé */
+body.hommage-body a,
+body.hommage-body button,
+body.hommage-body [role="button"],
+body.hommage-body label {
+  touch-action: manipulation;
+}
+
+/* GPU sur le fond fixe desktop uniquement */
+@media (min-width: 768px) {
+  body.hommage-body::before,
+  body.hommage-body::after {
+    will-change: transform;
+  }
 }
