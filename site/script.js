@@ -1,4 +1,4 @@
-(function () {
+﻿(function () {
   "use strict";
 
   /* Ancienne barre mobile (#bottom-nav) : retirer le nœud même si un script / cache
@@ -30,7 +30,7 @@
     bottomNavMo.observe(document.body, { childList: true, subtree: true });
   }
 
-  const CONTACT_EMAIL = "memoire.presence.contact@gmail.com";
+  const CONTACT_EMAIL = "memoirepresence@gmail.com";
 
   const yearEl = document.getElementById("year");
   if (yearEl) {
@@ -484,167 +484,55 @@
 
   initFaqAccordion();
 
+  function submitToNetlify(form, feedback, successMsg) {
+    var params = new URLSearchParams();
+    params.append("form-name", form.getAttribute("name") || "");
+    new FormData(form).forEach(function(val, key) { params.append(key, val); });
+    fetch("/", {
+      method: "POST",
+      headers: { "Content-Type": "application/x-www-form-urlencoded" },
+      body: params.toString()
+    })
+    .then(function() {
+      if (feedback) {
+        feedback.innerHTML = successMsg;
+        feedback.classList.add("form-feedback--success");
+        feedback.hidden = false;
+        try { feedback.scrollIntoView({ behavior: "smooth", block: "nearest" }); } catch(e) {}
+      }
+      form.reset();
+    })
+    .catch(function() {
+      if (feedback) {
+        feedback.innerHTML = "Erreur r\u00e9seau. \u00c9crivez-nous directement\u00a0: <a href=\"mailto:" + CONTACT_EMAIL + "\">" + CONTACT_EMAIL + "</a>";
+        feedback.hidden = false;
+      }
+    });
+  }
+
   const contactForm = document.getElementById("contact-form");
   if (contactForm) {
     const feedback = document.getElementById("contact-form-feedback");
-    const CONTACT_SUBJECT_PLAIN = "Prise de contact — Mémoire & Présence";
-
-    function resetContactFeedback() {
-      if (!feedback) return;
-      feedback.textContent = "";
-      feedback.innerHTML = "";
-      feedback.hidden = true;
-      feedback.classList.remove("form-feedback--success");
-    }
-
-    contactForm.addEventListener("submit", (e) => {
+    contactForm.addEventListener("submit", function(e) {
       e.preventDefault();
-      resetContactFeedback();
-
+      if (feedback) { feedback.textContent = ""; feedback.innerHTML = ""; feedback.hidden = true; feedback.classList.remove("form-feedback--success"); }
       const fd = new FormData(contactForm);
       const name = String(fd.get("name") || "").trim();
       const email = String(fd.get("email") || "").trim();
-      const phone = String(fd.get("phone") || "").trim();
       const message = String(fd.get("message") || "").trim();
-
       if (!name || !email || !message) {
-        if (feedback) {
-          feedback.textContent =
-            "Merci de renseigner au minimum votre nom, votre e-mail et votre message.";
-          feedback.hidden = false;
-        }
+        if (feedback) { feedback.textContent = "Merci de renseigner au minimum votre nom, votre e-mail et votre message."; feedback.hidden = false; }
         return;
       }
-
-      const emailOk = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
-      if (!emailOk) {
-        if (feedback) {
-          feedback.textContent =
-            "L’adresse e-mail ne semble pas valide. Vérifiez qu’il ne manque rien après le @.";
-          feedback.hidden = false;
-        }
+      if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+        if (feedback) { feedback.textContent = "L'adresse e-mail ne semble pas valide. V\u00e9rifiez qu'il ne manque rien apr\u00e8s le @."; feedback.hidden = false; }
         return;
       }
-
       if (message.length < 20) {
-        if (feedback) {
-          feedback.textContent =
-            "Quelques lignes de plus nous aideront à comprendre votre situation (minimum 20 caractères).";
-          feedback.hidden = false;
-        }
+        if (feedback) { feedback.textContent = "Quelques lignes de plus nous aideront \u00e0 mieux vous r\u00e9pondre (minimum 20 caract\u00e8res)."; feedback.hidden = false; }
         return;
       }
-
-      const bodyPlain = [
-        "Nom : " + name,
-        "E-mail : " + email,
-        phone ? "Téléphone : " + phone : null,
-        "",
-        message,
-      ]
-        .filter(Boolean)
-        .join("\n");
-
-      const mailto =
-        "mailto:" +
-        CONTACT_EMAIL +
-        "?subject=" +
-        encodeURIComponent(CONTACT_SUBJECT_PLAIN) +
-        "&body=" +
-        encodeURIComponent(bodyPlain);
-
-      if (!feedback) {
-        window.location.href = mailto;
-        return;
-      }
-
-      const gmailParams = new URLSearchParams({
-        view: "cm",
-        fs: "1",
-        to: CONTACT_EMAIL,
-        su: CONTACT_SUBJECT_PLAIN,
-        body: bodyPlain,
-      });
-      const gmailUrl = "https://mail.google.com/mail/?" + gmailParams.toString();
-      const gmailFitsUrl = gmailUrl.length <= 1900;
-
-      feedback.classList.add("form-feedback--success");
-      feedback.hidden = false;
-
-      const p1 = document.createElement("p");
-      p1.textContent =
-        "Votre message est prêt. Cliquez sur une des options ci-dessous — beaucoup de navigateurs ne ouvrent plus la messagerie tout seuls.";
-
-      const actions = document.createElement("div");
-      actions.className = "contact-send-actions";
-
-      if (gmailFitsUrl) {
-        const aGmail = document.createElement("a");
-        aGmail.href = gmailUrl;
-        aGmail.target = "_blank";
-        aGmail.rel = "noopener noreferrer";
-        aGmail.className = "btn btn--primary";
-        aGmail.textContent = "Ouvrir Gmail dans le navigateur";
-        actions.appendChild(aGmail);
-      }
-
-      const aMail = document.createElement("a");
-      aMail.href = mailto;
-      aMail.className = "btn btn--ghost";
-      aMail.textContent = "Ouvrir ma messagerie (Outlook, Mail…)";
-      actions.appendChild(aMail);
-
-      const btnCopy = document.createElement("button");
-      btnCopy.type = "button";
-      btnCopy.className = "btn btn--ghost contact-send-actions__copy";
-      btnCopy.textContent = "Copier le texte du message";
-      btnCopy.addEventListener("click", function () {
-        const label = "Copier le texte du message";
-        const done = function (ok) {
-          btnCopy.textContent = ok ? "Copié !" : "Sélectionnez le message à la main";
-          setTimeout(function () {
-            btnCopy.textContent = label;
-          }, 2800);
-        };
-        if (navigator.clipboard && navigator.clipboard.writeText) {
-          navigator.clipboard.writeText(bodyPlain).then(
-            function () {
-              done(true);
-            },
-            function () {
-              done(false);
-            }
-          );
-        } else {
-          done(false);
-        }
-      });
-      actions.appendChild(btnCopy);
-
-      feedback.appendChild(p1);
-      if (!gmailFitsUrl) {
-        const pLong = document.createElement("p");
-        pLong.className = "form-note";
-        pLong.style.margin = "0 0 0.5rem";
-        pLong.textContent =
-          "Votre message est assez long : utilisez « Copier le texte » ou votre messagerie.";
-        feedback.appendChild(pLong);
-      }
-      feedback.appendChild(actions);
-
-      const p2 = document.createElement("p");
-      p2.className = "form-note";
-      p2.style.marginTop = "0.85rem";
-      p2.appendChild(document.createTextNode("Destinataire : "));
-      const aDirect = document.createElement("a");
-      aDirect.href = "mailto:" + CONTACT_EMAIL;
-      aDirect.textContent = CONTACT_EMAIL;
-      p2.appendChild(aDirect);
-      feedback.appendChild(p2);
-
-      try {
-        feedback.scrollIntoView({ behavior: "smooth", block: "start" });
-      } catch (err) {}
+      submitToNetlify(contactForm, feedback, "Message envoy\u00e9 \u2014 nous vous r\u00e9pondons sous 24\u00a0\u00e0\u00a048\u00a0h.");
     });
   }
 
@@ -679,177 +567,51 @@
       printBtn.addEventListener("click", () => window.print());
     }
 
-    accompagnementForm.addEventListener("submit", (e) => {
+    accompagnementForm.addEventListener("submit", function(e) {
       e.preventDefault();
-      if (accFeedback) {
-        accFeedback.textContent = "";
-        accFeedback.hidden = true;
-      }
-
+      if (accFeedback) { accFeedback.textContent = ""; accFeedback.hidden = true; accFeedback.classList.remove("form-feedback--success"); }
       const fd = new FormData(accompagnementForm);
       const yourName = String(fd.get("your_name") || "").trim();
       const yourEmail = String(fd.get("your_email") || "").trim();
-      const pageSouvenir = String(
-        fd.get("page_souvenir") || "non"
-      ).trim();
-
+      const pageSouvenir = String(fd.get("page_souvenir") || "non").trim();
       if (!yourName || !yourEmail) {
-        if (accFeedback) {
-          accFeedback.textContent =
-            "Merci d’indiquer votre nom et votre e-mail pour que nous puissions vous répondre.";
-          accFeedback.hidden = false;
-        }
+        if (accFeedback) { accFeedback.textContent = "Merci d'indiquer votre nom et votre e-mail pour que nous puissions vous r\u00e9pondre."; accFeedback.hidden = false; }
         return;
       }
-
       if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(yourEmail)) {
-        if (accFeedback) {
-          accFeedback.textContent =
-            "L’adresse e-mail ne semble pas valide. Vérifiez-la avant d’envoyer.";
-          accFeedback.hidden = false;
-        }
+        if (accFeedback) { accFeedback.textContent = "L'adresse e-mail ne semble pas valide. V\u00e9rifiez-la avant d'envoyer."; accFeedback.hidden = false; }
         return;
       }
-
       if (pageSouvenir === "oui") {
         const access = String(fd.get("access_type") || "").trim();
         if (!access) {
-          if (accFeedback) {
-            accFeedback.textContent =
-              "Vous avez choisi une page en ligne : merci de préciser le type d’accès souhaité.";
-            accFeedback.hidden = false;
-          }
+          if (accFeedback) { accFeedback.textContent = "Vous avez choisi une page en ligne\u00a0: merci de pr\u00e9ciser le type d'acc\u00e8s souhait\u00e9."; accFeedback.hidden = false; }
           return;
         }
       }
-
-      const honorName = String(fd.get("honor_name") || "").trim();
-      const honorBirth = String(fd.get("honor_birth") || "").trim();
-      const relation = String(fd.get("relation") || "").trim();
-      const notes = String(fd.get("notes") || "").trim();
-      const moderation = String(fd.get("moderation") || "").trim();
-      const accessType = String(fd.get("access_type") || "").trim();
-
-      const accessLabels = {
-        lien: "Accès par lien",
-        motdepasse: "Protégé par mot de passe",
-        qr: "Principalement via QR sur la plaque",
-      };
-      const modLabels = {
-        moderer: "Messages modérés avant publication",
-        libre: "Publication libre des messages (détails à valider avec vous)",
-        aucun: "Pas de livre d’or / pas de messages visiteurs",
-      };
-
-      const lines = [
-        "— Formulaire d’accompagnement — Mémoire & Présence",
-        "",
-        "Vos coordonnées :",
-        "Nom : " + yourName,
-        "E-mail : " + yourEmail,
-        "",
-        "L’être honoré :",
-        honorName ? "Prénom et nom : " + honorName : "Prénom et nom : (non renseigné)",
-        honorBirth ? "Date de naissance : " + honorBirth : "Date de naissance : (non renseigné)",
-        relation ? "Lien avec vous : " + relation : "Lien avec vous : (non renseigné)",
-        "",
-        "Page souvenir en ligne : " + (pageSouvenir === "oui" ? "Oui" : "Non pour l’instant"),
-      ];
-
-      if (pageSouvenir === "oui") {
-        lines.push(
-          "Type d’accès : " + (accessLabels[accessType] || accessType),
-          "Livre d’or / messages : " + (modLabels[moderation] || moderation)
-        );
-      }
-
-      if (notes) {
-        lines.push("", "Précisions :", notes);
-      }
-
-      const body = lines.join("\n");
-      const subject = encodeURIComponent(
-        "Formulaire d’accompagnement — Mémoire & Présence"
-      );
-      const mailto =
-        "mailto:" +
-        CONTACT_EMAIL +
-        "?subject=" +
-        subject +
-        "&body=" +
-        encodeURIComponent(body);
-
-      if (mailto.length > 1950) {
-        if (accFeedback) {
-          accFeedback.textContent =
-            "Le message est trop long pour un envoi automatique. Utilisez « Imprimer ou PDF », ou écrivez-nous à l’adresse indiquée sur le site.";
-          accFeedback.hidden = false;
-        }
-        return;
-      }
-
-      window.location.href = mailto;
+      submitToNetlify(accompagnementForm, accFeedback, "Formulaire envoy\u00e9 \u2014 nous vous recontactons rapidement.");
     });
   }
 
   const devisForm = document.getElementById("devis-form");
   if (devisForm) {
     const devisFeedback = document.getElementById("devis-form-feedback");
-
-    devisForm.addEventListener("submit", (e) => {
+    devisForm.addEventListener("submit", function(e) {
       e.preventDefault();
-      if (devisFeedback) {
-        devisFeedback.textContent = "";
-        devisFeedback.hidden = true;
-      }
-
+      if (devisFeedback) { devisFeedback.textContent = ""; devisFeedback.hidden = true; devisFeedback.classList.remove("form-feedback--success"); }
       const fd = new FormData(devisForm);
       const nom = String(fd.get("Nom demandeur") || "").trim();
-      const prenom = String(fd.get("Prénom demandeur") || "").trim();
+      const prenom = String(fd.get("Pr\u00e9nom demandeur") || "").trim();
       const email = String(fd.get("E-mail") || "").trim();
       if (!nom || !prenom || !email) {
-        if (devisFeedback) {
-          devisFeedback.textContent =
-            "Merci d’indiquer votre nom, votre prénom et votre e-mail.";
-          devisFeedback.hidden = false;
-        }
+        if (devisFeedback) { devisFeedback.textContent = "Merci d'indiquer votre nom, votre pr\u00e9nom et votre e-mail."; devisFeedback.hidden = false; }
         return;
       }
       if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
-        if (devisFeedback) {
-          devisFeedback.textContent =
-            "L’adresse e-mail ne semble pas valide. Vérifiez-la avant d’envoyer.";
-          devisFeedback.hidden = false;
-        }
+        if (devisFeedback) { devisFeedback.textContent = "L'adresse e-mail ne semble pas valide. V\u00e9rifiez-la avant d'envoyer."; devisFeedback.hidden = false; }
         return;
       }
-
-      const lines = ["— Demande de devis — Mémoire & Présence", ""];
-      fd.forEach((value, key) => {
-        const v = String(value || "").trim();
-        if (v) lines.push(key + " : " + v);
-      });
-
-      const body = lines.join("\n");
-      const subject = encodeURIComponent("Demande de devis — Mémoire & Présence");
-      const mailto =
-        "mailto:" +
-        CONTACT_EMAIL +
-        "?subject=" +
-        subject +
-        "&body=" +
-        encodeURIComponent(body);
-
-      if (mailto.length > 2100) {
-        if (devisFeedback) {
-          devisFeedback.textContent =
-            "Le message est trop long pour un envoi automatique. Appelez le 07 86 17 37 15 ou envoyez deux e-mails en découpant les sections.";
-          devisFeedback.hidden = false;
-        }
-        return;
-      }
-
-      window.location.href = mailto;
+      submitToNetlify(devisForm, devisFeedback, "Demande de devis re\u00e7ue \u2014 nous vous r\u00e9pondons sous 48\u00a0h.");
     });
   }
 
