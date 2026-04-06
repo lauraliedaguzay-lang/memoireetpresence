@@ -391,15 +391,15 @@ body.hommage-body > *:not(#nav-principale):not(#site-nav-backdrop) {
 
 .hommage-content__photo {
   width: 100%;
-  max-width: 18rem;
-  aspect-ratio: 4 / 3;
-  margin: 0 auto 1.75rem;
+  max-width: 13rem;
+  aspect-ratio: 3 / 4;
+  margin: 0 auto 2rem;
   padding: 0;
-  border-radius: 12px;
+  border-radius: 50% 50% 12px 12px;
   overflow: hidden;
   background: var(--h-card);
-  border: 1px solid var(--h-line);
-  box-shadow: var(--h-zone-lumiere), var(--h-portee);
+  border: 3px solid rgba(255,255,255,0.7);
+  box-shadow: 0 4px 24px rgba(100,80,60,.18), 0 1px 4px rgba(100,80,60,.10);
 }
 
 .hommage-content__photo img {
