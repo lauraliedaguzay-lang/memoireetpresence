@@ -1,4 +1,4 @@
-/**
+﻿/**
  * Pinapp — Assistant Claude pour Gmail
  * Google Apps Script — coller dans script.google.com (compte lauralie.daguzay@gmail.com)
  *
@@ -79,6 +79,24 @@ Ex: "Obtenir un appel" / "Envoyer un devis" / "Rassurer"
 💬 TON RECOMMANDÉ
 
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+?? AUDIT SATISFACTION CLIENT 100%
+
+CE QUE LE CLIENT VEUT EXPLICITEMENT :
+(Traduire sa demande en besoin concret)
+
+CE QUE LE CLIENT VEUT IMPLICITEMENT :
+(Ce qu'il n'a pas dit mais qui est evident selon son profil)
+
+RISQUES DE DECEPTION :
+- Delai, ton, promesse non tenable, information manquante ?
+
+SCORE DE SATISFACTION ESTIME :
+Si on repond bien : [X]% | Si on repond mal : risque de [Y]%
+
+POUR ATTEINDRE 100% IL FAUT :
+Liste precise et ordonnee des actions a faire.
+
 BLOC 2 — BROUILLON CLIENT
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━
 - Commence par "Madame," / "Monsieur," / prénom si connu

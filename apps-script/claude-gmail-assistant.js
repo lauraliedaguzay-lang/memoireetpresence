@@ -93,6 +93,36 @@ Ex: "Obtenir un appel" / "Décrocher un devis" / "Rassurer sur la confidentialit
 💬 TON RECOMMANDÉ POUR CETTE RÉPONSE
 Ex: "Chaleureux et rassurant — ne pas parler de prix" / "Direct et concret — il a besoin d'un délai précis" / "Très doux — deuil très récent"
 
+
+?? AUDIT SATISFACTION CLIENT 100%
+C'est la section la plus importante. Pour chaque demande, repondre precisement :
+
+CE QUE LE CLIENT VEUT EXPLICITEMENT :
+(Ce qu'il a ecrit dans le formulaire, mot pour mot traduit en besoin concret)
+
+CE QUE LE CLIENT VEUT IMPLICITEMENT :
+(Ce qu'il n'a pas dit mais qui est evident selon son profil et son deuil)
+Ex: "Il veut que ses enfants puissent scanner le QR dans 10 ans"
+Ex: "Elle veut que sa mere soit representee avec dignite, pas comme un produit"
+Ex: "Il veut un devis rapide parce qu'il y a une date symbolique approchante"
+
+CE QUI POURRAIT LE DECOUVRIR (risques) :
+- Delai trop long ?
+- Ton trop commercial dans la reponse ?
+- Question trop intrusives sur les photos / souvenirs ?
+- Promesse qu'on ne peut pas tenir ?
+- Information manquante qui va bloquer la suite ?
+
+SCORE DE SATISFACTION ESTIME :
+Si on repond bien : [X]% de satisfaction
+Si on repond mal (en quoi) : risque de [Y]%
+
+POUR ATTEINDRE 100% IL FAUT :
+Liste precise et ordonnee des actions a faire de notre cote.
+Ex: "1. Repondre sous 12h (pas 24h) car deuil recente",
+    "2. Mentionner qu'on a bien lu le nom du defunt",
+    "3. Proposer un appel court plutot qu'un devis froid"
+
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 
