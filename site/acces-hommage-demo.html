@@ -14,10 +14,10 @@
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Source+Sans+3:wght@300;400;500;600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://unpkg.com/aos@2.3.4/dist/aos.css">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/glightbox@3.3.0/dist/css/glightbox.min.css">
-  <link rel="stylesheet" href="style.css?v=87">
+  <link rel="stylesheet" href="style.css?v=90">
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
 </head>
-<body>
+<body class="page-site">
   <a class="skip-link" href="#contenu-principal">Aller au contenu</a>
 
   <header class="site-header site-header--premium">
@@ -57,44 +57,51 @@
     </div>
   </header>
 
-  <main class="page-main site-main" id="contenu-principal">
+  <main class="page-main site-main site-main--ready" id="contenu-principal">
     <article class="page-inner page-inner--wide fade-in-section">
-      <p class="eyebrow">Maquette — comportement type production</p>
-      <h1 class="page-title">La porte d’accès sur les pages hommage de démonstration</h1>
+      <p class="eyebrow">Démonstration · même parcours que pour une famille</p>
+      <h1 class="page-title">Voir une page hommage avant de commander</h1>
       <p class="page-intro">
-        Les vraies pages hommage livrées aux familles peuvent être protégées par un <strong>code</strong> avant d’afficher le contenu. Les maquettes en ligne reproduisent ce dispositif&nbsp;: vous voyez d’abord l’écran «&nbsp;Accès réservé&nbsp;», puis la page après saisie du bon code.
+        Les hommages livrés peuvent être protégés par un <strong>code</strong> avant d’afficher le contenu. Ici, les maquettes en ligne reproduisent ce geste&nbsp;: écran «&nbsp;Accès réservé&nbsp;», puis la page après saisie du bon code. Pour un <strong>projet réel</strong>, le code est choisi avec vous, ne figure pas sur le site public, et une vérification <strong>côté serveur</strong> reste recommandée pour une sécurité forte — ce que vous voyez ici illustre surtout le parcours et le soin du design.
       </p>
 
-      <section class="page-section fade-in-section" aria-labelledby="demo-code-title">
-        <h2 id="demo-code-title">Code d’essai (démonstration uniquement)</h2>
-        <p>
-          Pour <strong>toutes</strong> nos URLs de démo listées ci-dessous, le code factice est le même (saisie en minuscules)&nbsp;:
-        </p>
-        <p class="why-quote"><strong>memoire</strong></p>
+      <section class="page-section fade-in-section acces-demo" aria-labelledby="acces-demo-code">
+        <h2 id="acces-demo-code">Code d’essai</h2>
+        <p class="acces-demo__code"><strong>memoire</strong> <span class="acces-demo__code-hint">(tout en minuscules, sans espace)</span></p>
         <p class="form-section__intro">
-          Après une saisie correcte, l’accès reste ouvert pour la durée de votre <strong>session</strong> sur cet appareil (stockage <code>sessionStorage</code> du navigateur). Fermer l’onglet ou le navigateur peut redemander le code.
+          Valable pour <strong>les deux</strong> maquettes ci-dessous. Après une saisie correcte, l’accès reste ouvert le temps de la <strong>session</strong> sur cet appareil (<code>sessionStorage</code>). Fermer l’onglet ou le navigateur peut redemander le code.
+        </p>
+        <p class="acces-demo__tip">
+          <strong>Sur mobile</strong> : menu du site via l’icône en haut à gauche ; sur la page hommage, faites défiler la galerie au doigt ou utilisez les points sous l’image.
         </p>
       </section>
 
-      <section class="page-section fade-in-section" aria-labelledby="demo-urls-title">
-        <h2 id="demo-urls-title">Pages à tester</h2>
-        <ul class="brief-features brief-features--2" role="list">
-          <li class="brief-features__item"><a href="hommage/famille-martin/"><strong>Maquette «&nbsp;Famille Martin&nbsp;»</strong></a> — structure sobre, texte centré sur la mise en page technique.</li>
-          <li class="brief-features__item"><a href="hommage/exemple-defunt/"><strong>Exemple «&nbsp;Claire Fontenay&nbsp;»</strong></a> — texte de souvenir fictif, encadré type cérémonie (données inventées).</li>
-        </ul>
+      <section class="page-section fade-in-section acces-demo" aria-labelledby="acces-demo-maquettes">
+        <h2 id="acces-demo-maquettes">Deux maquettes à parcourir</h2>
+        <div class="acces-demo__grid">
+          <article class="acces-demo__card">
+            <h3 class="acces-demo__card-title">Famille Martin</h3>
+            <p class="acces-demo__card-desc">Maquette sobre centrée sur la <strong>mise en page</strong> et le rythme de lecture&nbsp;: portrait, textes, panneau souvenir, carrousel de photos fictives.</p>
+            <p class="acces-demo__card-meta">Idéal pour juger la <strong>tenue visuelle</strong> et le confort sur petit écran.</p>
+            <a class="btn btn--primary acces-demo__card-btn" href="hommage/famille-martin/">Ouvrir la maquette Martin</a>
+          </article>
+          <article class="acces-demo__card">
+            <h3 class="acces-demo__card-title">Claire Fontenay</h3>
+            <p class="acces-demo__card-desc">Maquette plus <strong>éditoriale</strong>&nbsp;: texte de souvenir, encadré type cérémonie (données inventées), galerie — pour se projeter dans un hommage complet.</p>
+            <p class="acces-demo__card-meta">Utile pour voir comment les <strong>informations pratiques</strong> peuvent s’intégrer sans durcir le ton.</p>
+            <a class="btn btn--primary acces-demo__card-btn" href="hommage/exemple-defunt/">Ouvrir la maquette Fontenay</a>
+          </article>
+        </div>
       </section>
 
-      <section class="page-section fade-in-section" aria-labelledby="demo-prod-title">
-        <h2 id="demo-prod-title">En production</h2>
-        <p>
-          Le code réel est choisi avec la famille et ne figure pas sur le site public. Pour une sécurité forte, une vérification côté serveur est recommandée ; les fichiers statiques illustrent uniquement le parcours et l’interface.
+      <section class="page-section fade-in-section acces-demo acces-demo--suite" aria-labelledby="acces-demo-suite">
+        <h2 id="acces-demo-suite">Parcours projet &amp; plaque</h2>
+        <p>Pour enchaîner avec l’exemple de <strong>devis, délais et livrables</strong> (données fictives «&nbsp;La Roseraie&nbsp;»), ouvrez la démo parcours — elle se complète bien après une visite de page hommage.</p>
+        <p class="page-cta-wrap page-cta-wrap--row" style="margin-top:1rem;">
+          <a class="btn btn--ghost" href="demo-fictive.html">Démo parcours projet</a>
+          <a class="btn btn--ghost" href="offre.html#parcours-delais">Parcours &amp; délais</a>
         </p>
       </section>
-
-      <p class="page-section fade-in-section">
-        <a class="btn btn--primary" href="hommage/exemple-defunt/">Ouvrir l’exemple défunt fictif</a>
-        <a class="btn btn--ghost" href="demo-fictive.html">Démo parcours projet</a>
-      </p>
     </article>
   </main>
 

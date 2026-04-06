@@ -17,7 +17,7 @@
   --h-zone-lumiere: 0 2px 8px rgba(139, 115, 75, 0.08), inset 0 1px 0 rgba(255, 248, 225, 0.8);
   --h-portee: 0 4px 16px rgba(139, 115, 75, 0.12), 0 1px 3px rgba(139, 115, 75, 0.08);
   --h-serif: "Cormorant Garamond", "Times New Roman", Times, serif;
-  --h-sans: "Jost", system-ui, sans-serif;
+  --h-sans: "Source Sans 3", system-ui, sans-serif;
   --ease: cubic-bezier(0.4, 0, 0.2, 1);
 }
 
@@ -518,6 +518,40 @@ body.hommage-body > *:not(#nav-principale):not(#site-nav-backdrop) {
 }
 
 .hommage-gallery__cell img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* Carrousel Swiper : ne pas hériter de la grille mosaïque .hommage-gallery (2 colonnes) */
+.hommage-gallery.hommage-gallery--swiper {
+  display: block;
+  max-width: 560px;
+  margin-left: auto;
+  margin-right: auto;
+  width: 100%;
+}
+
+.hommage-gallery.hommage-gallery--swiper #gallery-title,
+.hommage-gallery.hommage-gallery--swiper > .hommage-content__kicker {
+  text-align: center;
+}
+
+.hommage-gallery .hommage-swiper {
+  border-radius: 10px;
+  overflow: hidden;
+  border: 1px solid var(--h-line);
+  background: var(--h-card);
+  box-shadow: var(--h-zone-lumiere);
+}
+
+.hommage-gallery .hommage-swiper .swiper-slide {
+  aspect-ratio: 4 / 3;
+  background: var(--h-card);
+}
+
+.hommage-gallery .hommage-swiper .swiper-slide img {
   display: block;
   width: 100%;
   height: 100%;

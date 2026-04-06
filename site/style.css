@@ -2439,3 +2439,88 @@ nav#bottom-nav,
 .home-exemple__texte { font-family: var(--font-display,Georgia,serif); font-style: italic; font-size: 1rem; color: #4a5568; line-height: 1.55; margin: 0 0 .9rem; }
 .home-exemple__lien { font-size: .85rem; color: #3d6b4f; font-weight: 500; text-decoration: none; border-bottom: 1px solid rgba(61,107,79,.3); padding-bottom: 1px; transition: border-color .2s; }
 .home-exemple__lien:hover { border-color: #3d6b4f; }
+
+/* ── Page accès démo hommage (acces-hommage-demo.html) ─────────── */
+.acces-demo__code {
+  font-family: var(--font-display, Georgia, serif);
+  font-size: clamp(1.35rem, 4vw, 1.75rem);
+  letter-spacing: 0.08em;
+  text-align: center;
+  margin: 0.5rem 0 1rem;
+  color: var(--c-text);
+}
+.acces-demo__code-hint {
+  display: block;
+  font-family: var(--font-body);
+  font-size: 0.72rem;
+  font-weight: 400;
+  letter-spacing: 0.04em;
+  text-transform: none;
+  color: var(--c-text-soft);
+  margin-top: 0.35rem;
+}
+.acces-demo__tip {
+  margin: 1rem 0 0;
+  padding: 0.85rem 1rem;
+  font-size: 0.86rem;
+  line-height: 1.55;
+  color: var(--c-text-soft);
+  background: rgba(255, 252, 246, 0.9);
+  border: 1px solid var(--c-divider);
+  border-radius: 10px;
+}
+.acces-demo__grid {
+  display: grid;
+  gap: 1rem;
+  margin-top: 1rem;
+}
+@media (min-width: 640px) {
+  .acces-demo__grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 1.15rem;
+  }
+}
+.acces-demo__card {
+  display: flex;
+  flex-direction: column;
+  min-height: 100%;
+  padding: 1.25rem 1.35rem;
+  background: rgba(255, 252, 246, 0.65);
+  border: 1px solid var(--c-divider);
+  border-radius: 12px;
+  box-shadow: 0 2px 14px rgba(139, 115, 75, 0.06);
+}
+.acces-demo__card-title {
+  margin: 0 0 0.5rem;
+  font-family: var(--font-display);
+  font-size: 1.15rem;
+  font-weight: 600;
+  color: var(--c-text);
+}
+.acces-demo__card-desc,
+.acces-demo__card-meta {
+  margin: 0 0 0.65rem;
+  font-size: 0.88rem;
+  line-height: 1.62;
+  color: var(--c-text-soft);
+}
+.acces-demo__card-meta {
+  margin-bottom: 0;
+  font-size: 0.8rem;
+  color: var(--c-text-pale);
+}
+.acces-demo__card-btn {
+  margin-top: auto;
+  align-self: flex-start;
+  padding-top: 0.85rem;
+}
+.acces-demo--suite p {
+  max-width: 42rem;
+}
+@media (max-width: 767px) {
+  .acces-demo__card-btn {
+    width: 100%;
+    justify-content: center;
+    text-align: center;
+  }
+}
