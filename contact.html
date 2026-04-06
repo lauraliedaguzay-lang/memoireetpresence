@@ -68,16 +68,16 @@
 
       <div class="contact-block__actions" style="margin-bottom:1.25rem;">
         <a class="btn-call" href="tel:+33786173715">Appeler maintenant</a>
-        <a class="btn btn--ghost" href="mailto:memoire.presence.contact@gmail.com">Écrire par e-mail</a>
+        <a class="btn btn--ghost" href="mailto:memoirepresence@gmail.com">Écrire par e-mail</a>
       </div>
 
       <p class="form-section__intro"><strong>Téléphone :</strong> <a href="tel:+33786173715">07&nbsp;86&nbsp;17&nbsp;37&nbsp;15</a><br>
-        <strong>E-mail :</strong> <a href="mailto:memoire.presence.contact@gmail.com">memoire.presence.contact@gmail.com</a><br>
+        <strong>E-mail :</strong> <a href="mailto:memoirepresence@gmail.com">memoirepresence@gmail.com</a><br>
         <strong>Accompagnement</strong> 100&nbsp;% à distance — <strong>livraison</strong> dans toute la France.</p>
 
       <p id="contact-form-feedback" class="form-feedback" role="status" aria-live="polite" hidden></p>
 
-      <form id="contact-form" class="form" method="post" action="#" novalidate aria-describedby="contact-intro form-privacy-note">
+      <form id="contact-form" class="form" method="post" action="/" name="contact" data-netlify="true" novalidate aria-describedby="contact-intro form-privacy-note"><input type="hidden" name="form-name" value="contact">
         <div class="form-field">
           <label class="form-label" for="contact-name">Prénom et nom</label>
           <input class="form-input" type="text" id="contact-name" name="name" autocomplete="name" required maxlength="120">
@@ -97,9 +97,7 @@
         <div class="form-actions">
           <button type="submit" class="btn btn--primary">Envoyer</button>
         </div>
-        <p class="form-note" id="form-privacy-note">
-          Après « Envoyer », vous choisissez comment envoyer le message (Gmail dans le navigateur, votre messagerie ou copie du texte). Aucun stockage sur nos serveurs tant que le site est diffusé en statique.
-        </p>
+        
       </form>
 
       <p class="form-section__intro" style="margin-top:1.25rem;"><a href="devis-formulaire.html">Formulaire de demande de devis détaillé</a></p>
@@ -117,7 +115,7 @@
           <p class="site-footer__label">Téléphone</p>
           <p><a class="site-footer__link-tel" href="tel:+33786173715">07&nbsp;86&nbsp;17&nbsp;37&nbsp;15</a></p>
           <p class="site-footer__label">E-mail</p>
-          <p><a class="site-footer__link-tel" href="mailto:memoire.presence.contact@gmail.com">memoire.presence.contact@gmail.com</a></p>
+          <p><a class="site-footer__link-tel" href="mailto:memoirepresence@gmail.com">memoirepresence@gmail.com</a></p>
         </div>
         <div class="site-footer__block">
           <p class="site-footer__label">Zone</p>
@@ -134,6 +132,6 @@
     </div>
   </footer>
 
-  <script src="script.js?v=25" defer></script>
+  <script src="script.js?v=26" defer></script>
 </body>
 </html>
