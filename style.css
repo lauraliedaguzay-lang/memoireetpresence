@@ -2096,6 +2096,16 @@ textarea:focus {
   margin: 0.5rem 0 0;
 }
 
+.video-placeholder__poster {
+  display: block;
+  width: 100%;
+  max-height: min(52vh, 420px);
+  object-fit: cover;
+  border-radius: calc(var(--radius-card) - 2px);
+  margin: 0 0 1rem;
+  border: 1px solid var(--c-divider);
+}
+
 .video-placeholder {
   padding: 0.9rem 1rem;
   border-radius: var(--radius-card);
@@ -2134,6 +2144,39 @@ textarea:focus {
 .video-placeholder__actions a {
   font-size: 0.8rem;
   font-weight: 500;
+}
+
+/* Galerie exemples plaques (page Plaques & QR) */
+.plaque-gallery {
+  display: grid;
+  gap: 0.75rem;
+  grid-template-columns: repeat(2, 1fr);
+  margin: 1rem auto 0;
+  max-width: 920px;
+}
+
+@media (min-width: 720px) {
+  .plaque-gallery {
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1rem;
+  }
+}
+
+.plaque-gallery__cell {
+  margin: 0;
+  border-radius: 12px;
+  overflow: hidden;
+  border: 1px solid var(--c-divider);
+  box-shadow: 0 2px 14px rgba(139, 115, 75, 0.08);
+  background: var(--c-zone-light);
+  aspect-ratio: 1;
+}
+
+.plaque-gallery__cell img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
 }
 
 .video-page-block__intro {
