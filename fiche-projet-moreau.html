@@ -189,9 +189,67 @@
       padding: 1rem;
     }
     .fp-visuel__item svg { width: 28px; height: 28px; opacity: 0.45; }
+    .fp-browser {
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 8px 40px rgba(60, 48, 30, 0.14), 0 1px 4px rgba(60, 48, 30, 0.08);
+      border: 1px solid var(--c-divider);
+      margin-top: 1.3rem;
+    }
+    .fp-browser__bar {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      padding: 0.6rem 0.9rem;
+      background: #ede6d8;
+      border-bottom: 1px solid var(--c-divider);
+      user-select: none;
+    }
+    .fp-browser__dots {
+      display: flex;
+      gap: 5px;
+      flex-shrink: 0;
+    }
+    .fp-browser__dots span {
+      display: block;
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: rgba(100, 82, 56, 0.28);
+    }
+    .fp-browser__url {
+      flex: 1;
+      min-width: 0;
+      background: rgba(255, 255, 255, 0.55);
+      border: 1px solid rgba(100, 82, 56, 0.18);
+      border-radius: 5px;
+      padding: 0.2rem 0.65rem;
+      font-size: 0.7rem;
+      font-family: ui-monospace, "SF Mono", Consolas, monospace;
+      color: var(--c-text-soft);
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+    .fp-browser__frame {
+      display: block;
+      width: 100%;
+      height: 620px;
+      border: none;
+      background: #f7f4ef;
+    }
+    .fp-browser__note {
+      padding: 0.5rem 0.9rem;
+      background: #ede6d8;
+      border-top: 1px solid var(--c-divider);
+      font-size: 0.7rem;
+      color: var(--c-text-pale);
+      text-align: center;
+    }
     @media (max-width: 600px) {
       .fp-meta { gap: 0.8rem 1.2rem; }
       .fp-cards { grid-template-columns: 1fr; }
+      .fp-browser__frame { height: 500px; }
     }
   </style>
 </head>
@@ -311,6 +369,27 @@
             <span class="fp-card__tag">Granit noir ┬À ardoise ┬À livraison 10 jours</span>
           </div>
 
+        </div>
+      </section>
+
+      <!-- MOCKUP PAGE HOMMAGE -->
+      <section class="page-section" aria-labelledby="fp-demo">
+        <h2 id="fp-demo">La page hommage en situation</h2>
+        <p>Voici ├á quoi ressemble une page hommage livr├®e ├á une famille. Cette maquette est prot├®g├®e par code ÔÇö elle s'affiche ici en acc├¿s d├®mo automatique.</p>
+        <div class="fp-browser" role="region" aria-label="Maquette de page hommage">
+          <div class="fp-browser__bar" aria-hidden="true">
+            <span class="fp-browser__dots">
+              <span></span><span></span><span></span>
+            </span>
+            <span class="fp-browser__url">memoire-et-presence.fr / hommage / famille-martin /</span>
+          </div>
+          <iframe
+            class="fp-browser__frame"
+            src="../hommage/famille-martin/?demo=open"
+            title="Maquette page hommage ÔÇö Famille Martin"
+            loading="lazy"
+            sandbox="allow-scripts allow-same-origin allow-forms"></iframe>
+          <p class="fp-browser__note">Maquette de d├®monstration ┬À En production, le code d'acc├¿s est communiqu├® uniquement ├á la famille</p>
         </div>
       </section>
 
