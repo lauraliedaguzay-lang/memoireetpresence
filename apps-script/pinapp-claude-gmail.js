@@ -339,3 +339,44 @@ function testPinapp() {
   _createDraft_PP(CONFIG_PINAPP.MON_EMAIL, '[TEST] Demande pinapp', analyse, brouillon, fake, 'CONTACT');
   Logger.log('✅ Test Pinapp terminé — vérifier Gmail (lauralie.daguzay@gmail.com)');
 }
+
+// ─── HEALTH CHECK HEBDOMADAIRE PINAPP ────────────────────────────────────────
+
+function weeklyHealthCheck_PP() {
+  const urls = [
+    { url: 'https://lauraliedaguzay-lang.github.io/pinapp-site/', label: 'Pinapp GitHub Pages' },
+    // Ajouter les URLs pinapp dès que le domaine est actif
+  ];
+
+  const down = [];
+
+  urls.forEach(({ url, label }) => {
+    try {
+      const res  = UrlFetchApp.fetch(url, { muteHttpExceptions: true });
+      const code = res.getResponseCode();
+      if (code !== 200) down.push(`❌ ${label} → HTTP ${code}`);
+      else Logger.log(`✅ ${label} → OK`);
+    } catch (e) {
+      down.push(`❌ ${label} → ${e.message}`);
+    }
+  });
+
+  if (down.length > 0) {
+    MailApp.sendEmail({
+      to     : CONFIG_PINAPP.MON_EMAIL,
+      subject: '🚨 Pinapp — Site en panne',
+      body   : down.join('\n') + '\n\nIntervenir dès que possible.',
+    });
+  } else {
+    Logger.log('✅ Pinapp health check OK.');
+  }
+}
+
+function installHealthCheckTrigger_PP() {
+  ScriptApp.getProjectTriggers()
+    .filter(t => t.getHandlerFunction() === 'weeklyHealthCheck_PP')
+    .forEach(t => ScriptApp.deleteTrigger(t));
+  ScriptApp.newTrigger('weeklyHealthCheck_PP')
+    .timeBased().everyWeeks(1).onWeekDay(ScriptApp.WeekDay.MONDAY).atHour(7).create();
+  Logger.log('✅ [Pinapp] Health check installé — chaque lundi 7h.');
+}

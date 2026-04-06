@@ -721,3 +721,74 @@ function _runTest(type, fakeData) {
   createGmailDraft(CONFIG.MON_EMAIL, `[TEST ${type}] New submission`, analyse, briefMichael, brouillon, fakeData, type);
   Logger.log('\n✅ Brouillons de test créés dans Gmail.');
 }
+
+// ─── HEALTH CHECK HEBDOMADAIRE ────────────────────────────────────────────────
+
+/**
+ * Vérifie que tous les sites M&P sont en ligne.
+ * Envoie une alerte push si l'un est en panne.
+ * Installer : ScriptApp.newTrigger('weeklyHealthCheck').timeBased().everyWeeks(1).create()
+ */
+function weeklyHealthCheck() {
+  const urls = [
+    { url: 'https://lauraliedaguzay-lang.github.io/memoireetpresence/', label: 'M&P GitHub Pages' },
+    { url: 'https://lauraliedaguzay-lang.github.io/memoireetpresence/offre.html', label: 'M&P — Offre' },
+    { url: 'https://lauraliedaguzay-lang.github.io/memoireetpresence/hommage/exemple-defunt/', label: 'M&P — Hommage démo' },
+    { url: 'https://lucent-taffy-b64b7e.netlify.app/', label: 'M&P Netlify' },
+  ];
+
+  const down = [];
+  const slow = [];
+
+  urls.forEach(({ url, label }) => {
+    try {
+      const start = Date.now();
+      const res   = UrlFetchApp.fetch(url, { muteHttpExceptions: true, followRedirects: true });
+      const ms    = Date.now() - start;
+      const code  = res.getResponseCode();
+
+      if (code !== 200) {
+        down.push(`❌ ${label} → HTTP ${code} (${url})`);
+      } else if (ms > 5000) {
+        slow.push(`⚠️ ${label} → Lent (${ms}ms) — ${url}`);
+      } else {
+        Logger.log(`✅ ${label} → OK (${ms}ms)`);
+      }
+    } catch (e) {
+      down.push(`❌ ${label} → ERREUR : ${e.message}`);
+    }
+  });
+
+  if (down.length > 0 || slow.length > 0) {
+    const lines = [
+      down.length   ? `HORS LIGNE :\n${down.join('\n')}` : '',
+      slow.length   ? `\nLENTS :\n${slow.join('\n')}` : '',
+      '\nVérifier GitHub Actions et Netlify. Intervenir dès que possible.',
+    ].filter(Boolean).join('\n');
+
+    MailApp.sendEmail({
+      to     : CONFIG.MON_EMAIL,
+      subject: `🚨 ${down.length > 0 ? 'SITE EN PANNE' : 'Site lent'} — Mémoire & Présence`,
+      body   : lines,
+    });
+    Logger.log('🚨 Alerte envoyée : ' + lines);
+  } else {
+    Logger.log('✅ Health check OK — tous les sites répondent.');
+  }
+}
+
+/** Installer le health check hebdomadaire (appeler une seule fois). */
+function installHealthCheckTrigger() {
+  ScriptApp.getProjectTriggers()
+    .filter(t => t.getHandlerFunction() === 'weeklyHealthCheck')
+    .forEach(t => ScriptApp.deleteTrigger(t));
+
+  ScriptApp.newTrigger('weeklyHealthCheck')
+    .timeBased()
+    .everyWeeks(1)
+    .onWeekDay(ScriptApp.WeekDay.MONDAY)
+    .atHour(7) // avant la génération du contenu social à 8h
+    .create();
+
+  Logger.log('✅ Health check installé — chaque lundi 7h.');
+}
