@@ -33,6 +33,14 @@
 .temo-card__author { font-size: 0.82rem; color: #6e8870; font-style: normal; letter-spacing: 0.04em; }
 .temoignages-swiper .swiper-pagination-bullet-active { background: #6e8870; }
 </style>
+<style>
+.home-exemple { padding: 2rem 1.5rem; background: #f0ede6; border-top: 1px solid var(--c-divider); border-bottom: 1px solid var(--c-divider); }
+.home-exemple__inner { max-width: 520px; margin: 0 auto; text-align: center; }
+.home-exemple__kicker { font-size: .7rem; letter-spacing: .14em; text-transform: uppercase; color: #6e8870; font-weight: 600; margin: 0 0 .5rem; }
+.home-exemple__texte { font-family: var(--font-display,Georgia,serif); font-style: italic; font-size: 1rem; color: #4a5568; line-height: 1.55; margin: 0 0 .9rem; }
+.home-exemple__lien { font-size: .85rem; color: #3d6b4f; font-weight: 500; text-decoration: none; border-bottom: 1px solid rgba(61,107,79,.3); padding-bottom: 1px; transition: border-color .2s; }
+.home-exemple__lien:hover { border-color: #3d6b4f; }
+</style>
 </head>
 <body class="page-home">
   <a class="skip-link" href="#contenu-principal">Aller au contenu</a>
@@ -121,9 +129,14 @@
           </div>
         </div>
       </div>
+    
+    <section class="home-exemple" aria-labelledby="exemple-titre" data-aos="fade-up">
+      <div class="home-exemple__inner">
+        <p class="home-exemple__kicker">Un exemple pour comprendre</p>
+        <p class="home-exemple__texte">Pour percevoir ce que nous cr&eacute;ons ensemble, voici l&rsquo;hommage d&rsquo;une famille imaginaire.</p>
+        <a class="home-exemple__lien" href="demo-fictive.html" title="D&eacute;couvrir &agrave; quoi ressemble un hommage num&eacute;rique">Voir un hommage en exemple &rarr;</a>
+      </div>
     </section>
-
-
     <section class="home-fold" id="essentiel" aria-label="L’essentiel du service">
       <div class="home-fold__inner">
         <p class="home-fold__hero-brief">
