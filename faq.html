@@ -12,7 +12,45 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Source+Sans+3:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://unpkg.com/aos@2.3.4/dist/aos.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/glightbox@3.3.0/dist/css/glightbox.min.css">
   <link rel="stylesheet" href="style.css?v=83">
+  <script defer src="https://unpkg.com/alpinejs@3.14.1/dist/cdn.min.js"></script>
+<style>
+  .faq-alpine__item { border-bottom: 1px solid var(--c-divider, rgba(100,82,56,0.34)); }
+  .faq-alpine__btn {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    text-align: left;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 1rem 0;
+    font-family: inherit;
+    font-size: 0.9rem;
+    font-weight: 500;
+    color: var(--c-text, #2c3628);
+    line-height: 1.45;
+    gap: 1rem;
+  }
+  .faq-alpine__btn:hover { color: #3d6b4f; }
+  .faq-alpine__chevron {
+    flex-shrink: 0;
+    width: 18px;
+    height: 18px;
+    transition: transform 0.25s ease;
+    color: #6c8c6e;
+  }
+  .faq-alpine__chevron.is-open { transform: rotate(180deg); }
+  .faq-alpine__body {
+    overflow: hidden;
+    transition: max-height 0.3s ease, opacity 0.25s ease;
+  }
+  .faq-alpine__body p { padding-bottom: 1rem; font-size: 0.86rem; color: var(--c-text-soft, #5a5248); line-height: 1.65; margin: 0; }
+  [x-cloak] { display: none !important; }
+</style>
 </head>
 <body>
   <a class="skip-link" href="#contenu-principal">Aller au contenu</a>
@@ -63,54 +101,109 @@
       <h1 class="page-title">Questions fréquentes</h1>
       <p class="brief-lead">Réponses courtes, sans jargon. Pour toute situation particulière, écrivez-nous : nous préférons le dialogue à une case à cocher.</p>
 
-      <div class="faq-editorial">
-        <details class="faq-editorial__item">
-          <summary>Que contient l’offre digitale de base&nbsp;?</summary>
-          <p>Une page hommage avec une photo du défunt, un texte choisi par la famille, et une galerie d’environ dix photos. La page est accessible via un lien sécurisé ou un QR code.</p>
-        </details>
-        <details class="faq-editorial__item">
-          <summary>Peut-on personnaliser la page hommage&nbsp;?</summary>
-          <p>Oui : photos supplémentaires, vidéo souvenir, musique, couleurs, message d’accueil… Nous définissons ensemble ce qui vous ressemble.</p>
-        </details>
-        <details class="faq-editorial__item">
-          <summary>Qu’est-ce que le livre d’or protégé&nbsp;?</summary>
-          <p>Un espace où proches et famille laissent un mot. Il peut être réservé grâce à un mot de passe, et les messages peuvent être relus avant publication.</p>
-        </details>
-        <details class="faq-editorial__item">
-          <summary>Mes données sont-elles protégées&nbsp;?</summary>
-          <p>Oui. Les informations transmises via le site sont traitées avec confidentialité, dans le respect du RGPD. Voir aussi notre page <a href="securite.html">Sécurité &amp; confidentialité</a>.</p>
-        </details>
-        <details class="faq-editorial__item">
-          <summary>Peut-on modifier une page après sa création&nbsp;?</summary>
-          <p>Oui, sur demande. Nous prévoyons un accompagnement pour les ajustements raisonnables ; les refontes importantes font l’objet d’un devis complémentaire transparent.</p>
-        </details>
-        <details class="faq-editorial__item">
-          <summary>La plaque avec QR code est-elle obligatoire&nbsp;?</summary>
-          <p>Notre offre est pensée comme un tout : le support physique relie durablement le lieu de recueillement à la mémoire en ligne. Pour des situations particulières, parlez-nous-en dans votre demande de devis.</p>
-        </details>
-        <details class="faq-editorial__item">
-          <summary>Puis-je commander uniquement la plaque ou uniquement le digital&nbsp;?</summary>
-          <p>Les offres sont conçues comme un ensemble cohérent. Certaines options se choisissent à la carte : détaillez vos besoins dans le formulaire de devis.</p>
-        </details>
-        <details class="faq-editorial__item">
-          <summary>Puis-je choisir la forme ou le style de la plaque&nbsp;?</summary>
-          <p>Oui. Nous proposons différentes gammes, du plus sobre au plus personnalisé, avec l’appui d’un graveur partenaire.</p>
-        </details>
-        <details class="faq-editorial__item">
-          <summary>Quels sont les tarifs&nbsp;?</summary>
-          <p>Chaque projet est sur mesure : nous ne publions pas de grille figée. À titre indicatif, les offres digitales peuvent débuter à partir de <strong>129&nbsp;€ TTC</strong>. Un devis détaillé vous est remis après échange.</p>
-        </details>
-        <details class="faq-editorial__item">
-          <summary>Livrez-vous partout en France&nbsp;?</summary>
-          <p>Oui. Les plaques sont expédiées avec soin à l’adresse que vous indiquez.</p>
-        </details>
-        <details class="faq-editorial__item">
-          <summary>Comment vous contacter&nbsp;?</summary>
-          <p>Par e-mail à <a href="mailto:memoirepresence@gmail.com">memoirepresence@gmail.com</a>, par le <a href="contact.html">formulaire de contact</a>, ou par téléphone au <a href="tel:+33786173715">07&nbsp;86&nbsp;17&nbsp;37&nbsp;15</a>. Nous répondons en principe sous 24 à 48&nbsp;h.</p>
-        </details>
+      <div class="faq-editorial" x-cloak>
+        <div class="faq-editorial__item faq-alpine__item" x-data="{ open: false }">
+          <button class="faq-alpine__btn" @click="open = !open" :aria-expanded="open">
+            <span>Que contient l'offre digitale de base&nbsp;?</span>
+            <svg class="faq-alpine__chevron" :class="{ 'is-open': open }" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
+          </button>
+          <div x-show="open" x-transition:enter="faq-alpine__body" x-transition style="overflow:hidden">
+            <p>Une page hommage avec une photo du défunt, un texte choisi par la famille, et une galerie d'environ dix photos. La page est accessible via un lien sécurisé ou un QR code.</p>
+          </div>
+        </div>
+        <div class="faq-editorial__item faq-alpine__item" x-data="{ open: false }">
+          <button class="faq-alpine__btn" @click="open = !open" :aria-expanded="open">
+            <span>Peut-on personnaliser la page hommage&nbsp;?</span>
+            <svg class="faq-alpine__chevron" :class="{ 'is-open': open }" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
+          </button>
+          <div x-show="open" x-transition:enter="faq-alpine__body" x-transition style="overflow:hidden">
+            <p>Oui&nbsp;: photos supplémentaires, vidéo souvenir, musique, couleurs, message d'accueil. Nous définissons ensemble ce qui vous ressemble.</p>
+          </div>
+        </div>
+        <div class="faq-editorial__item faq-alpine__item" x-data="{ open: false }">
+          <button class="faq-alpine__btn" @click="open = !open" :aria-expanded="open">
+            <span>Qu'est-ce que le livre d'or protégé&nbsp;?</span>
+            <svg class="faq-alpine__chevron" :class="{ 'is-open': open }" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
+          </button>
+          <div x-show="open" x-transition:enter="faq-alpine__body" x-transition style="overflow:hidden">
+            <p>Un espace où proches et famille laissent un mot. Il peut être réservé grâce à un mot de passe, et les messages peuvent être relus avant publication.</p>
+          </div>
+        </div>
+        <div class="faq-editorial__item faq-alpine__item" x-data="{ open: false }">
+          <button class="faq-alpine__btn" @click="open = !open" :aria-expanded="open">
+            <span>Mes données sont-elles protégées&nbsp;?</span>
+            <svg class="faq-alpine__chevron" :class="{ 'is-open': open }" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
+          </button>
+          <div x-show="open" x-transition:enter="faq-alpine__body" x-transition style="overflow:hidden">
+            <p>Oui. Les informations transmises via le site sont traitées avec confidentialité, dans le respect du RGPD. Voir aussi notre page <a href="securite.html">Sécurité &amp; confidentialité</a>.</p>
+          </div>
+        </div>
+        <div class="faq-editorial__item faq-alpine__item" x-data="{ open: false }">
+          <button class="faq-alpine__btn" @click="open = !open" :aria-expanded="open">
+            <span>Peut-on modifier une page après sa création&nbsp;?</span>
+            <svg class="faq-alpine__chevron" :class="{ 'is-open': open }" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
+          </button>
+          <div x-show="open" x-transition:enter="faq-alpine__body" x-transition style="overflow:hidden">
+            <p>Oui, sur demande. Nous prévoyons un accompagnement pour les ajustements raisonnables&nbsp;; les refontes importantes font l'objet d'un devis complémentaire transparent.</p>
+          </div>
+        </div>
+        <div class="faq-editorial__item faq-alpine__item" x-data="{ open: false }">
+          <button class="faq-alpine__btn" @click="open = !open" :aria-expanded="open">
+            <span>La plaque avec QR code est-elle obligatoire&nbsp;?</span>
+            <svg class="faq-alpine__chevron" :class="{ 'is-open': open }" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
+          </button>
+          <div x-show="open" x-transition:enter="faq-alpine__body" x-transition style="overflow:hidden">
+            <p>Notre offre est pensée comme un tout&nbsp;: le support physique relie durablement le lieu de recueillement à la mémoire en ligne. Pour des situations particulières, parlez-nous-en dans votre demande de devis.</p>
+          </div>
+        </div>
+        <div class="faq-editorial__item faq-alpine__item" x-data="{ open: false }">
+          <button class="faq-alpine__btn" @click="open = !open" :aria-expanded="open">
+            <span>Puis-je commander uniquement la plaque ou uniquement le digital&nbsp;?</span>
+            <svg class="faq-alpine__chevron" :class="{ 'is-open': open }" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
+          </button>
+          <div x-show="open" x-transition:enter="faq-alpine__body" x-transition style="overflow:hidden">
+            <p>Les offres sont conçues comme un ensemble cohérent. Certaines options se choisissent à la carte&nbsp;: détaillez vos besoins dans le formulaire de devis.</p>
+          </div>
+        </div>
+        <div class="faq-editorial__item faq-alpine__item" x-data="{ open: false }">
+          <button class="faq-alpine__btn" @click="open = !open" :aria-expanded="open">
+            <span>Puis-je choisir la forme ou le style de la plaque&nbsp;?</span>
+            <svg class="faq-alpine__chevron" :class="{ 'is-open': open }" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
+          </button>
+          <div x-show="open" x-transition:enter="faq-alpine__body" x-transition style="overflow:hidden">
+            <p>Oui. Nous proposons différentes gammes, du plus sobre au plus personnalisé, avec l'appui d'un graveur partenaire.</p>
+          </div>
+        </div>
+        <div class="faq-editorial__item faq-alpine__item" x-data="{ open: false }">
+          <button class="faq-alpine__btn" @click="open = !open" :aria-expanded="open">
+            <span>Quels sont les tarifs&nbsp;?</span>
+            <svg class="faq-alpine__chevron" :class="{ 'is-open': open }" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
+          </button>
+          <div x-show="open" x-transition:enter="faq-alpine__body" x-transition style="overflow:hidden">
+            <p>Chaque projet est sur mesure&nbsp;: nous ne publions pas de grille figée. À titre indicatif, les offres digitales peuvent débuter à partir de <strong>129&nbsp;€ TTC</strong>. Un devis détaillé vous est remis après échange.</p>
+          </div>
+        </div>
+        <div class="faq-editorial__item faq-alpine__item" x-data="{ open: false }">
+          <button class="faq-alpine__btn" @click="open = !open" :aria-expanded="open">
+            <span>Livrez-vous partout en France&nbsp;?</span>
+            <svg class="faq-alpine__chevron" :class="{ 'is-open': open }" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
+          </button>
+          <div x-show="open" x-transition:enter="faq-alpine__body" x-transition style="overflow:hidden">
+            <p>Oui. Les plaques sont expédiées avec soin à l'adresse que vous indiquez.</p>
+          </div>
+        </div>
+        <div class="faq-editorial__item faq-alpine__item" x-data="{ open: false }">
+          <button class="faq-alpine__btn" @click="open = !open" :aria-expanded="open">
+            <span>Comment vous contacter&nbsp;?</span>
+            <svg class="faq-alpine__chevron" :class="{ 'is-open': open }" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
+          </button>
+          <div x-show="open" x-transition:enter="faq-alpine__body" x-transition style="overflow:hidden">
+            <p>Par e-mail à <a href="mailto:memoirepresence@gmail.com">memoirepresence@gmail.com</a>, par le <a href="contact.html">formulaire de contact</a>, ou par téléphone au <a href="tel:+33786173715">07&nbsp;86&nbsp;17&nbsp;37&nbsp;15</a>. Nous répondons en principe sous 24 à 48&nbsp;h.</p>
+          </div>
+        </div>
       </div>
 
-      <section class="page-section page-section--cta">
+      <section class="page-section page-section--cta" data-aos="fade-up">
         <p class="page-cta-wrap"><a class="btn btn--primary" href="devis.html">Faire une demande de devis</a></p>
       </section>
     </article>
@@ -143,6 +236,16 @@
       <p class="site-footer__meta">© <span id="year"></span> Mémoire &amp; Présence — Tous droits réservés.</p>
     </div>
   </footer>
-  <script src="script.js?v=26" defer></script>
+  
+  <script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/glightbox@3.3.0/dist/js/glightbox.min.js"></script>
+  <script>
+    document.addEventListener("DOMContentLoaded", function () {
+      AOS.init({ duration: 650, once: true, offset: 50, easing: "ease-out-quart" });
+      if (typeof GLightbox !== "undefined") {
+        GLightbox({ selector: ".glightbox", touchNavigation: true, loop: false, closeButton: true });
+      }
+    });
+  </script>  <script src="script.js?v=26" defer></script>
 </body>
 </html>

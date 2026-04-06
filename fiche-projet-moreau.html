@@ -12,6 +12,8 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Source+Sans+3:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://unpkg.com/aos@2.3.4/dist/aos.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/glightbox@3.3.0/dist/css/glightbox.min.css">
   <link rel="stylesheet" href="style.css?v=83">
   <style>
     .fp-badge {
@@ -397,23 +399,23 @@
       <section class="page-section" aria-labelledby="fp-parcours">
         <h2 id="fp-parcours">Comment ça s'est passé</h2>
         <div class="fp-timeline" role="list">
-          <div class="fp-timeline__step" role="listitem">
+          <div class="fp-timeline__step" data-aos="fade-right" data-aos-delay="80" role="listitem">
             <p class="fp-timeline__day">Jour 1</p>
             <p class="fp-timeline__desc">Premier appel avec la fille aînée, Isabelle. 45 minutes à écouter, noter les souvenirs, comprendre ce que Simone aimait. Formulaire d'accompagnement envoyé par e-mail le soir.</p>
           </div>
-          <div class="fp-timeline__step" role="listitem">
+          <div class="fp-timeline__step" data-aos="fade-right" data-aos-delay="160" role="listitem">
             <p class="fp-timeline__day">Jours 2–4</p>
             <p class="fp-timeline__desc">La famille réunit les photos, textes et l'enregistrement audio. Nous répondons aux questions par message. Aucune urgence imposée.</p>
           </div>
-          <div class="fp-timeline__step" role="listitem">
+          <div class="fp-timeline__step" data-aos="fade-right" data-aos-delay="240" role="listitem">
             <p class="fp-timeline__day">Jours 5–10</p>
             <p class="fp-timeline__desc">Création de la page hommage et montage vidéo. Première version envoyée à la famille pour validation. Deux retours de retouches mineurs : la chronologie et une photo de jeunesse à replacer.</p>
           </div>
-          <div class="fp-timeline__step" role="listitem">
+          <div class="fp-timeline__step" data-aos="fade-right" data-aos-delay="320" role="listitem">
             <p class="fp-timeline__day">Jour 12</p>
             <p class="fp-timeline__desc">Validation finale par Isabelle et son frère Marc. Commande des plaques lancée auprès du graveur partenaire.</p>
           </div>
-          <div class="fp-timeline__step" role="listitem">
+          <div class="fp-timeline__step" data-aos="fade-right" data-aos-delay="400" role="listitem">
             <p class="fp-timeline__day">Jour 18</p>
             <p class="fp-timeline__desc">Livraison des deux plaques. Lien de la page hommage et mot de passe transmis à toute la famille par e-mail. La page est en ligne.</p>
           </div>
@@ -454,7 +456,7 @@
       </section>
 
       <!-- CTA -->
-      <section class="page-section page-section--cta" aria-labelledby="fp-cta">
+      <section class="page-section page-section--cta" data-aos="fade-up" aria-labelledby="fp-cta">
         <h2 id="fp-cta" class="sr-only">Démarrer votre projet</h2>
         <p style="font-family:var(--font-display);font-style:italic;font-size:1.05rem;color:var(--c-text-soft);margin-bottom:1.3rem;">Chaque famille a son histoire. Nous l'écoutons avant de créer quoi que ce soit.</p>
         <p class="page-cta-wrap page-cta-wrap--row">
@@ -494,6 +496,16 @@
     </div>
   </footer>
 
-  <script src="script.js?v=26" defer></script>
+  
+  <script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/glightbox@3.3.0/dist/js/glightbox.min.js"></script>
+  <script>
+    document.addEventListener("DOMContentLoaded", function () {
+      AOS.init({ duration: 650, once: true, offset: 50, easing: "ease-out-quart" });
+      if (typeof GLightbox !== "undefined") {
+        GLightbox({ selector: ".glightbox", touchNavigation: true, loop: false, closeButton: true });
+      }
+    });
+  </script>  <script src="script.js?v=26" defer></script>
 </body>
 </html>
