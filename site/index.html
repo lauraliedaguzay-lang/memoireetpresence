@@ -23,7 +23,7 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css">
   <link rel="stylesheet" href="https://unpkg.com/aos@2.3.4/dist/aos.css">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/glightbox@3.3.0/dist/css/glightbox.min.css">
-  <link rel="stylesheet" href="style.css?v=87">
+  <link rel="stylesheet" href="style.css?v=89">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
 <style>
@@ -32,14 +32,6 @@
 .temo-card__text { font-family: var(--font-display, Georgia, serif); font-style: italic; font-size: 1.05rem; line-height: 1.65; color: #2c3e41; margin: 0 0 1rem; }
 .temo-card__author { font-size: 0.82rem; color: #6e8870; font-style: normal; letter-spacing: 0.04em; }
 .temoignages-swiper .swiper-pagination-bullet-active { background: #6e8870; }
-</style>
-<style>
-.home-exemple { padding: 2rem 1.5rem; background: #f0ede6; border-top: 1px solid var(--c-divider); border-bottom: 1px solid var(--c-divider); }
-.home-exemple__inner { max-width: 520px; margin: 0 auto; text-align: center; }
-.home-exemple__kicker { font-size: .7rem; letter-spacing: .14em; text-transform: uppercase; color: #6e8870; font-weight: 600; margin: 0 0 .5rem; }
-.home-exemple__texte { font-family: var(--font-display,Georgia,serif); font-style: italic; font-size: 1rem; color: #4a5568; line-height: 1.55; margin: 0 0 .9rem; }
-.home-exemple__lien { font-size: .85rem; color: #3d6b4f; font-weight: 500; text-decoration: none; border-bottom: 1px solid rgba(61,107,79,.3); padding-bottom: 1px; transition: border-color .2s; }
-.home-exemple__lien:hover { border-color: #3d6b4f; }
 </style>
 </head>
 <body class="page-home">
@@ -90,9 +82,10 @@
           <p class="hero__lead hero__lead--home">
             À chaque vie correspond <strong>une seule page</strong>, pensée pour elle : un lieu discret où la mémoire se lit et se transmet. Le QR sur la plaque appelle <strong>votre</strong> espace — privé, protégé ou partagé, selon ce que vous décidez.
           </p>
-          <div class="hero__actions hero__actions--home">
+                    <div class="hero__actions hero__actions--home">
             <a class="btn btn--primary btn--premium" href="devis.html">Demander un devis</a>
-            <a class="btn btn--ghost btn--premium-ghost" href="video-hommage.html#exemple">Exemple de vidéo hommage</a>
+            <a class="btn btn--ghost btn--premium-ghost" href="video-hommage.html#exemple">Exemple de vid&eacute;o hommage</a>
+            <a class="btn btn--ghost btn--ghost--exemple" href="demo-fictive.html">Voir un hommage en exemple</a>
           </div>
           <p class="hero__footnote">
             Premier échange sans engagement · Devis détaillé avant toute commande
@@ -129,6 +122,7 @@
           </div>
         </div>
       </div>
+    </section><!-- /hero -->
     
     <section class="home-exemple" aria-labelledby="exemple-titre" data-aos="fade-up">
       <div class="home-exemple__inner">
@@ -203,7 +197,7 @@
               <div class="home-fold__col">
                 <h2 class="home-fold__h">Confidentialité &amp; accès</h2>
                 <p class="home-fold__p">Chaque hommage dispose d’une <strong>adresse dédiée</strong> (ex. <code class="home-fold__code">/hommage/nom-du-projet</code>). Elle n’est pas listée sur notre site : on y arrive par le QR, ou par un lien que vous transmettez. Selon votre choix, nous ajoutons une <strong>porte d’entrée par code</strong> — élégante, sobre — avant d’afficher le contenu. Pour une sécurité forte en production, le verrouillage côté serveur reste recommandé ; la structure que nous posons aujourd’hui prépare cette évolution.</p>
-                <p class="home-fold__p home-fold__p--small"><a href="hommage/exemple-defunt/">Exemple de page hommage fictive</a> (porte + code d’essai <strong>memoire</strong> — <a href="acces-hommage-demo.html">explications</a>) — <a href="hommage/famille-martin/">modèle technique minimal</a></p>
+                <p class="home-fold__p home-fold__p--small"><a href="demo-fictive.html">Voir un exemple complet de parcours</a></p>
               </div>
               <div class="home-fold__col">
                 <h2 class="home-fold__h">Ce que comprend l’hommage</h2>

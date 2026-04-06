@@ -792,3 +792,114 @@ function installHealthCheckTrigger() {
 
   Logger.log('✅ Health check installé — chaque lundi 7h.');
 }
+
+// ─── FOURNISSEUR PLAQUES : RENAUD GRAVURE ─────────────────────────────────────
+
+const FOURNISSEUR = {
+  nom        : 'RENAUD Gravure',
+  email      : 'contact@renaudgravure.com',
+  telephone  : '02 41 32 14 13',
+  adresse    : '2 rue de la Ch\u00enaie, Z.A. de la Croix de Sarthe, 49460 Cantenay-\u00c9pinard',
+  site       : 'www.renaudgravure.com',
+  delai      : '24-48h d\u2019exp\u00e9dition apr\u00e8s validation graphique',
+  materiau   : 'Ardoise naturelle cliv\u00e9e, \u00e9paisseur 10-13 mm, bords chanfr\u00e9in\u00e9s',
+  gravure    : 'Gravure v\u00e9ritable creus\u00e9e (non laser) — trait minimum 2 mm',
+  finitions  : 'Dor\u00e9e or 24 carats / Aluminisatoin / R\u00e9sine color\u00e9e',
+  attention  : 'QR code : minimum 5\u00d75 cm sur la plaque pour scannabilit\u00e9. Traits \u22652mm obligatoire.',
+};
+
+const PROMPT_FOURNISSEUR = `Tu r\u00e9diges un email professionnel de commande de plaque fun\u00e9raire
+\u00e0 RENAUD Gravure (artisan graveur, 27 ans d\u2019exp\u00e9rience, contact@renaudgravure.com).
+
+CONTRAINTES TECHNIQUES OBLIGATOIRES \u00e0 mentionner dans chaque commande :
+- Mat\u00e9riau : ardoise naturelle cliv\u00e9e, \u00e9paisseur 10-13 mm
+- Gravure traditionnelle creus\u00e9e (pas laser) \u2014 trait minimum 2 mm
+- QR code : minimum 5\u00d75 cm sur la plaque, simplifi\u00e9 (noir plein, sans d\u00e9grad\u00e9), erreur correction niveau H
+- Finition dorure or 24 carats sur le texte (sauf si client pr\u00e9f\u00e8re aluminis\u00e9)
+- Plaque pr\u00e9-perc\u00e9e, vis et cache-vis laiton inclus
+- Livraison colissimo suivi, France m\u00e9tropolitaine
+
+FORMAT DU MAIL :
+Objet : Commande plaque ardoise \u2014 R\u00e9f. MP-[ANNEE]-[NUM]
+Corps : Bonjour, je commande au nom de M\u00e9moire & Pr\u00e9sence (studio de cr\u00e9ation d\u2019hommages num\u00e9riques).
+
+Inclure :
+1. R\u00e9f\u00e9rence commande (MP-AAAA-NNN)
+2. Dimensions exactes souhait\u00e9es (format standard conseill\u00e9 : 30\u00d720 cm ou 40\u00d720 cm)
+3. Texte exact \u00e0 graver (nom, dates, citation courte si pr\u00e9vue)
+4. Position et taille du QR code (toujours coin bas droit, 5\u00d75 cm minimum)
+5. Finition souhait\u00e9e (or 24 carats par d\u00e9faut)
+6. Adresse de livraison client finale
+7. Demande d\u2019\u00e9tude graphique pr\u00e9alable par email avant gravure
+8. D\u00e9lai souhait\u00e9
+
+Ton : professionnel, direct, pr\u00e9cis. Signer : "Lauralie \u2014 M\u00e9moire & Pr\u00e9sence \u2014 memoirepresence@gmail.com".`;
+
+/**
+ * Appel\u00e9 par Lauralie quand une commande client est valid\u00e9e.
+ * G\u00e9n\u00e8re et envoie automatiquement l\u2019email de commande \u00e0 RENAUD Gravure.
+ *
+ * @param {Object} commande - { ref, nom_defunt, format, texte, citation, adresse_livraison, finition, delai_souhaite }
+ */
+function commanderPlaqueRENAUD(commande) {
+  const userContent = `G\u00e9n\u00e8re l\u2019email de commande plaque pour RENAUD Gravure avec ces informations :
+
+R\u00e9f\u00e9rence     : ${commande.ref || 'MP-' + new Date().getFullYear() + '-001'}
+D\u00e9funt       : ${commande.nom_defunt || '\u00e0 pr\u00e9ciser'}
+Format       : ${commande.format || '30\u00d720 cm (format standard)'}
+Texte exact  : ${commande.texte || '\u00e0 pr\u00e9ciser'}
+Citation     : ${commande.citation || 'aucune'}
+Finition     : ${commande.finition || 'Dor\u00e9e or 24 carats'}
+Livraison \u00e0  : ${commande.adresse_livraison || '\u00e0 pr\u00e9ciser'}
+D\u00e9lai souhait\u00e9: ${commande.delai_souhaite || '3 semaines'}
+
+QR code : toujours pr\u00e9sent, coin bas droit, 5\u00d75 cm minimum, finition assortie au texte.
+Demander une \u00e9tude graphique avant gravure.`;
+
+  const emailCorps = _callClaudeAPI_Fournisseur(userContent);
+
+  // Cr\u00e9er un brouillon Gmail (Lauralie valide avant envoi)
+  GmailApp.createDraft(
+    FOURNISSEUR.email,
+    `Commande plaque ardoise \u2014 R\u00e9f. ${commande.ref || 'MP-' + new Date().getFullYear()}`,
+    emailCorps
+  );
+
+  // Notif push
+  MailApp.sendEmail({
+    to     : CONFIG.MON_EMAIL,
+    subject: `\ud83d\udce6 Brouillon commande RENAUD Gravure pr\u00eat \u2014 ${commande.ref}`,
+    body   : `Brouillon commande plaque cr\u00e9\u00e9 dans Gmail.\nFournisseur : RENAUD Gravure (${FOURNISSEUR.email})\n\u00c0 v\u00e9rifier et envoyer depuis Gmail.`,
+  });
+
+  Logger.log(`\u2705 Brouillon commande RENAUD Gravure cr\u00e9\u00e9 pour ${commande.ref}`);
+}
+
+function _callClaudeAPI_Fournisseur(userContent) {
+  const res = UrlFetchApp.fetch('https://api.anthropic.com/v1/messages', {
+    method            : 'post',
+    headers           : { 'x-api-key': CONFIG.CLAUDE_API_KEY, 'anthropic-version': '2023-06-01', 'content-type': 'application/json' },
+    payload           : JSON.stringify({ model: CONFIG.CLAUDE_MODEL, max_tokens: 800, system: PROMPT_FOURNISSEUR, messages: [{ role: 'user', content: userContent }] }),
+    muteHttpExceptions: true,
+  });
+  const r = JSON.parse(res.getContentText());
+  if (r.error) throw new Error(`Claude Fournisseur : ${r.error.message}`);
+  return r.content?.[0]?.text || '';
+}
+
+/**
+ * TEST : simule une commande r\u00e9elle.
+ * Ex\u00e9cuter depuis l\u2019\u00e9diteur Apps Script pour voir le brouillon dans Gmail.
+ */
+function testCommandeFournisseur() {
+  commanderPlaqueRENAUD({
+    ref               : 'MP-2026-001',
+    nom_defunt        : 'Élise Fontaine',
+    format            : '30\u00d720 cm',
+    texte             : 'Élise Fontaine\n1948 \u2013 2026\n\u00ab\u00a0Elle aimait son jardin et ses petits-enfants\u00a0\u00bb',
+    citation          : 'Elle aimait son jardin et ses petits-enfants',
+    finition          : 'Dor\u00e9e or 24 carats',
+    adresse_livraison : 'Sophie Fontaine, 12 rue des Roses, 35000 Rennes',
+    delai_souhaite    : 'Avant le 4 septembre 2026',
+  });
+}
