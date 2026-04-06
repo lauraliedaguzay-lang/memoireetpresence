@@ -1,6 +1,6 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 100" fill="none" aria-hidden="true">
+﻿<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 100" fill="none" aria-hidden="true">
   <circle cx="48" cy="50" r="34" stroke="#8ca88e" stroke-width="1.5"/>
   <path fill="#6e8870" d="M48 24 36 46h6l-7 18 15-12 2 24 2-24 15 12-7-18h6L48 24Z"/>
-  <text x="96" y="44" fill="#2c3e41" font-family="Georgia, 'Times New Roman', serif" font-size="17" font-weight="600">MÉMOIRE &amp; PRÉSENCE</text>
-  <text x="96" y="64" fill="#6e685e" font-family="system-ui, sans-serif" font-size="9" letter-spacing="0.06em">L'IMAGE AU SERVICE DU SOUVENIR</text>
+  <text x="96" y="44" fill="#2c3e41" font-family="'Cormorant Garamond','Book Antiqua',Palatino,Georgia,serif" font-size="18" font-weight="600" letter-spacing="0.04em">M├ëMOIRE &amp; PR├ëSENCE</text>
+  <text x="96" y="64" fill="#6e685e" font-family="'Source Sans 3','Helvetica Neue',Arial,sans-serif" font-size="8.5" letter-spacing="0.09em">L'IMAGE AU SERVICE DU SOUVENIR</text>
 </svg>

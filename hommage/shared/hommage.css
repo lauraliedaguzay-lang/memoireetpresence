@@ -1,4 +1,4 @@
-:root {
+﻿:root {
   --h-space-gutter: clamp(0.85rem, 2.4vw, 1.2rem);
   --h-bg-sable-image: url("../../images/bg-sable.png");
   --h-bg-sable-blur-d: 14px;
@@ -104,10 +104,9 @@ body.hommage-body::after {
       rgba(222, 212, 194, 0.32) 72%,
       rgba(216, 206, 188, 0.28) 100%
     ),
-    radial-gradient(ellipse 90% 55% at 50% 0%, rgba(255, 252, 246, 0.22) 0%, transparent 52%),
-    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='600' height='600'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.022' numOctaves='4' seed='5' stitchTiles='stitch'/%3E%3CfeColorMatrix type='matrix' values='0 0 0 0 0.65 0 0 0 0 0.55 0 0 0 0 0.38 0 0 0 1 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
-  background-size: auto, auto, 480px 480px;
-  background-repeat: no-repeat, no-repeat, repeat;
+    radial-gradient(ellipse 90% 55% at 50% 0%, rgba(255, 252, 246, 0.22) 0%, transparent 52%);
+  background-size: auto, auto;
+  background-repeat: no-repeat, no-repeat;
 }
 
 @media (min-width: 768px) {
