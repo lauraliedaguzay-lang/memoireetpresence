@@ -54,7 +54,7 @@ iframe {
 
 html {
   scroll-behavior: auto;
-  overflow-x: hidden;
+  /* overflow-x sur html seul casse le scroll momentum iOS — géré sur body */
   background-color: var(--c-bg);
   scroll-padding-top: calc(var(--header-h-mobile) + env(safe-area-inset-top, 0px) + 8px);
 }
@@ -94,6 +94,8 @@ body {
   min-height: 100vh;
   min-height: 100dvh;
   overflow-x: hidden;
+  -webkit-overflow-scrolling: touch; /* momentum scroll iOS */
+  overscroll-behavior-y: none;       /* supprime le rubber-band Android */
   background-color: transparent;
   font-family: var(--font-body);
   font-size: 0.9375rem;
@@ -104,6 +106,26 @@ body {
   overflow-wrap: break-word;
 }
 
+
+/* Scroll fluide sur ancres — respecte les préférences utilisateur */
+@media (prefers-reduced-motion: no-preference) {
+  html {
+    scroll-behavior: smooth;
+  }
+}
+
+/* Supprime le délai tactile 300ms sur tous les éléments interactifs */
+a, button, [role="button"], label, summary {
+  touch-action: manipulation;
+}
+
+/* GPU sur les éléments animés par AOS pour éviter les repaints */
+[data-aos] {
+  will-change: transform, opacity;
+}
+[data-aos].aos-animate {
+  will-change: auto; /* libère après animation */
+}
 body::before {
   content: "";
   position: absolute;
@@ -506,6 +528,7 @@ button:focus-visible {
   box-shadow: 0 4px 22px rgba(139, 115, 75, 0.08);
   transition: box-shadow 200ms var(--ease);
   overflow: visible;
+  will-change: transform; /* GPU layer — évite repaint sur scroll */
 }
 
 /* Évite sticky + menu fixed (enfant) : panneau vide / clipsé (Safari, iOS). Bandeau fixe + décalage du <main>. */
@@ -517,6 +540,10 @@ button:focus-visible {
     right: 0;
     width: 100%;
     max-width: 100%;
+    /* Blur réduit sur mobile : backdrop-filter coûteux à 60fps */
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    background: rgba(220, 210, 190, 0.96); /* opacité plus haute pour compenser */
   }
 
   main#contenu-principal {
@@ -1541,6 +1568,26 @@ article.page-inner {
   border-top: 1px solid var(--c-divider);
 }
 
+
+/* Scroll fluide sur ancres — respecte les préférences utilisateur */
+@media (prefers-reduced-motion: no-preference) {
+  html {
+    scroll-behavior: smooth;
+  }
+}
+
+/* Supprime le délai tactile 300ms sur tous les éléments interactifs */
+a, button, [role="button"], label, summary {
+  touch-action: manipulation;
+}
+
+/* GPU sur les éléments animés par AOS pour éviter les repaints */
+[data-aos] {
+  will-change: transform, opacity;
+}
+[data-aos].aos-animate {
+  will-change: auto; /* libère après animation */
+}
 .home-fold__p a {
   color: var(--c-green);
 }
@@ -1619,6 +1666,26 @@ article.page-inner {
   color: var(--c-text-soft);
 }
 
+
+/* Scroll fluide sur ancres — respecte les préférences utilisateur */
+@media (prefers-reduced-motion: no-preference) {
+  html {
+    scroll-behavior: smooth;
+  }
+}
+
+/* Supprime le délai tactile 300ms sur tous les éléments interactifs */
+a, button, [role="button"], label, summary {
+  touch-action: manipulation;
+}
+
+/* GPU sur les éléments animés par AOS pour éviter les repaints */
+[data-aos] {
+  will-change: transform, opacity;
+}
+[data-aos].aos-animate {
+  will-change: auto; /* libère après animation */
+}
 .faq-editorial__body p {
   font-size: 0.88rem;
   margin: 0 0 0.65rem;
@@ -2039,12 +2106,52 @@ textarea:focus {
   body {
     background: var(--c-zone-light);
   }
+
+/* Scroll fluide sur ancres — respecte les préférences utilisateur */
+@media (prefers-reduced-motion: no-preference) {
+  html {
+    scroll-behavior: smooth;
+  }
+}
+
+/* Supprime le délai tactile 300ms sur tous les éléments interactifs */
+a, button, [role="button"], label, summary {
+  touch-action: manipulation;
+}
+
+/* GPU sur les éléments animés par AOS pour éviter les repaints */
+[data-aos] {
+  will-change: transform, opacity;
+}
+[data-aos].aos-animate {
+  will-change: auto; /* libère après animation */
+}
 }
 
 body.hommage-body {
   background-color: transparent;
 }
 
+
+/* Scroll fluide sur ancres — respecte les préférences utilisateur */
+@media (prefers-reduced-motion: no-preference) {
+  html {
+    scroll-behavior: smooth;
+  }
+}
+
+/* Supprime le délai tactile 300ms sur tous les éléments interactifs */
+a, button, [role="button"], label, summary {
+  touch-action: manipulation;
+}
+
+/* GPU sur les éléments animés par AOS pour éviter les repaints */
+[data-aos] {
+  will-change: transform, opacity;
+}
+[data-aos].aos-animate {
+  will-change: auto; /* libère après animation */
+}
 .form-section {
   margin-bottom: 1.35rem;
   padding-bottom: 1.05rem;
