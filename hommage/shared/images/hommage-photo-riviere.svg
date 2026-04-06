@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 600" role="img" aria-labelledby="t">
+  <title id="t">Illustration de démonstration  rivière / côte</title>
+  <defs>
+    <linearGradient id="g" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#c8d8e4"/>
+      <stop offset="45%" stop-color="#9eb8c9"/>
+      <stop offset="100%" stop-color="#7a9aab"/>
+    </linearGradient>
+  </defs>
+  <rect width="800" height="600" fill="url(#g)"/>
+  <path d="M0 380 Q200 340 400 380 T800 360 L800 600 L0 600 Z" fill="#5a7a8a" opacity="0.35"/>
+  <path d="M0 420 Q180 400 360 430 T720 410 L800 420 L800 600 L0 600 Z" fill="#4a6a7a" opacity="0.25"/>
+  <text x="400" y="560" text-anchor="middle" fill="#3d5560" font-family="Source Sans 3,system-ui,sans-serif" font-size="22" opacity="0.55">Maquette  rivière</text>
+</svg>

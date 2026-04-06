@@ -5,16 +5,16 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
   <meta name="robots" content="index, follow">
   <meta name="theme-color" content="#f7f4ef">
-  <meta name="description" content="Comment fonctionne la porte d’accès des pages hommage de démonstration — code d’essai, session navigateur, liens vers les maquettes.">
+  <meta name="description" content="Voir deux maquettes d’hommage avant de commander : page ouverte ou entrée par code, comme pour les proches. Données fictives, aperçu dans le navigateur.">
   <link rel="canonical" href="https://www.memoire-et-presence.fr/acces-hommage-demo.html">
   <link rel="icon" href="favicon.svg" type="image/svg+xml">
-  <title>Démo accès réservé — pages hommage — Mémoire &amp; Présence</title>
+  <title>Maquettes pages hommage — Mémoire &amp; Présence</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Source+Sans+3:wght@300;400;500;600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://unpkg.com/aos@2.3.4/dist/aos.css">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/glightbox@3.3.0/dist/css/glightbox.min.css">
-  <link rel="stylesheet" href="style.css?v=91">
+  <link rel="stylesheet" href="style.css?v=95">
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
 </head>
 <body class="page-site">
@@ -35,12 +35,12 @@
       <nav class="site-nav" id="nav-principale" aria-label="Navigation principale">
         <ul class="site-nav__list site-nav__list--full">
           <li class="site-nav__group" aria-hidden="true">
-            <span class="site-nav__group-title">Offre &amp; contenus</span>
+            <span class="site-nav__group-title">Découvrir le service</span>
           </li>
           <li><a href="offre.html#parcours-delais">Parcours &amp; délais</a></li>
           <li><a href="video-hommage.html">Vidéo hommage</a></li>
           <li><a href="plaques-qr.html">Plaques &amp; QR</a></li>
-          <li><a href="acces-hommage-demo.html" aria-current="page">Voir un hommage</a></li>
+          <li><a href="acces-hommage-demo.html" aria-current="page">Maquettes hommage</a></li>
           <li class="nav-secondary"><a href="accompagnement.html">Accompagnement</a></li>
           <li class="nav-secondary"><a href="partage-hommage.html">Liens &amp; partage</a></li>
           <li class="site-nav__group" aria-hidden="true">
@@ -60,36 +60,63 @@
 
   <main class="page-main site-main site-main--ready" id="contenu-principal">
     <article class="page-inner page-inner--wide fade-in-section">
-      <p class="eyebrow">Démonstration · même parcours que pour une famille</p>
+      <nav class="site-breadcrumb" aria-label="Vous êtes ici">
+        <ol class="site-breadcrumb__list">
+          <li><a href="index.html">Accueil</a></li>
+          <li aria-current="page">Maquettes hommage</li>
+        </ol>
+      </nav>
+      <p class="eyebrow">Démonstration · données entièrement fictives</p>
       <h1 class="page-title">Voir une page hommage avant de commander</h1>
       <p class="page-intro">
-        Les hommages livrés peuvent être protégés par un <strong>code</strong> avant d’afficher le contenu. Ici, les maquettes en ligne reproduisent ce geste&nbsp;: écran «&nbsp;Accès réservé&nbsp;», puis la page après saisie du bon code. Pour un <strong>projet réel</strong>, le code est choisi avec vous, ne figure pas sur le site public, et une vérification <strong>côté serveur</strong> reste recommandée pour une sécurité forte — ce que vous voyez ici illustre surtout le parcours et le soin du design.
+        Deux façons de présenter un hommage, en démo&nbsp;: <strong>Claire Fontenay</strong> — tout de suite sous les yeux (idéal pour un aperçu ouvert) · <strong>Famille Martin</strong> — une entrée par <strong>code</strong>, comme quand on partage le lien seulement aux proches. Même soin de mise en page ; le scénario change selon ce que vous voulez faire vivre à vos invités.
       </p>
 
-      <section class="page-section fade-in-section acces-demo" aria-labelledby="acces-demo-code">
-        <h2 id="acces-demo-code">Code d’essai</h2>
-        <p class="acces-demo__code"><strong>memoire</strong> <span class="acces-demo__code-hint">(tout en minuscules, sans espace)</span></p>
+      <section class="page-section fade-in-section acces-demo acces-demo--preview" aria-labelledby="acces-demo-apercu">
+        <h2 id="acces-demo-apercu">Aperçu intégré — accès libre</h2>
         <p class="form-section__intro">
-          Valable pour <strong>les deux</strong> maquettes ci-dessous. Après une saisie correcte, l’accès reste ouvert le temps de la <strong>session</strong> sur cet appareil (<code>sessionStorage</code>). Fermer l’onglet ou le navigateur peut redemander le code.
+          L’iframe ci-dessous charge la maquette <strong>Claire Fontenay</strong> (<strong>accès libre</strong>)&nbsp;: le rendu apparaît sans saisie de code, pour juger textes, portrait et carrousel dans le navigateur.
         </p>
-        <p class="acces-demo__tip">
-          <strong>Sur mobile</strong> : menu du site via l’icône en haut à gauche ; sur la page hommage, faites défiler la galerie au doigt ou utilisez les points sous l’image.
+        <div class="acces-demo-browser" role="region" aria-label="Aperçu intégré — maquette Claire Fontenay accès libre">
+          <div class="acces-demo-browser__bar" aria-hidden="true">
+            <span class="acces-demo-browser__dots"><span></span><span></span><span></span></span>
+            <span class="acces-demo-browser__url" title="https://lauraliedaguzay-lang.github.io/memoireetpresence/hommage/exemple-defunt/">lauraliedaguzay-lang.github.io/memoireetpresence/hommage/exemple-defunt/</span>
+          </div>
+          <iframe class="acces-demo-browser__frame" src="hommage/exemple-defunt/" title="Maquette Claire Fontenay — accès libre, aperçu intégré" loading="eager" sandbox="allow-scripts allow-same-origin allow-forms"></iframe>
+          <p class="acces-demo-browser__note">
+            <a href="https://lauraliedaguzay-lang.github.io/memoireetpresence/hommage/exemple-defunt/" target="_blank" rel="noopener">Ouvrir sur GitHub Pages</a>
+            ·
+            <a href="hommage/exemple-defunt/" target="_blank" rel="noopener">Plein onglet (chemin relatif)</a>
+            ·
+            <a href="hommage/famille-martin/" target="_blank" rel="noopener">Comparer&nbsp;: Famille Martin (accès réservé)</a>
+          </p>
+        </div>
+      </section>
+
+      <section class="page-section fade-in-section acces-demo" aria-labelledby="acces-demo-conseil">
+        <h2 id="acces-demo-conseil">Comment explorer</h2>
+        <p class="form-section__intro">
+          Ouvrez une maquette, faites défiler la page, testez le <strong>carrousel photos</strong> (flèches, points ou geste au doigt sur mobile). Le menu du site reste disponible en haut de chaque maquette pour revenir au site principal.
         </p>
       </section>
 
       <section class="page-section fade-in-section acces-demo" aria-labelledby="acces-demo-maquettes">
-        <h2 id="acces-demo-maquettes">Deux maquettes à parcourir</h2>
+        <h2 id="acces-demo-maquettes">Deux maquettes — accès réservé et accès libre</h2>
+        <p class="acces-demo__compare-lead">Même qualité de page, deux intentions&nbsp;: montrer le design sans friction, ou reproduire le <strong>moment d’entrée</strong> d’un hommage un peu plus intime.</p>
         <div class="acces-demo__grid">
           <article class="acces-demo__card">
+            <span class="acces-demo__card-badge acces-demo__card-badge--reserved">Accès réservé (démo)</span>
             <h3 class="acces-demo__card-title">Famille Martin</h3>
-            <p class="acces-demo__card-desc">Maquette sobre centrée sur la <strong>mise en page</strong> et le rythme de lecture&nbsp;: portrait, textes, panneau souvenir, carrousel de photos fictives.</p>
-            <p class="acces-demo__card-meta">Idéal pour juger la <strong>tenue visuelle</strong> et le confort sur petit écran.</p>
+            <p class="acces-demo__card-desc">Maquette sobre&nbsp;: portrait, textes, panneau souvenir, carrousel — avec <strong>porte d’entrée par code</strong> pour illustrer un hommage transmis en privé.</p>
+            <p class="acces-demo__card-meta">Code d’essai pour la démo&nbsp;: <strong>presence</strong> (sur un projet réel, ce serait un mot de passe que vous choisissez ou que nous vous transmettons).</p>
+            <p class="acces-demo__card-code">En ligne, cette démo peut vérifier le code côté serveur selon l’hébergeur — l’important pour vous est le <strong>ressenti</strong>&nbsp;: vos proches comprennent tout de suite qu’ils arrivent dans un espace dédié.</p>
             <a class="btn btn--primary acces-demo__card-btn" href="hommage/famille-martin/">Ouvrir la maquette Martin</a>
           </article>
           <article class="acces-demo__card">
+            <span class="acces-demo__card-badge acces-demo__card-badge--libre">Accès libre (démo)</span>
             <h3 class="acces-demo__card-title">Claire Fontenay</h3>
-            <p class="acces-demo__card-desc">Maquette plus <strong>éditoriale</strong>&nbsp;: texte de souvenir, encadré type cérémonie (données inventées), galerie — pour se projeter dans un hommage complet.</p>
-            <p class="acces-demo__card-meta">Utile pour voir comment les <strong>informations pratiques</strong> peuvent s’intégrer sans durcir le ton.</p>
+            <p class="acces-demo__card-desc">Maquette plus <strong>éditoriale</strong>&nbsp;: souvenir, encadré type cérémonie (fictif), galerie — tout le contenu est visible <strong>sans code</strong>.</p>
+            <p class="acces-demo__card-meta">Pour comparer le rendu lorsqu’on souhaite montrer la page telle quelle (aperçu client, portfolio).</p>
             <a class="btn btn--primary acces-demo__card-btn" href="hommage/exemple-defunt/">Ouvrir la maquette Fontenay</a>
           </article>
         </div>
@@ -98,7 +125,7 @@
       <section class="page-section fade-in-section acces-demo acces-demo--suite" aria-labelledby="acces-demo-suite">
         <h2 id="acces-demo-suite">Parcours projet &amp; plaque</h2>
         <p>Pour enchaîner avec l’exemple de <strong>devis, délais et livrables</strong> (données fictives «&nbsp;La Roseraie&nbsp;»), ouvrez la démo parcours — elle se complète bien après une visite de page hommage.</p>
-        <p class="form-section__intro" style="margin-top:0.75rem;">Une fois un vrai projet livré, la page <a href="partage-hommage.html">Liens &amp; partage</a> et les <a href="transmission-modeles.html">modèles de messages</a> expliquent comment transmettre l’URL et le code aux proches.</p>
+        <p class="form-section__intro" style="margin-top:0.75rem;">Une fois un vrai projet livré, la page <a href="partage-hommage.html">Liens &amp; partage</a> et les <a href="transmission-modeles.html">modèles de messages</a> expliquent comment transmettre l’URL (et, le cas échéant, un code d’accès) aux proches.</p>
         <p class="page-cta-wrap page-cta-wrap--row" style="margin-top:1rem;">
           <a class="btn btn--ghost" href="demo-fictive.html">Démo parcours projet</a>
           <a class="btn btn--ghost" href="partage-hommage.html">Guide liens &amp; partage</a>
@@ -127,6 +154,12 @@
           <p class="site-footer__siret">SIRET : <span class="placeholder-inline">à compléter</span></p>
         </div>
       </div>
+      <nav class="site-footer__paths" aria-label="Pour vous orienter sur le site">
+        <a href="acces-hommage-demo.html">Maquettes hommage</a>
+        <a href="offre.html#parcours-delais">Parcours &amp; délais</a>
+        <a href="faq.html">Questions fréquentes</a>
+        <a href="contact.html">Contact</a>
+      </nav>
       <nav class="site-footer__legal" aria-label="Informations légales">
         <a href="mentions-legales.html">Mentions légales</a>
         <a href="confidentialite.html">Politique de confidentialité</a>
@@ -146,7 +179,8 @@
         GLightbox({ selector: ".glightbox", touchNavigation: true, loop: false, closeButton: true });
       }
     });
-  </script>  <script src="script.js?v=26" defer></script>
+  </script>
+  <script src="script.js?v=26" defer></script>
   <script>
     (function () {
       if (typeof gsap === "undefined") return;

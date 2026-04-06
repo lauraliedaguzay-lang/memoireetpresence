@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="fr">
 <head>
   <meta charset="UTF-8">
@@ -15,7 +15,7 @@
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css">
   <link rel="stylesheet" href="https://unpkg.com/aos@2.3.4/dist/aos.css">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/glightbox@3.3.0/dist/css/glightbox.min.css">
-  <link rel="stylesheet" href="style.css?v=87">
+  <link rel="stylesheet" href="style.css?v=95">
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
 </head>
 <body>
@@ -36,12 +36,12 @@
       <nav class="site-nav" id="nav-principale" aria-label="Navigation principale">
         <ul class="site-nav__list site-nav__list--full">
           <li class="site-nav__group" aria-hidden="true">
-            <span class="site-nav__group-title">Offre &amp; contenus</span>
+            <span class="site-nav__group-title">Découvrir le service</span>
           </li>
           <li><a href="offre.html#parcours-delais">Parcours &amp; délais</a></li>
           <li><a href="video-hommage.html">Vidéo hommage</a></li>
           <li><a href="plaques-qr.html">Plaques &amp; QR</a></li>
-          <li><a href="acces-hommage-demo.html">Voir un hommage</a></li>
+          <li><a href="acces-hommage-demo.html">Maquettes hommage</a></li>
           <li class="nav-secondary"><a href="accompagnement.html" aria-current="page">Accompagnement</a></li>
           <li class="nav-secondary"><a href="partage-hommage.html">Liens &amp; partage</a></li>
           <li class="site-nav__group" aria-hidden="true">
@@ -61,6 +61,12 @@
 
   <main class="page-main accompagnement-page" id="contenu-principal">
     <div class="page-inner page-inner--wide">
+      <nav class="site-breadcrumb" aria-label="Vous êtes ici">
+        <ol class="site-breadcrumb__list">
+          <li><a href="index.html">Accueil</a></li>
+          <li aria-current="page">Accompagnement</li>
+        </ol>
+      </nav>
       <h1 class="page-title">Un accompagnement sincère, à chaque étape du souvenir</h1>
       <p class="brief-lead">Nous sommes à vos côtés pour créer un hommage fidèle à la personne aimée.</p>
 
@@ -111,7 +117,7 @@
       </div>
 
       <p class="page-cta-wrap page-cta-wrap--row">
-        <p class="form-section__intro" style="text-align:center;margin-bottom:.5rem;"><a href="hommage/exemple-defunt/" title="D&eacute;couvrir &agrave; quoi ressemble un hommage num&eacute;rique" style="color:#3d6b4f;font-weight:500;">Voir un hommage en exemple &rarr;</a></p>
+        <p class="form-section__intro" style="text-align:center;margin-bottom:.5rem;"><a href="hommage/exemple-defunt/" title="D&eacute;couvrir &agrave; quoi ressemble un hommage num&eacute;rique" style="color:#3d6b4f;font-weight:500;">Voir une maquette en exemple &rarr;</a></p>
         <a class="btn btn--primary" href="tel:+33786173715">Être rappelé — appeler</a>
         <a class="btn btn--ghost" href="devis.html">Demander un devis</a>
       </p>
@@ -250,6 +256,12 @@
           <p class="site-footer__siret">SIRET : <span class="placeholder-inline">à compléter</span></p>
         </div>
       </div>
+      <nav class="site-footer__paths" aria-label="Pour vous orienter sur le site">
+        <a href="acces-hommage-demo.html">Maquettes hommage</a>
+        <a href="offre.html#parcours-delais">Parcours &amp; délais</a>
+        <a href="faq.html">Questions fréquentes</a>
+        <a href="contact.html">Contact</a>
+      </nav>
       <nav class="site-footer__legal" aria-label="Informations légales">
         <a href="mentions-legales.html">Mentions légales</a>
         <a href="confidentialite.html">Politique de confidentialité</a>
@@ -271,7 +283,8 @@
         GLightbox({ selector: ".glightbox", touchNavigation: true, loop: false, closeButton: true });
       }
     });
-  </script>  <script src="script.js?v=26" defer></script>
+  </script>
+  <script src="script.js?v=26" defer></script>
   <script>
     (function () {
       if (typeof gsap === "undefined") return;

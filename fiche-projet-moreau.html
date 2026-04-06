@@ -14,7 +14,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Source+Sans+3:wght@300;400;500;600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://unpkg.com/aos@2.3.4/dist/aos.css">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/glightbox@3.3.0/dist/css/glightbox.min.css">
-  <link rel="stylesheet" href="style.css?v=87">
+  <link rel="stylesheet" href="style.css?v=95">
   <style>
     .fp-badge {
       display: inline-flex;
@@ -272,12 +272,12 @@
       <nav class="site-nav" id="nav-principale" aria-label="Navigation principale">
         <ul class="site-nav__list site-nav__list--full">
           <li class="site-nav__group" aria-hidden="true">
-            <span class="site-nav__group-title">Offre &amp; contenus</span>
+            <span class="site-nav__group-title">Découvrir le service</span>
           </li>
           <li><a href="offre.html#parcours-delais">Parcours &amp; délais</a></li>
           <li><a href="video-hommage.html">Vidéo hommage</a></li>
           <li><a href="plaques-qr.html">Plaques &amp; QR</a></li>
-          <li><a href="acces-hommage-demo.html">Voir un hommage</a></li>
+          <li><a href="acces-hommage-demo.html">Maquettes hommage</a></li>
           <li class="nav-secondary"><a href="accompagnement.html">Accompagnement</a></li>
           <li class="nav-secondary"><a href="partage-hommage.html">Liens &amp; partage</a></li>
           <li class="site-nav__group" aria-hidden="true">
@@ -297,6 +297,12 @@
 
   <main class="page-main" id="contenu-principal">
     <article class="page-inner page-inner--wide">
+      <nav class="site-breadcrumb" aria-label="Vous êtes ici">
+        <ol class="site-breadcrumb__list">
+          <li><a href="index.html">Accueil</a></li>
+          <li aria-current="page">Exemple de réalisation</li>
+        </ol>
+      </nav>
 
       <div class="fp-badge">
         <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" style="width:12px;height:12px" aria-hidden="true"><circle cx="8" cy="8" r="6"/><path d="M8 5v3l2 1.5"/></svg>
@@ -347,7 +353,7 @@
             </div>
             <h3 class="fp-card__title">Page hommage en ligne</h3>
             <p class="fp-card__desc">Une page personnalisée avec la biographie de Simone, une galerie de 24 photos de famille, un livre d'or pour les messages de proches, et sa citation préférée de Prévert en ouverture.</p>
-            <span class="fp-card__tag">Accès par lien · protégé par mot de passe</span>
+            <span class="fp-card__tag">Page personnalisée · lien dédié à la famille</span>
           </div>
 
           <div class="fp-card" role="listitem">
@@ -374,21 +380,21 @@
       <!-- MOCKUP PAGE HOMMAGE -->
       <section class="page-section" aria-labelledby="fp-demo">
         <h2 id="fp-demo">La page hommage en situation</h2>
-        <p>Voici à quoi ressemble une page hommage livrée à une famille. Cette maquette est protégée par code — elle s'affiche ici en accès démo automatique.</p>
-        <div class="fp-browser" role="region" aria-label="Maquette de page hommage">
+        <p>Voici à quoi ressemble la page une fois qu’on y est. Ici, l’aperçu intégré montre la démo <strong>Claire Fontenay</strong> (ouverte tout de suite) ; pour voir aussi l’entrée par <strong>code</strong>, rendez-vous sur <a href="acces-hommage-demo.html">Maquettes hommage</a>.</p>
+        <div class="fp-browser" role="region" aria-label="Maquette page hommage Claire Fontenay — accès libre">
           <div class="fp-browser__bar" aria-hidden="true">
             <span class="fp-browser__dots">
               <span></span><span></span><span></span>
             </span>
-            <span class="fp-browser__url">memoire-et-presence.fr / hommage / famille-martin /</span>
+            <span class="fp-browser__url">memoire-et-presence.fr / hommage / claire-fontenay /</span>
           </div>
           <iframe
             class="fp-browser__frame"
-            src="../hommage/famille-martin/?demo=open"
-            title="Maquette page hommage — Famille Martin"
-            loading="lazy"
+            src="hommage/exemple-defunt/"
+            title="Maquette page hommage — Claire Fontenay (accès libre)"
+            loading="eager"
             sandbox="allow-scripts allow-same-origin allow-forms"></iframe>
-          <p class="fp-browser__note">Maquette de démonstration · En production, le code d'accès est communiqué uniquement à la famille</p>
+          <p class="fp-browser__note">Démo · <a href="acces-hommage-demo.html">Autre scénario&nbsp;: code à l’entrée (Martin)</a> · En réel, le lien reste entre vous et vos proches</p>
         </div>
       </section>
 
@@ -414,7 +420,7 @@
           </div>
           <div class="fp-timeline__step" data-aos="fade-right" data-aos-delay="400" role="listitem">
             <p class="fp-timeline__day">Jour 18</p>
-            <p class="fp-timeline__desc">Livraison des deux plaques. Lien de la page hommage et mot de passe transmis à toute la famille par e-mail. La page est en ligne.</p>
+            <p class="fp-timeline__desc">Livraison des deux plaques. Lien de la page hommage transmis à toute la famille par e-mail. La page est en ligne.</p>
           </div>
         </div>
       </section>
@@ -484,6 +490,12 @@
           <p class="site-footer__siret">SIRET : <span class="placeholder-inline">à compléter</span></p>
         </div>
       </div>
+      <nav class="site-footer__paths" aria-label="Pour vous orienter sur le site">
+        <a href="acces-hommage-demo.html">Maquettes hommage</a>
+        <a href="offre.html#parcours-delais">Parcours &amp; délais</a>
+        <a href="faq.html">Questions fréquentes</a>
+        <a href="contact.html">Contact</a>
+      </nav>
       <nav class="site-footer__legal" aria-label="Informations légales">
         <a href="mentions-legales.html">Mentions légales</a>
         <a href="confidentialite.html">Politique de confidentialité</a>
@@ -503,7 +515,8 @@
         GLightbox({ selector: ".glightbox", touchNavigation: true, loop: false, closeButton: true });
       }
     });
-  </script>  <script src="script.js?v=26" defer></script>
+  </script>
+  <script src="script.js?v=26" defer></script>
   <script>
     (function () {
       if (typeof gsap === "undefined") return;
