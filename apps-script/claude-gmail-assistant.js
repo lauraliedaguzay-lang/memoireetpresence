@@ -2,9 +2,10 @@
  * Mémoire & Présence — Assistant Claude pour Gmail
  * Google Apps Script — coller dans script.google.com
  *
- * Chaque brouillon contient DEUX parties :
- *   1. Analyse confidentielle pour Lauralie (coaching vente, stade client, conseils)
- *   2. Brouillon de réponse prêt à envoyer au client (sous validation)
+ * Chaque brouillon contient TROIS parties :
+ *   1. Brouillon de réponse prêt à envoyer au client (sous validation Lauralie)
+ *   2. Analyse confidentielle pour Lauralie (coaching vente, stade client, prochaines étapes)
+ *   3. Brief pour Michaël (ce qu'il doit créer, livrer, dans quel délai)
  */
 
 // ─── CONFIGURATION ────────────────────────────────────────────────────────────
@@ -14,7 +15,8 @@ const CONFIG = {
   CLAUDE_MODEL   : 'claude-3-5-haiku-20241022',  // rapide + économique
   NETLIFY_SENDER : 'team@netlify.com',
   MON_EMAIL      : 'memoirepresence@gmail.com',
-  MAX_TOKENS     : 1200,
+  MAX_TOKENS     : 1800,
+  EMAIL_MICHAEL  : 'michael@memoire-et-presence.fr', // ← Remplacer par le vrai email de Michaël
 };
 
 // ─── PROMPT SYSTÈME — COACH + RÉDACTEUR ──────────────────────────────────────
@@ -43,14 +45,18 @@ Délais : 2 à 5 semaines selon la complexité et les éléments fournis.
 CE QUE TU DOIS PRODUIRE (STRUCTURE OBLIGATOIRE)
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
-Produis TOUJOURS une réponse en deux blocs séparés par des marqueurs exacts :
+Produis TOUJOURS une réponse en TROIS blocs séparés par des marqueurs exacts :
 
 ===ANALYSE_POUR_LAURALIE===
-[Bloc 1 : coaching confidentiel pour Lauralie — ne sera pas envoyé au client]
+[Bloc 1 : coaching confidentiel pour Lauralie]
 ===FIN_ANALYSE===
 
+===BRIEF_MICHAEL===
+[Bloc 2 : ce que Lauralie doit commander/demander à Michaël]
+===FIN_BRIEF_MICHAEL===
+
 ===BROUILLON_CLIENT===
-[Bloc 2 : texte de la réponse à envoyer au client]
+[Bloc 3 : texte de la réponse à envoyer au client]
 ===FIN_BROUILLON===
 
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━
@@ -87,7 +93,41 @@ Ex: "Obtenir un appel" / "Décrocher un devis" / "Rassurer sur la confidentialit
 Ex: "Chaleureux et rassurant — ne pas parler de prix" / "Direct et concret — il a besoin d'un délai précis" / "Très doux — deuil très récent"
 
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━
-BLOC 2 — BROUILLON POUR LE CLIENT
+BLOC 2 — BRIEF POUR MICHAËL
+━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Ce bloc est une note interne que Lauralie va transférer à Michaël.
+Il doit être clair, actionnable, sans jargon commercial.
+
+Si le projet ne nécessite PAS l'intervention de Michaël (contact simple, devis sans vidéo,
+question générale), écrire simplement : "RAS — pas d'intervention Michaël à ce stade."
+
+Sinon, inclure :
+
+🎬 TYPE DE MISSION
+Ex: "Vidéo hommage", "Retouche photo", "Montage diaporama animé", "Export clé USB"
+
+📦 ÉLÉMENTS DISPONIBLES CÔTÉ CLIENT
+Ce que le client a mentionné : photos (combien ?), vidéos courtes, musique choisie, voix off souhaitée ou non.
+
+📐 SPÉCIFICATIONS TECHNIQUES ATTENDUES
+- Format de rendu : MP4 HD 1080p (standard page hommage) ou 4K si export physique
+- Durée estimée : ex. "2-3 min" selon le nombre de photos
+- Style : sobre, transitions douces, palette chaude — cohérent avec la charte M&P
+- Musique : à choisir en bibliothèque libre de droits ou fournie par le client
+- Voix off : oui / non / à préciser avec le client
+
+⏱️ DÉLAI
+Basé sur la demande client et le délai standard 2-5 semaines.
+Ex: "Livraison souhaitée avant le 15 mai — prévoir rendu Michaël pour le 10 mai."
+
+✅ VALIDATION
+"Lauralie valide avant envoi au client — 1 cycle de retouche inclus."
+
+❓ QUESTIONS POUR MICHAËL
+Ce que Lauralie doit lui demander avant de lancer (si des infos manquent).
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━
+BLOC 3 — BROUILLON POUR LE CLIENT
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━
 Règles :
 - Commence par "Madame," / "Monsieur," / ou le prénom si connu
@@ -131,11 +171,11 @@ function processThread(thread) {
 
   Logger.log(`Traitement [${formType}] : ${JSON.stringify(formData)}`);
 
-  const claudeOutput  = callClaude(formData, formType, rawBody);
-  const { analyse, brouillon } = parseClaudeOutput(claudeOutput);
-  const clientEmail   = extractClientEmail(formData);
+  const claudeOutput              = callClaude(formData, formType, rawBody);
+  const { analyse, briefMichael, brouillon } = parseClaudeOutput(claudeOutput);
+  const clientEmail               = extractClientEmail(formData);
 
-  createGmailDraft(clientEmail, msg.getSubject(), analyse, brouillon, formData, formType);
+  createGmailDraft(clientEmail, msg.getSubject(), analyse, briefMichael, brouillon, formData, formType);
   msg.markRead();
 }
 
@@ -216,48 +256,82 @@ Produis l'analyse pour Lauralie ET le brouillon client selon la structure demand
 // ─── PARSING SORTIE CLAUDE ────────────────────────────────────────────────────
 
 function parseClaudeOutput(text) {
-  const analyseMatch   = text.match(/===ANALYSE_POUR_LAURALIE===([\s\S]*?)===FIN_ANALYSE===/);
-  const brouillonMatch = text.match(/===BROUILLON_CLIENT===([\s\S]*?)===FIN_BROUILLON===/);
+  const analyseMatch      = text.match(/===ANALYSE_POUR_LAURALIE===([\s\S]*?)===FIN_ANALYSE===/);
+  const briefMichaelMatch = text.match(/===BRIEF_MICHAEL===([\s\S]*?)===FIN_BRIEF_MICHAEL===/);
+  const brouillonMatch    = text.match(/===BROUILLON_CLIENT===([\s\S]*?)===FIN_BROUILLON===/);
 
   return {
-    analyse   : analyseMatch   ? analyseMatch[1].trim()   : '[Analyse non générée — voir log]',
-    brouillon : brouillonMatch ? brouillonMatch[1].trim() : text.trim()
+    analyse      : analyseMatch      ? analyseMatch[1].trim()      : '[Analyse non générée]',
+    briefMichael : briefMichaelMatch ? briefMichaelMatch[1].trim() : 'RAS — pas d\'intervention Michaël à ce stade.',
+    brouillon    : brouillonMatch    ? brouillonMatch[1].trim()    : text.trim()
   };
 }
 
 // ─── CRÉATION DU BROUILLON GMAIL ──────────────────────────────────────────────
 
-function createGmailDraft(clientEmail, originalSubject, analyse, brouillon, formData, formType) {
-  const subject = `Re: ${originalSubject.replace(/^Re:\s*/i, '')}`;
-  const bar = '━'.repeat(52);
+function createGmailDraft(clientEmail, originalSubject, analyse, briefMichael, brouillon, formData, formType) {
+  const subject    = `Re: ${originalSubject.replace(/^Re:\s*/i, '')}`;
+  const bar        = '━'.repeat(52);
+  const needsMichael = !briefMichael.startsWith('RAS');
 
+  // ── Brouillon principal (réponse au client) ──────────────
   const draftBody =
 `${brouillon}
 
 
 ${bar}
-🔒 ANALYSE CONFIDENTIELLE — POUR LAURALIE SEULEMENT
-    (cette section ne sera pas envoyée — supprimer avant d'envoyer)
+🔒 CONFIDENTIEL — SUPPRIMER AVANT D'ENVOYER
 ${bar}
 
+📊 ANALYSE POUR LAURALIE
 ${analyse}
 
+${needsMichael ? `
 ${bar}
-📋 DONNÉES BRUTES DU FORMULAIRE [${formType}]
+🎬 BRIEF MICHAËL — voir brouillon séparé
+${bar}` : `
 ${bar}
+🎬 MICHAËL : RAS sur ce dossier
+${bar}`}
+
+📋 FORMULAIRE [${formType}]
 ${Object.entries(formData).map(([k,v]) => `${k} : ${v}`).join('\n')}
 ${bar}`;
 
   if (clientEmail) {
     GmailApp.createDraft(clientEmail, subject, draftBody);
-    Logger.log(`✅ Brouillon créé → ${clientEmail}`);
+    Logger.log(`✅ Brouillon client créé → ${clientEmail}`);
   } else {
     GmailApp.createDraft(
       CONFIG.MON_EMAIL,
-      `⚠️ [EMAIL MANQUANT — ${formType}] ${subject}`,
-      `⚠️ L'email du client n'a pas été trouvé dans le formulaire. Vérifier manuellement.\n\n${draftBody}`
+      `⚠️ [EMAIL CLIENT MANQUANT — ${formType}] ${subject}`,
+      `⚠️ Email client introuvable.\n\n${draftBody}`
     );
-    Logger.log('⚠️ Email client absent — brouillon interne créé');
+  }
+
+  // ── Brouillon séparé pour Michaël (seulement si nécessaire) ──
+  if (needsMichael) {
+    const michaelSubject = `[MISSION] ${formType} — ${formData['Prénom et nom'] || formData['Nom'] || 'Nouveau client'}`;
+    const michaelBody =
+`Bonjour Michaël,
+
+Nouveau projet à prendre en compte :
+
+${briefMichael}
+
+${bar}
+INFOS CLIENT (confidentiel)
+Nom : ${formData['Prénom et nom'] || formData['Nom'] || 'Non renseigné'}
+Défunt : ${formData['honor_name'] || 'Non renseigné'}
+Email client : ${clientEmail || 'Non renseigné'}
+${bar}
+
+Reviens vers moi si tu as des questions avant de commencer.
+
+Lauralie`;
+
+    GmailApp.createDraft(CONFIG.EMAIL_MICHAEL, michaelSubject, michaelBody);
+    Logger.log(`✅ Brief Michaël créé → ${CONFIG.EMAIL_MICHAEL}`);
   }
 }
 
@@ -325,11 +399,12 @@ function _runTest(type, fakeData) {
   Logger.log(`\n══ TEST [${type}] ══`);
   const raw    = Object.entries(fakeData).map(([k,v]) => `${k}: ${v}`).join('\n');
   const output = callClaude(fakeData, type, raw);
-  const { analyse, brouillon } = parseClaudeOutput(output);
+  const { analyse, briefMichael, brouillon } = parseClaudeOutput(output);
 
-  Logger.log('\n── ANALYSE POUR LAURALIE ──\n' + analyse);
-  Logger.log('\n── BROUILLON CLIENT ──\n' + brouillon);
+  Logger.log('\n── ANALYSE LAURALIE ──\n'   + analyse);
+  Logger.log('\n── BRIEF MICHAËL ──\n'      + briefMichael);
+  Logger.log('\n── BROUILLON CLIENT ──\n'   + brouillon);
 
-  createGmailDraft(CONFIG.MON_EMAIL, `[TEST ${type}] New submission`, analyse, brouillon, fakeData, type);
-  Logger.log('\n✅ Brouillon de test créé dans Gmail (Brouillons).');
+  createGmailDraft(CONFIG.MON_EMAIL, `[TEST ${type}] New submission`, analyse, briefMichael, brouillon, fakeData, type);
+  Logger.log('\n✅ Brouillons de test créés dans Gmail.');
 }
