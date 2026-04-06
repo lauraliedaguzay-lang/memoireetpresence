@@ -418,6 +418,12 @@ body.hommage-body > *:not(#nav-principale):not(#site-nav-backdrop) {
   object-fit: cover;
 }
 
+/* Claire Fontenay — redressement léger du cadrage (plan de table légèrement en pente) */
+.hommage-content__photo--level img {
+  transform: rotate(2.25deg) scale(1.1);
+  transform-origin: 50% 42%;
+}
+
 .hommage-content__text {
   margin: 0 0 0.9rem;
   font-size: 0.9375rem;
