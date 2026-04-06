@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="fr">
 <head>
   <meta charset="UTF-8">
@@ -14,7 +14,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Source+Sans+3:wght@300;400;500;600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://unpkg.com/aos@2.3.4/dist/aos.css">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/glightbox@3.3.0/dist/css/glightbox.min.css">
-  <link rel="stylesheet" href="style.css?v=99">
+  <link rel="stylesheet" href="style.css?v=102">
   <script defer src="https://unpkg.com/alpinejs@3.14.1/dist/cdn.min.js"></script>
 <style>
   .faq-alpine__item { border-bottom: 1px solid var(--c-divider, rgba(100,82,56,0.34)); }
@@ -193,6 +193,87 @@
           </button>
           <div x-show="open" x-transition:enter="faq-alpine__body" x-transition style="overflow:hidden">
             <p>Oui. Les plaques sont expédiées avec soin à l'adresse que vous indiquez.</p>
+          </div>
+        </div>
+        <div class="faq-editorial__item faq-alpine__item" x-data="{ open: false }">
+          <button class="faq-alpine__btn" @click="open = !open" :aria-expanded="open">
+            <span>Combien de temps prend un projet, en moyenne&nbsp;?</span>
+            <svg class="faq-alpine__chevron" :class="{ 'is-open': open }" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
+          </button>
+          <div x-show="open" x-transition:enter="faq-alpine__body" x-transition style="overflow:hidden">
+            <p>Le délai dépend du contenu (page seule, vidéo, plaque) et des allers-retours avec vous. Nous indiquons des repères concrets dans la section <a href="offre.html#parcours-delais">Parcours &amp; délais</a> et dans chaque devis. En cas d'échéance sensible (cérémonie, pose), dites-le dès le premier message&nbsp;: nous voyons ce qui est réaliste.</p>
+          </div>
+        </div>
+        <div class="faq-editorial__item faq-alpine__item" x-data="{ open: false }">
+          <button class="faq-alpine__btn" @click="open = !open" :aria-expanded="open">
+            <span>Comment fonctionne le QR sur la plaque avec un smartphone&nbsp;?</span>
+            <svg class="faq-alpine__chevron" :class="{ 'is-open': open }" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
+          </button>
+          <div x-show="open" x-transition:enter="faq-alpine__body" x-transition style="overflow:hidden">
+            <p>En général, il suffit d'ouvrir l'appareil photo ou l'outil de lecture de QR intégré au téléphone et de viser le code gravé&nbsp;: le lien vers la page hommage s'ouvre dans le navigateur, sans application obligatoire. Nous vous recommandons de tester sur au moins deux téléphones avant la pose définitive — c'est aussi décrit dans notre <a href="partage-hommage.html">guide Liens &amp; partage</a>.</p>
+          </div>
+        </div>
+        <div class="faq-editorial__item faq-alpine__item" x-data="{ open: false }">
+          <button class="faq-alpine__btn" @click="open = !open" :aria-expanded="open">
+            <span>La page hommage restera-t-elle en ligne longtemps&nbsp;?</span>
+            <svg class="faq-alpine__chevron" :class="{ 'is-open': open }" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
+          </button>
+          <div x-show="open" x-transition:enter="faq-alpine__body" x-transition style="overflow:hidden">
+            <p>Nous concevons l'hébergement pour la durée prévue au devis, avec une technologie sobre et pérenne. Les modalités exactes (durée, renouvellement éventuel) sont précisées par écrit dans votre proposition. Pour toute question sur la conservation des contenus, voir aussi <a href="securite.html">Sécurité &amp; confidentialité</a>.</p>
+          </div>
+        </div>
+        <div class="faq-editorial__item faq-alpine__item" x-data="{ open: false }">
+          <button class="faq-alpine__btn" @click="open = !open" :aria-expanded="open">
+            <span>Peut-on limiter l'accès à la page (lien discret, code, mot de passe)&nbsp;?</span>
+            <svg class="faq-alpine__chevron" :class="{ 'is-open': open }" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
+          </button>
+          <div x-show="open" x-transition:enter="faq-alpine__body" x-transition style="overflow:hidden">
+            <p>Oui, selon le niveau de discrétion souhaité&nbsp;: lien non référencé, saisie d'un code après le scan du QR, etc. Nous en parlons ensemble au moment du cadrage. Les <a href="acces-hommage-demo.html">maquettes hommage</a> montrent deux exemples (accès libre et entrée par code) pour vous projeter.</p>
+          </div>
+        </div>
+        <div class="faq-editorial__item faq-alpine__item" x-data="{ open: false }">
+          <button class="faq-alpine__btn" @click="open = !open" :aria-expanded="open">
+            <span>Faut-il se déplacer ou tout peut-il se faire à distance&nbsp;?</span>
+            <svg class="faq-alpine__chevron" :class="{ 'is-open': open }" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
+          </button>
+          <div x-show="open" x-transition:enter="faq-alpine__body" x-transition style="overflow:hidden">
+            <p>L'accompagnement se fait en principe entièrement à distance (échanges par e-mail, téléphone ou visioconférence selon votre préférence). La plaque vous est expédiée. Aucun déplacement n'est nécessaire de votre côté pour la conception de la page — voir aussi <a href="qui-sommes-nous.html#qs-zone">notre zone d'intervention</a>.</p>
+          </div>
+        </div>
+        <div class="faq-editorial__item faq-alpine__item" x-data="{ open: false }">
+          <button class="faq-alpine__btn" @click="open = !open" :aria-expanded="open">
+            <span>Quelles photos envoyer et dans quelle qualité&nbsp;?</span>
+            <svg class="faq-alpine__chevron" :class="{ 'is-open': open }" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
+          </button>
+          <div x-show="open" x-transition:enter="faq-alpine__body" x-transition style="overflow:hidden">
+            <p>Les fichiers les plus nets possible (JPEG ou PNG, idéalement non trop compressés par les messageries). Les photos prises sur téléphone conviennent souvent très bien si elles sont envoyées en «&nbsp;taille réelle&nbsp;». Nous vous guidons si une image est trop petite pour l'impression ou la bannière. Évitez les captures d'écran floues lorsque vous avez l'original.</p>
+          </div>
+        </div>
+        <div class="faq-editorial__item faq-alpine__item" x-data="{ open: false }">
+          <button class="faq-alpine__btn" @click="open = !open" :aria-expanded="open">
+            <span>Pour la vidéo hommage, comment choisit-on la musique et les droits&nbsp;?</span>
+            <svg class="faq-alpine__chevron" :class="{ 'is-open': open }" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
+          </button>
+          <div x-show="open" x-transition:enter="faq-alpine__body" x-transition style="overflow:hidden">
+            <p>Nous privilégions des pistes dont les droits sont clairs pour une diffusion sur votre page (musique libre de droits ou piste que vous êtes autorisé à utiliser). Si vous avez un morceau précis en tête, indiquez-le&nbsp;: nous vérifions avec vous ce qui est faisable légalement avant le montage. Détails du service sur la page <a href="video-hommage.html">Vidéo hommage</a>.</p>
+          </div>
+        </div>
+        <div class="faq-editorial__item faq-alpine__item" x-data="{ open: false }">
+          <button class="faq-alpine__btn" @click="open = !open" :aria-expanded="open">
+            <span>Et si le lien ou le QR ne fonctionne pas après livraison&nbsp;?</span>
+            <svg class="faq-alpine__chevron" :class="{ 'is-open': open }" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
+          </button>
+          <div x-show="open" x-transition:enter="faq-alpine__body" x-transition style="overflow:hidden">
+            <p>Écrivez-nous en décrivant le téléphone et le message éventuel à l'écran. En principe, une petite fenêtre d'ajustement est prévue après la livraison pour ce type de cas. Nous vous aidons à vérifier le scan, le réseau et l'URL avant d'en conclure qu'il s'agit d'un souci côté page.</p>
+          </div>
+        </div>
+        <div class="faq-editorial__item faq-alpine__item" x-data="{ open: false }">
+          <button class="faq-alpine__btn" @click="open = !open" :aria-expanded="open">
+            <span>La demande de devis est-elle gratuite et sans engagement&nbsp;?</span>
+            <svg class="faq-alpine__chevron" :class="{ 'is-open': open }" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
+          </button>
+          <div x-show="open" x-transition:enter="faq-alpine__body" x-transition style="overflow:hidden">
+            <p>Oui. Le premier échange et le devis détaillé sont sans frais et ne vous engagent pas. La commande commence lorsque vous validez explicitement la proposition et les modalités indiquées sur le devis. Vous pouvez utiliser le <a href="devis-formulaire.html">formulaire de devis</a> ou la page <a href="contact.html">Contact</a>.</p>
           </div>
         </div>
         <div class="faq-editorial__item faq-alpine__item" x-data="{ open: false }">
