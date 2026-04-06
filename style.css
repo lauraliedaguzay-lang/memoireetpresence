@@ -2408,3 +2408,34 @@ nav#bottom-nav,
   padding: 0 !important;
   border: none !important;
 }
+/* ── Bouton "Voir un hommage" hero ──────────────────────────────── */
+.btn--ghost--exemple {
+  font-size: 0.78rem;
+  padding: 10px 20px;
+  opacity: 0.85;
+}
+@media (min-width: 768px) {
+  .hero__actions--home {
+    flex-wrap: wrap;
+    max-width: 40rem;
+    justify-content: flex-start;
+    gap: 0.65rem;
+  }
+  .hero__actions--home .btn:nth-child(1),
+  .hero__actions--home .btn:nth-child(2) {
+    flex: 1 1 0;
+    min-width: 0;
+  }
+  .hero__actions--home .btn:nth-child(3) {
+    flex: 0 0 auto;
+    align-self: center;
+  }
+}
+
+/* ── CSS home-exemple ────────────────────────────────────────────── */
+.home-exemple { padding: 2rem 1.5rem; background: #f0ede6; border-top: 1px solid var(--c-divider); border-bottom: 1px solid var(--c-divider); }
+.home-exemple__inner { max-width: 520px; margin: 0 auto; text-align: center; }
+.home-exemple__kicker { font-size: .7rem; letter-spacing: .14em; text-transform: uppercase; color: #6e8870; font-weight: 600; margin: 0 0 .5rem; }
+.home-exemple__texte { font-family: var(--font-display,Georgia,serif); font-style: italic; font-size: 1rem; color: #4a5568; line-height: 1.55; margin: 0 0 .9rem; }
+.home-exemple__lien { font-size: .85rem; color: #3d6b4f; font-weight: 500; text-decoration: none; border-bottom: 1px solid rgba(61,107,79,.3); padding-bottom: 1px; transition: border-color .2s; }
+.home-exemple__lien:hover { border-color: #3d6b4f; }
