@@ -1234,6 +1234,56 @@ article.page-inner {
   margin: 0 0 1rem;
 }
 
+/* Repère immédiat — compréhension en une lecture (objectif ~2 s) */
+.ux-instant-scan {
+  margin: 0.15rem 0 0.65rem;
+  max-width: 36rem;
+  font-family: var(--font-body);
+  font-size: clamp(0.98rem, 2.2vw, 1.07rem);
+  font-weight: 500;
+  line-height: 1.48;
+  color: var(--c-text);
+}
+
+.page-inner--wide .ux-instant-scan {
+  max-width: 42rem;
+}
+
+.page-main .page-title + .ux-instant-scan {
+  margin-top: 0.2rem;
+}
+
+.page-main .ux-instant-scan + .page-intro,
+.page-main .ux-instant-scan + .brief-lead {
+  margin-top: 0;
+}
+
+.page-intro.page-intro--scan {
+  font-size: clamp(0.98rem, 2.1vw, 1.05rem);
+  line-height: 1.5;
+  color: var(--c-text);
+  max-width: 38rem;
+}
+
+.hero__instant-scan {
+  margin: 0 0 0.75rem;
+  max-width: 36rem;
+  font-family: var(--font-body);
+  font-size: clamp(0.96rem, 2.3vw, 1.06rem);
+  font-weight: 500;
+  line-height: 1.45;
+  color: var(--c-text);
+}
+
+.home-guide__micro {
+  display: block;
+  margin-top: 0.4rem;
+  font-size: 0.82rem;
+  font-weight: 500;
+  color: var(--c-text);
+  letter-spacing: 0.02em;
+}
+
 .page-section {
   margin-bottom: calc(var(--space-section-y) * 0.85);
   padding-bottom: calc(var(--space-section-y) * 0.75);
@@ -1942,10 +1992,13 @@ textarea:focus {
 }
 .home-guide__lead {
   text-align: center;
-  font-size: 0.88rem;
+  font-size: 0.9rem;
   color: var(--c-text-soft);
   margin: 0 0 1.35rem;
   line-height: 1.55;
+  max-width: 32rem;
+  margin-left: auto;
+  margin-right: auto;
 }
 .home-guide__grid {
   list-style: none;

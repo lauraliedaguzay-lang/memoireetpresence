@@ -263,6 +263,30 @@ body.hommage-body > *:not(#nav-principale):not(#site-nav-backdrop) {
   line-height: 1.55;
   color: var(--h-soft);
 }
+.hommage-gate__demo-hint {
+  margin: 0 0 1rem;
+  padding: 0.55rem 0.7rem;
+  font-size: 0.82rem;
+  line-height: 1.45;
+  color: var(--h-text);
+  text-align: center;
+  background: rgba(61, 107, 79, 0.1);
+  border: 1px solid rgba(61, 107, 79, 0.22);
+  border-radius: 8px;
+}
+.hommage-gate__kbd {
+  display: inline-block;
+  padding: 0.2rem 0.5rem;
+  font-family: ui-monospace, monospace;
+  font-size: 0.9em;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  color: var(--h-text);
+  background: #fff;
+  border: 1px solid var(--h-line);
+  border-radius: 5px;
+  box-shadow: 0 1px 0 rgba(0, 0, 0, 0.06);
+}
 .hommage-gate__form {
   display: flex;
   flex-direction: column;
@@ -536,7 +560,8 @@ body.hommage-body > *:not(#nav-principale):not(#site-nav-backdrop) {
     0 1px 0 rgba(255, 252, 248, 0.85) inset,
     0 20px 48px rgba(60, 48, 36, 0.1),
     0 6px 16px rgba(60, 48, 36, 0.06);
-  overflow: hidden;
+  /* Swiper 11 applique overflow:hidden sur .swiper ; clip évite de masquer les boutons flottants */
+  overflow: clip;
   position: relative;
   user-select: none;
 }
