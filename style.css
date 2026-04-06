@@ -2524,3 +2524,56 @@ nav#bottom-nav,
     text-align: center;
   }
 }
+
+/* ── Pages transmission lien hommage ───────────────────────────── */
+.transmission-modele {
+  margin: 1.25rem 0;
+  padding: 1.1rem 1.25rem;
+  background: rgba(255, 252, 246, 0.95);
+  border: 1px solid var(--c-divider);
+  border-radius: 10px;
+  font-size: 0.84rem;
+  line-height: 1.7;
+  overflow-x: auto;
+}
+.transmission-modele__tag {
+  font-size: 0.65rem;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--c-text-pale);
+  margin: 0 0 0.55rem;
+  font-weight: 600;
+}
+.transmission-modele__body {
+  margin: 0;
+  white-space: pre-wrap;
+  font-family: ui-monospace, "Cascadia Mono", "Segoe UI Mono", monospace;
+  color: var(--c-text-soft);
+}
+.transmission-tip {
+  border-left: 3px solid rgba(61, 107, 79, 0.45);
+  padding: 0.35rem 0 0.35rem 1rem;
+  margin: 1rem 0;
+  font-size: 0.88rem;
+  line-height: 1.55;
+  color: var(--c-text-soft);
+}
+.transmission-checklist {
+  list-style: none;
+  margin: 0.75rem 0 0;
+  padding: 0;
+}
+.transmission-checklist li {
+  position: relative;
+  padding-left: 1.35rem;
+  margin-bottom: 0.5rem;
+  font-size: 0.88rem;
+  line-height: 1.5;
+  color: var(--c-text-soft);
+}
+.transmission-checklist li::before {
+  content: "☐";
+  position: absolute;
+  left: 0;
+  opacity: 0.55;
+}
