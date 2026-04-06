@@ -27,8 +27,8 @@
     inset 0 1px 0 rgba(255, 248, 225, 0.9);
   --shadow-plaque-hero: 0 24px 64px rgba(139, 115, 75, 0.25), 0 4px 16px rgba(139, 115, 75, 0.15),
     0 0 0 1px rgba(184, 151, 90, 0.35), inset 0 1px 0 rgba(255, 248, 225, 0.5);
-  --header-h-desktop: 80px;
-  --header-h-mobile: 72px;
+  --header-h-desktop: 96px;
+  --header-h-mobile: 84px;
   /* Densité : moins de scroll vertical, tokens maîtrisés (barre d’exigence : mesures, pas volumes au hasard). */
   --space-gutter: clamp(0.85rem, 2.4vw, 1.2rem);
   --space-section-y: clamp(0.7rem, 1.6vw, 1.05rem);
@@ -725,24 +725,24 @@ button:focus-visible {
 
 .brand-lockup__logo-officiel {
   display: block;
-  height: clamp(40px, 11vw, 54px);
+  height: clamp(52px, 15vw, 72px);
   width: auto;
-  max-width: min(228px, 64vw);
+  max-width: min(300px, 82vw);
   object-fit: contain;
   object-position: left center;
 }
 
 @media (min-width: 768px) {
   .brand-lockup__logo-officiel {
-    height: clamp(48px, 5.5vw, 58px);
-    max-width: 248px;
+    height: clamp(60px, 7.5vw, 84px);
+    max-width: 340px;
   }
 }
 
 @media (max-width: 380px) {
   .brand-lockup__logo-officiel {
-    height: 34px;
-    max-width: min(210px, 78vw);
+    height: 44px;
+    max-width: min(268px, 88vw);
   }
 }
 
