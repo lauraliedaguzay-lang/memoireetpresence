@@ -11,12 +11,13 @@
 // ─── CONFIGURATION ────────────────────────────────────────────────────────────
 
 const CONFIG = {
-  CLAUDE_API_KEY : 'sk-ant-XXXXXXXX',           // ← Remplacer par ta clé Anthropic
-  CLAUDE_MODEL   : 'claude-3-5-haiku-20241022',  // rapide + économique
-  NETLIFY_SENDER : 'team@netlify.com',
-  MON_EMAIL      : 'memoirepresence@gmail.com',
-  MAX_TOKENS     : 1800,
-  EMAIL_MICHAEL  : 'michael@memoire-et-presence.fr', // ← Remplacer par le vrai email de Michaël
+  CLAUDE_API_KEY  : 'sk-ant-XXXXXXXX',           // ← Remplacer par ta clé Anthropic
+  CLAUDE_MODEL    : 'claude-3-5-haiku-20241022',  // rapide + économique
+  NETLIFY_SENDER  : 'team@netlify.com',
+  MON_EMAIL       : 'memoirepresence@gmail.com',
+  MAX_TOKENS      : 1800,
+  EMAIL_MICHAEL   : 'michael@memoire-et-presence.fr', // ← Remplacer par le vrai email de Michaël
+  LABEL_SUIVI     : 'MP-Suivi',   // Label Gmail à appliquer sur les threads à suivre
 };
 
 // ─── PROMPT SYSTÈME — COACH + RÉDACTEUR ──────────────────────────────────────
@@ -140,22 +141,72 @@ Règles :
 
 // ─── POINT D'ENTRÉE PRINCIPAL ─────────────────────────────────────────────────
 
+/** Appelé toutes les 5 min — gère les deux flux en parallèle. */
+function checkAll() {
+  checkNewNetlifyForms();
+  checkClientReplies();
+}
+
+/** Flux 1 — Nouveaux formulaires Netlify. */
 function checkNewNetlifyForms() {
-  const query = `from:(${CONFIG.NETLIFY_SENDER}) is:unread subject:"New submission"`;
+  const query   = `from:(${CONFIG.NETLIFY_SENDER}) is:unread subject:"New submission"`;
   const threads = GmailApp.search(query, 0, 20);
 
-  if (threads.length === 0) {
-    Logger.log('Aucune nouvelle soumission Netlify.');
-    return;
-  }
+  if (threads.length === 0) { Logger.log('Netlify : aucune nouvelle soumission.'); return; }
 
   threads.forEach(thread => {
-    try {
-      processThread(thread);
-    } catch (e) {
-      Logger.log(`Erreur sur thread ${thread.getId()} : ${e.message}`);
-    }
+    try { processThread(thread); }
+    catch (e) { Logger.log(`Erreur Netlify thread : ${e.message}`); }
   });
+}
+
+/**
+ * Flux 2 — Réponses clients sur les threads labellisés "MP-Suivi".
+ *
+ * Comment ça marche pour Lauralie :
+ *   1. Tu envoies une réponse au client (depuis le brouillon généré)
+ *   2. Tu appliques le label "MP-Suivi" sur le thread dans Gmail
+ *   3. Quand le client répond → un nouveau brouillon de suivi apparaît automatiquement
+ */
+function checkClientReplies() {
+  const query   = `label:${CONFIG.LABEL_SUIVI} is:unread -from:(${CONFIG.NETLIFY_SENDER}) -from:(me)`;
+  const threads = GmailApp.search(query, 0, 20);
+
+  if (threads.length === 0) { Logger.log('Suivi : aucune réponse client.'); return; }
+
+  threads.forEach(thread => {
+    try { processClientReply(thread); }
+    catch (e) { Logger.log(`Erreur suivi thread : ${e.message}`); }
+  });
+}
+
+/** Traite une réponse client dans un thread MP-Suivi. */
+function processClientReply(thread) {
+  const messages    = thread.getMessages();
+  const lastMessage = messages[messages.length - 1];
+
+  if (!lastMessage.isUnread()) return;
+
+  // Reconstruire l'historique complet du thread (max 10 messages)
+  const history = messages.slice(-10).map(m => ({
+    from    : m.getFrom(),
+    date    : m.getDate().toLocaleDateString('fr-FR'),
+    body    : (m.getPlainBody() || stripHtml(m.getBody())).substring(0, 800).trim()
+  }));
+
+  const clientEmail   = lastMessage.getFrom().match(/[\w.-]+@[\w.-]+\.\w+/)?.[0] || null;
+  const clientName    = lastMessage.getFrom().replace(/<.*>/, '').trim();
+  const subject       = thread.getFirstMessageSubject();
+
+  Logger.log(`Suivi client [${clientName}] : ${subject}`);
+
+  const claudeOutput              = callClaudeForReply(history, clientName, subject);
+  const { analyse, briefMichael, brouillon } = parseClaudeOutput(claudeOutput);
+
+  createGmailDraft(clientEmail, subject, analyse, briefMichael, brouillon,
+    { 'Client': clientName, 'Email': clientEmail || '', 'Sujet': subject }, 'SUIVI');
+
+  lastMessage.markRead();
 }
 
 // ─── TRAITEMENT D'UN THREAD ───────────────────────────────────────────────────
@@ -211,6 +262,28 @@ function extractClientEmail(formData) {
 
 // ─── APPEL API CLAUDE ─────────────────────────────────────────────────────────
 
+/** Appel Claude pour une RÉPONSE DE SUIVI (thread existant). */
+function callClaudeForReply(history, clientName, subject) {
+  const historyText = history.map((m, i) =>
+    `[Message ${i + 1} — ${m.from} — ${m.date}]\n${m.body}`
+  ).join('\n\n---\n\n');
+
+  const userContent =
+`TYPE : SUIVI — Réponse d'un client existant
+CLIENT : ${clientName}
+SUJET DU THREAD : ${subject}
+
+HISTORIQUE DE LA CONVERSATION (du plus ancien au plus récent) :
+${historyText}
+
+Le dernier message est la réponse du client.
+Produis l'analyse pour Lauralie, le brief Michaël si pertinent, et le brouillon de réponse
+selon la structure habituelle (3 blocs avec marqueurs).`;
+
+  return _callClaudeAPI(userContent);
+}
+
+/** Appel Claude pour un NOUVEAU formulaire. */
 function callClaude(formData, formType, rawBody) {
   const formLines = Object.entries(formData).map(([k,v]) => `• ${k} : ${v}`).join('\n');
 
@@ -224,6 +297,14 @@ CORPS BRUT (si champs supplémentaires non parsés) :
 ${rawBody.substring(0, 2000)}
 
 Produis l'analyse pour Lauralie ET le brouillon client selon la structure demandée.`;
+
+  return _callClaudeAPI(userContent);
+}
+
+function _callClaudeAPI(userContent) {
+  if (CONFIG.CLAUDE_API_KEY === 'sk-ant-XXXXXXXX') {
+    throw new Error('⚠️ Remplace sk-ant-XXXXXXXX par ta vraie clé API (ligne 14)');
+  }
 
   const payload = {
     model     : CONFIG.CLAUDE_MODEL,
@@ -243,12 +324,8 @@ Produis l'analyse pour Lauralie ET le brouillon client selon la structure demand
     muteHttpExceptions: true
   };
 
-  const response = UrlFetchApp.fetch(CONFIG.CLAUDE_API_KEY !== 'sk-ant-XXXXXXXX'
-    ? 'https://api.anthropic.com/v1/messages'
-    : (() => { throw new Error('⚠️ Remplace sk-ant-XXXXXXXX par ta vraie clé API (ligne 12)'); })()
-  , options);
-
-  const result = JSON.parse(response.getContentText());
+  const response = UrlFetchApp.fetch('https://api.anthropic.com/v1/messages', options);
+  const result   = JSON.parse(response.getContentText());
   if (result.error) throw new Error(`Claude API : ${result.error.message}`);
   return result.content?.[0]?.text || '';
 }
@@ -356,11 +433,67 @@ function stripHtml(html) {
 /** Appeler UNE SEULE FOIS pour activer la vérification automatique. */
 function installTrigger() {
   ScriptApp.getProjectTriggers().forEach(t => ScriptApp.deleteTrigger(t));
-  ScriptApp.newTrigger('checkNewNetlifyForms')
+  ScriptApp.newTrigger('checkAll')       // ← gère Netlify + réponses clients
     .timeBased()
     .everyMinutes(5)
     .create();
-  Logger.log('✅ Déclencheur installé — vérification toutes les 5 min.');
+  Logger.log('✅ Déclencheur installé — vérification toutes les 5 min (formulaires + suivis).');
+  Logger.log('   → Pense à créer le label "MP-Suivi" dans Gmail et à l\'appliquer sur les threads actifs.');
+}
+
+/**
+ * Test suivi client — simule une réponse de Marie-Claire Tessier
+ * après que Lauralie lui a envoyé le premier message.
+ */
+function testSuivi() {
+  const fakeHistory = [
+    {
+      from : 'memoirepresence@gmail.com',
+      date : '07/04/2026',
+      body : `Madame Tessier,
+
+Merci de nous avoir écrit. Nous pouvons tout à fait vous accompagner.
+Avant de vous préparer un devis, j'aurais deux questions :
+— Avez-vous une date en tête pour la livraison ?
+— Les vidéos sont-elles sur téléphone ou déjà numérisées ?
+
+Lauralie — Mémoire & Présence`
+    },
+    {
+      from : 'Marie-Claire Tessier <mc.tessier@orange.fr>',
+      date : '08/04/2026',
+      body : `Bonjour Lauralie,
+
+Merci pour votre réponse rapide. Pour la date, je pensais au 4 septembre,
+date d'anniversaire de naissance de mon père. Ça nous laisse jusqu'en septembre.
+
+Les vidéos sont sur les téléphones de mes frères et sœurs, en format mp4 je crois.
+Il y a aussi une vieille cassette VHS d'un mariage de famille en 1978 que j'aimerais
+inclure si c'est possible.
+
+Est-ce que la vidéo hommage est vraiment nécessaire ou la page suffit ?
+Et c'est quoi les délais et les tarifs en gros ?
+
+Cordialement,
+Marie-Claire`
+    }
+  ];
+
+  Logger.log('\n══ TEST SUIVI ══');
+  const output = callClaudeForReply(fakeHistory, 'Marie-Claire Tessier', 'Re: Hommage Robert Tessier');
+  const { analyse, briefMichael, brouillon } = parseClaudeOutput(output);
+
+  Logger.log('\n── ANALYSE ──\n'        + analyse);
+  Logger.log('\n── BRIEF MICHAËL ──\n' + briefMichael);
+  Logger.log('\n── BROUILLON ──\n'     + brouillon);
+
+  createGmailDraft(
+    CONFIG.MON_EMAIL,
+    '[TEST SUIVI] Re: Hommage Robert Tessier',
+    analyse, briefMichael, brouillon,
+    { 'Client': 'Marie-Claire Tessier', 'Email': CONFIG.MON_EMAIL }, 'SUIVI'
+  );
+  Logger.log('\n✅ Brouillons de suivi créés dans Gmail.');
 }
 
 /** Test avec un formulaire d'accompagnement fictif. */
