@@ -92,6 +92,9 @@
   </article>
 
   <script>
+    if (new URLSearchParams(location.search).get("demo") === "open") {
+      document.body.setAttribute("data-hommage-demo-open", "true");
+    }
     window.HOMMAGE_ACCESS_CODE = "memoire";
   </script>
   <script src="../shared/hommage-gate.js?v=3" defer></script>
