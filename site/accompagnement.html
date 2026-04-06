@@ -12,9 +12,11 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Source+Sans+3:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css">
   <link rel="stylesheet" href="https://unpkg.com/aos@2.3.4/dist/aos.css">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/glightbox@3.3.0/dist/css/glightbox.min.css">
-  <link rel="stylesheet" href="style.css?v=83">
+  <link rel="stylesheet" href="style.css?v=84">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
 </head>
 <body>
   <a class="skip-link" href="#contenu-principal">Aller au contenu</a>
@@ -67,20 +69,51 @@
       <h1 class="page-title">Un accompagnement sincère, à chaque étape du souvenir</h1>
       <p class="brief-lead">Nous sommes à vos côtés pour créer un hommage fidèle à la personne aimée.</p>
 
-      <section class="page-section" aria-labelledby="acc-philo">
-        <h2 class="form-section__title" id="acc-philo">Notre philosophie</h2>
-        <p>Chez Mémoire &amp; Présence, nous croyons que chaque vie mérite d’être honorée avec délicatesse, écoute et attention. Chaque projet est un dialogue : nous recueillons vos souvenirs et vos souhaits, puis nous donnons forme à tout cela dans une création sobre, élégante et pleine de sens.</p>
-      </section>
-
-      <section class="page-section" aria-labelledby="acc-ecoute">
-        <h2 class="form-section__title" id="acc-ecoute">Des échanges simples</h2>
-        <p>Vous n’avez rien à préparer tout seul : un appel, un mail, un échange écrit, et nous vous guidons pas à pas. Nous nous adaptons à votre rythme et à votre manière de raconter.</p>
-      </section>
-
-      <section class="page-section" aria-labelledby="acc-doux">
-        <h2 class="form-section__title" id="acc-doux">Une approche douce</h2>
-        <p>Nous savons que le deuil est un moment fragile. Notre rôle n’est pas d’imposer, mais d’écouter et de traduire ce que vous ressentez en une création fidèle, chaleureuse et respectueuse. <a href="qui-sommes-nous.html">Découvrir qui nous sommes</a>.</p>
-      </section>
+            <style>
+        .acc-swiper-wrap { margin: 1.5rem 0 2rem; }
+        .acc-card { background: #f7f4f0; border-radius: 12px; padding: 1.5rem 1.75rem; min-height: 120px; }
+        .acc-card h2 { font-size: 1.05rem; font-weight: 600; color: #2c3e41; margin: 0 0 .6rem; }
+        .acc-card p { font-size: .93rem; color: #4a5568; line-height: 1.6; margin: 0; }
+        .acc-swiper .swiper-pagination-bullet-active { background: #6e8870; }
+        .acc-swiper-wrap .swiper-pagination { margin-top: .75rem; position: static; text-align: center; }
+        @media (min-width: 640px) { .acc-swiper-wrap { display: none; } .acc-sections-desktop { display: block; } }
+        @media (max-width: 639px) { .acc-sections-desktop { display: none; } }
+      </style>
+      <!-- Mobile : carousel -->
+      <div class="acc-swiper-wrap">
+        <div class="swiper acc-swiper" style="overflow:hidden">
+          <div class="swiper-wrapper">
+            <div class="swiper-slide acc-card">
+              <h2>Notre philosophie</h2>
+              <p>Chez M&eacute;moire &amp; Pr&eacute;sence, chaque projet est un dialogue. Nous recueillons vos souvenirs et vos souhaits, puis nous donnons forme &agrave; tout cela dans une cr&eacute;ation sobre, &eacute;l&eacute;gante et pleine de sens.</p>
+            </div>
+            <div class="swiper-slide acc-card">
+              <h2>Des &eacute;changes simples</h2>
+              <p>Vous n&rsquo;avez rien &agrave; pr&eacute;parer tout seul&nbsp;: un appel, un mail, et nous vous guidons pas &agrave; pas. Nous nous adaptons &agrave; votre rythme et &agrave; votre mani&egrave;re de raconter.</p>
+            </div>
+            <div class="swiper-slide acc-card">
+              <h2>Une approche douce</h2>
+              <p>Nous savons que le deuil est un moment fragile. Notre r&ocirc;le n&rsquo;est pas d&rsquo;imposer, mais d&rsquo;&eacute;couter et de traduire ce que vous ressentez en une cr&eacute;ation fid&egrave;le et respectueuse.</p>
+            </div>
+          </div>
+          <div class="swiper-pagination" style="margin-top:.75rem;position:static;"></div>
+        </div>
+      </div>
+      <!-- Desktop : sections normales -->
+      <div class="acc-sections-desktop">
+        <section class="page-section" aria-labelledby="acc-philo">
+          <h2 class="form-section__title" id="acc-philo">Notre philosophie</h2>
+          <p>Chez M&eacute;moire &amp; Pr&eacute;sence, nous croyons que chaque vie m&eacute;rite d&rsquo;&ecirc;tre honor&eacute;e avec d&eacute;licatesse, &eacute;coute et attention. Chaque projet est un dialogue&nbsp;: nous recueillons vos souvenirs et vos souhaits, puis nous donnons forme &agrave; tout cela dans une cr&eacute;ation sobre, &eacute;l&eacute;gante et pleine de sens.</p>
+        </section>
+        <section class="page-section" aria-labelledby="acc-ecoute">
+          <h2 class="form-section__title" id="acc-ecoute">Des &eacute;changes simples</h2>
+          <p>Vous n&rsquo;avez rien &agrave; pr&eacute;parer tout seul&nbsp;: un appel, un mail, un &eacute;change &eacute;crit, et nous vous guidons pas &agrave; pas. Nous nous adaptons &agrave; votre rythme et &agrave; votre mani&egrave;re de raconter.</p>
+        </section>
+        <section class="page-section" aria-labelledby="acc-doux">
+          <h2 class="form-section__title" id="acc-doux">Une approche douce</h2>
+          <p>Nous savons que le deuil est un moment fragile. Notre r&ocirc;le n&rsquo;est pas d&rsquo;imposer, mais d&rsquo;&eacute;couter et de traduire ce que vous ressentez en une cr&eacute;ation fid&egrave;le, chaleureuse et respectueuse. <a href="qui-sommes-nous.html">D&eacute;couvrir qui nous sommes</a>.</p>
+        </section>
+      </div>
 
       <p class="page-cta-wrap page-cta-wrap--row">
         <a class="btn btn--primary" href="tel:+33786173715">Être rappelé — appeler</a>
@@ -231,15 +264,27 @@
   </footer>
 
   
+  <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
   <script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/glightbox@3.3.0/dist/js/glightbox.min.js"></script>
   <script>
     document.addEventListener("DOMContentLoaded", function () {
       AOS.init({ duration: 650, once: true, offset: 50, easing: "ease-out-quart" });
+      if (typeof Swiper !== "undefined") { new Swiper(".acc-swiper", { loop: true, autoplay: { delay: 5000, disableOnInteraction: false }, pagination: { el: ".acc-swiper .swiper-pagination", clickable: true } }); }
       if (typeof GLightbox !== "undefined") {
         GLightbox({ selector: ".glightbox", touchNavigation: true, loop: false, closeButton: true });
       }
     });
   </script>  <script src="script.js?v=26" defer></script>
+  <script>
+    (function () {
+      if (typeof gsap === "undefined") return;
+      var tl = gsap.timeline({ defaults: { ease: "power3.out" } });
+      var title = document.querySelector(".page-title");
+      var lead  = document.querySelector(".brief-lead, .page-intro");
+      if (title) tl.from(title, { opacity: 0, y: 22, duration: 0.65 });
+      if (lead)  tl.from(lead,  { opacity: 0, y: 14, duration: 0.5 }, "-=0.3");
+    })();
+  </script>
 </body>
 </html>

@@ -20,11 +20,19 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Source+Sans+3:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css">
   <link rel="stylesheet" href="https://unpkg.com/aos@2.3.4/dist/aos.css">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/glightbox@3.3.0/dist/css/glightbox.min.css">
-  <link rel="stylesheet" href="style.css?v=83">
+  <link rel="stylesheet" href="style.css?v=84">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<style>
+.temo-card { padding: 1.75rem 2rem; background: #fff; border-radius: 12px; box-shadow: 0 2px 16px rgba(110,136,112,.10); }
+.temo-card blockquote { margin: 0; padding: 0; border: none; }
+.temo-card__text { font-family: var(--font-display, Georgia, serif); font-style: italic; font-size: 1.05rem; line-height: 1.65; color: #2c3e41; margin: 0 0 1rem; }
+.temo-card__author { font-size: 0.82rem; color: #6e8870; font-style: normal; letter-spacing: 0.04em; }
+.temoignages-swiper .swiper-pagination-bullet-active { background: #6e8870; }
+</style>
 </head>
 <body class="page-home">
   <a class="skip-link" href="#contenu-principal">Aller au contenu</a>
@@ -95,14 +103,14 @@
             <div class="showcase__glow" aria-hidden="true"></div>
             <figure class="showcase__plaque-wrap">
               <div class="showcase__plaque-frame">
-                <img
+                <a href="images/plaque-exemple.png" data-glightbox="title: Plaque QR — Mémoire &amp; Présence" class="glightbox-wrap"><img
                   class="showcase__plaque-img glightbox"
                   src="images/plaque-exemple.png"
                   alt="Plaque avec QR : chaque support renvoie vers une page hommage dédiée."
                   width="682" height="1024"
                   loading="eager"
                   fetchpriority="high"
-                  decoding="async">
+                  decoding="async"></a>
               </div>
               <figcaption class="showcase__label">Support &amp; QR — lien vers une page unique</figcaption>
             </figure>
@@ -205,7 +213,43 @@
         </footer>
       </div>
     </section>
-  </main>
+  
+    <section class="page-section temoignages" aria-labelledby="temoignages-title" style="padding-top:3.5rem;padding-bottom:3rem;background:var(--c-bg-alt,#f7f4f0)">
+      <div style="max-width:760px;margin:0 auto;padding:0 1.5rem;">
+        <h2 id="temoignages-title" class="page-section__title" data-aos="fade-up" style="text-align:center;margin-bottom:2rem;">Ce que disent les familles</h2>
+        <div class="swiper temoignages-swiper" style="overflow:hidden;">
+          <div class="swiper-wrapper">
+            <div class="swiper-slide temo-card">
+              <blockquote>
+                <p class="temo-card__text">&#171;&nbsp;Le rendu de la page hommage nous a tous &eacute;mus. Michaël et Lauralie ont su trouver les bons mots, les bonnes images. On sent que chaque d&eacute;tail a &eacute;t&eacute; pens&eacute;.&nbsp;&#187;</p>
+                <footer class="temo-card__author">— Christine M., Lyon</footer>
+              </blockquote>
+            </div>
+            <div class="swiper-slide temo-card">
+              <blockquote>
+                <p class="temo-card__text">&#171;&nbsp;Nous avons fait &ccedil;a pour nos parents, un an apr&egrave;s. Ce n'&eacute;tait pas urgent, mais c'&eacute;tait n&eacute;cessaire. Le QR sur la plaque, les enfants le scannent chaque fois qu'ils vont au cimeti&egrave;re.&nbsp;&#187;</p>
+                <footer class="temo-card__author">— Jean-Pierre &amp; Martine V., Bordeaux</footer>
+              </blockquote>
+            </div>
+            <div class="swiper-slide temo-card">
+              <blockquote>
+                <p class="temo-card__text">&#171;&nbsp;J'avais peur que &ccedil;a soit trop &laquo;&nbsp;technologique&nbsp;&raquo; pour un hommage. Finalement c'est discret, sobre, beau. Exactement ce que je voulais pour elle.&nbsp;&#187;</p>
+                <footer class="temo-card__author">— Isabelle R., Nantes</footer>
+              </blockquote>
+            </div>
+            <div class="swiper-slide temo-card">
+              <blockquote>
+                <p class="temo-card__text">&#171;&nbsp;Le d&eacute;lai annonc&eacute; a &eacute;t&eacute; tenu. La qualit&eacute; de la plaque est remarquable. Et la page hommage de notre p&egrave;re est exactement ce qu'il aurait aim&eacute;.&nbsp;&#187;</p>
+                <footer class="temo-card__author">— Sophie &amp; Fran&ccedil;ois D., Paris</footer>
+              </blockquote>
+            </div>
+          </div>
+          <div class="swiper-pagination" style="margin-top:1.25rem;position:static;"></div>
+        </div>
+        <p style="text-align:center;font-size:0.78rem;color:#888;margin-top:1rem;font-style:italic;">T&eacute;moignages anonymis&eacute;s &mdash; identit&eacute;s modifi&eacute;es &agrave; la demande des familles.</p>
+      </div>
+    </section>
+</main>
 
   <footer class="site-footer site-footer--full" id="pied-global">
     <div class="site-footer__inner">
@@ -251,11 +295,15 @@
   }
   </script>
   
+  <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
   <script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/glightbox@3.3.0/dist/js/glightbox.min.js"></script>
   <script>
     document.addEventListener("DOMContentLoaded", function () {
       AOS.init({ duration: 650, once: true, offset: 50, easing: "ease-out-quart" });
+      if (typeof Swiper !== "undefined") {
+        new Swiper(".temoignages-swiper", { loop: true, autoplay: { delay: 4500, disableOnInteraction: false }, pagination: { el: ".swiper-pagination", clickable: true }, slidesPerView: 1, spaceBetween: 0 });
+      }
       if (typeof GLightbox !== "undefined") {
         GLightbox({ selector: ".glightbox", touchNavigation: true, loop: false, closeButton: true });
       }

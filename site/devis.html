@@ -14,7 +14,9 @@
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Source+Sans+3:wght@300;400;500;600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://unpkg.com/aos@2.3.4/dist/aos.css">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/glightbox@3.3.0/dist/css/glightbox.min.css">
-  <link rel="stylesheet" href="style.css?v=83">
+  <link rel="stylesheet" href="style.css?v=84">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
 </head>
 <body>
   <a class="skip-link" href="#contenu-principal">Aller au contenu</a>
@@ -76,15 +78,43 @@
         <p>Vous nous décrivez votre projet (type de plaque, nombre de photos, vidéo ou non, personnalisation…). Nous vous rappelons ou vous écrivons en principe <strong>sous 24&nbsp;h</strong>. Vous recevez un <strong>devis détaillé, sans engagement</strong>. Ensemble, nous ajustons si besoin — puis nous réalisons un hommage à la hauteur de votre lien.</p>
       </section>
 
-      <section class="page-section" aria-labelledby="d-3">
-        <h2 id="d-3">Ce que peut comprendre un devis (indicatif)</h2>
-        <ul class="valeurs-list" role="list">
-          <li>Page de souvenir personnalisée (texte, photo, galerie)</li>
-          <li>QR code vers cette page</li>
-          <li>Options : vidéo souvenir, restauration photo, livre d’or, mot de passe, export PDF…</li>
-          <li>Plaque (matière, forme, style) avec QR intégré</li>
-          <li>Accompagnement humain tout au long du processus</li>
-        </ul>
+            <section class="page-section" aria-labelledby="d-3">
+        <h2 id="d-3">Ce que peut comprendre un devis <span style="font-size:.75em;font-weight:400;color:#6e8870">(indicatif)</span></h2>
+        <p style="font-size:.9rem;color:#666;margin-bottom:.75rem;">Cochez ce qui vous int&eacute;resse pour affiner votre demande &mdash; ou laissez-nous en discuter ensemble.</p>
+        <style>
+          .devis-checklist{list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:.4rem}
+          .devis-checklist__item{display:flex;align-items:flex-start;gap:.7rem;padding:.7rem .9rem;border-radius:8px;cursor:pointer;transition:background .15s}
+          .devis-checklist__item:hover{background:#f7f4f0}
+          .devis-checklist__item input{margin-top:.15rem;accent-color:#6e8870;flex-shrink:0;width:1.05em;height:1.05em;cursor:pointer}
+          .devis-checklist__label{font-size:.95rem;color:#2c3e41;cursor:pointer;line-height:1.45}
+          .devis-summary{margin-top:1rem;padding:.8rem 1rem;background:#eef2ee;border-radius:8px;font-size:.88rem;color:#2c3e41;line-height:1.5}
+        </style>
+        <div x-data="{
+          items: [
+            { id:'page',    label:'Page de souvenir personnalis\u00e9e (texte, photo, galerie)', checked: false },
+            { id:'qr',      label:'QR code reli\u00e9 \u00e0 cette page', checked: false },
+            { id:'video',   label:'Vid\u00e9o souvenir', checked: false },
+            { id:'photo',   label:'Restauration photo ancienne', checked: false },
+            { id:'livre',   label:'Livre d\u2019or num\u00e9rique', checked: false },
+            { id:'mdp',     label:'Acc\u00e8s par mot de passe priv\u00e9', checked: false },
+            { id:'pdf',     label:'Export PDF de la page', checked: false },
+            { id:'plaque',  label:'Plaque (mati\u00e8re, forme, style) avec QR int\u00e9gr\u00e9', checked: false },
+            { id:'accomp',  label:'Accompagnement humain tout au long du processus', checked: true }
+          ],
+          get count() { return this.items.filter(i => i.checked).length }
+        }">
+          <ul class="devis-checklist" role="list">
+            <template x-for="item in items" :key="item.id">
+              <li class="devis-checklist__item" @click="item.checked = !item.checked">
+                <input type="checkbox" :id="'ck-'+item.id" :checked="item.checked" @click.stop="item.checked = !item.checked" :aria-label="item.label">
+                <label class="devis-checklist__label" :for="'ck-'+item.id" x-text="item.label" @click.prevent></label>
+              </li>
+            </template>
+          </ul>
+          <div class="devis-summary" x-show="count > 0" x-transition>
+            <span x-text="count"></span> &eacute;l&eacute;ment(s) s&eacute;lectionn&eacute;(s). Mentionnez-les dans <a href="devis-formulaire.html" style="color:#6e8870">le formulaire</a> pour que nous puissions chiffrer au plus juste.
+          </div>
+        </div>
       </section>
 
       <section class="page-section page-section--cta" data-aos="fade-up" aria-labelledby="d-cta">
@@ -134,5 +164,15 @@
       }
     });
   </script>  <script src="script.js?v=26" defer></script>
+  <script>
+    (function () {
+      if (typeof gsap === "undefined") return;
+      var tl = gsap.timeline({ defaults: { ease: "power3.out" } });
+      var title = document.querySelector(".page-title");
+      var lead  = document.querySelector(".brief-lead, .page-intro");
+      if (title) tl.from(title, { opacity: 0, y: 22, duration: 0.65 });
+      if (lead)  tl.from(lead,  { opacity: 0, y: 14, duration: 0.5 }, "-=0.3");
+    })();
+  </script>
 </body>
 </html>
