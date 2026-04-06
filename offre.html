@@ -14,7 +14,9 @@
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Source+Sans+3:wght@300;400;500;600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://unpkg.com/aos@2.3.4/dist/aos.css">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/glightbox@3.3.0/dist/css/glightbox.min.css">
-  <link rel="stylesheet" href="style.css?v=83">
+  <link rel="stylesheet" href="style.css?v=84">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
 </head>
 <body>
   <a class="skip-link" href="#contenu-principal">Aller au contenu</a>
@@ -89,20 +91,53 @@
         <p class="video-section__cap">Pour la vue d’ensemble du service, voir aussi <a href="index.html">l’accueil</a> ; la démonstration vidéo est sur cette page.</p>
       </section>
 
-      <section class="page-section" aria-labelledby="process-title">
+            <section class="page-section" aria-labelledby="process-title">
         <h2 id="process-title">Comment nous travaillons ensemble</h2>
-        <ol class="process-list">
-          <li>
-            <strong>Premier échange.</strong> Par message ou appel selon ce qui vous convient. Vous nous parlez de la personne ou de l’animal honoré, du ton qui vous ressemble, des contraintes (date, lieu, budget indicatif). Nous posons des questions simples ; vous répondez quand vous le pouvez.
+        <style>
+          .process-alpine{list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:.5rem}
+          .process-alpine__item{border:1px solid #dde3dd;border-radius:8px;overflow:hidden}
+          .process-alpine__btn{width:100%;text-align:left;background:none;border:none;padding:.9rem 1.1rem;cursor:pointer;display:flex;justify-content:space-between;align-items:center;font:inherit;font-size:1rem;font-weight:600;color:#2c3e41;gap:.5rem}
+          .process-alpine__btn:hover{background:#f7f4f0}
+          .process-alpine__n{display:inline-flex;align-items:center;justify-content:center;width:1.6em;height:1.6em;border-radius:50%;background:#6e8870;color:#fff;font-size:.78rem;font-weight:700;flex-shrink:0;margin-right:.5rem}
+          .process-alpine__chevron{transition:transform .25s;flex-shrink:0}
+          .process-alpine__body{padding:.25rem 1.1rem 1rem 3rem;color:#4a5568;line-height:1.6;font-size:.94rem}
+        </style>
+        <ol class="process-alpine" x-data="{ open: 1 }">
+          <li class="process-alpine__item">
+            <button class="process-alpine__btn" @click="open = open===1 ? null : 1" :aria-expanded="open===1">
+              <span><span class="process-alpine__n" aria-hidden="true">1</span>Premier &eacute;change</span>
+              <svg class="process-alpine__chevron" :style="open===1?'transform:rotate(180deg)':''" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>
+            </button>
+            <div class="process-alpine__body" x-show="open===1" x-transition.duration.200ms>
+              Par message ou appel selon ce qui vous convient. Vous nous parlez de la personne honor&eacute;e, du ton qui vous ressemble, des contraintes (date, lieu, budget indicatif). Nous posons des questions simples&nbsp;; vous r&eacute;pondez quand vous le pouvez.
+            </div>
           </li>
-          <li>
-            <strong>Proposition écrite.</strong> Nous vous renvoyons une vision synthétique : type de support, esprit de la page hommage, nombre de cycles de relecture inclus, délai indicatif et montant. Rien n’est lancé sans votre accord explicite.
+          <li class="process-alpine__item">
+            <button class="process-alpine__btn" @click="open = open===2 ? null : 2" :aria-expanded="open===2">
+              <span><span class="process-alpine__n" aria-hidden="true">2</span>Proposition &eacute;crite</span>
+              <svg class="process-alpine__chevron" :style="open===2?'transform:rotate(180deg)':''" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>
+            </button>
+            <div class="process-alpine__body" x-show="open===2" x-transition.duration.200ms>
+              Nous vous renvoyons une vision synth&eacute;tique&nbsp;: type de support, esprit de la page hommage, nombre de cycles de relecture inclus, d&eacute;lai indicatif et montant. Rien n&rsquo;est lanc&eacute; sans votre accord explicite.
+            </div>
           </li>
-          <li>
-            <strong>Réalisation.</strong> Rédaction et mise en page des textes, intégration des visuels que vous nous transmettez (en respectant les droits), fabrication du support physique, mise en ligne sécurisée de la page et test du QR. Vous recevez ce qu’il faut pour l’installer ou le remettre en main propre.
+          <li class="process-alpine__item">
+            <button class="process-alpine__btn" @click="open = open===3 ? null : 3" :aria-expanded="open===3">
+              <span><span class="process-alpine__n" aria-hidden="true">3</span>R&eacute;alisation</span>
+              <svg class="process-alpine__chevron" :style="open===3?'transform:rotate(180deg)':''" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>
+            </button>
+            <div class="process-alpine__body" x-show="open===3" x-transition.duration.200ms>
+              R&eacute;daction et mise en page des textes, int&eacute;gration des visuels que vous nous transmettez, fabrication du support physique, mise en ligne s&eacute;curis&eacute;e de la page et test du QR. Vous recevez ce qu&rsquo;il faut pour l&rsquo;installer ou le remettre en main propre.
+            </div>
           </li>
-          <li>
-            <strong>Après la remise.</strong> Une petite marge d’ajustement est prévue — correction de coquille, retouche de formulation — parce qu’un tel geste ne se fige jamais tout à fait du premier coup. Au-delà, toute évolution majeure fait l’objet d’un devis complémentaire transparent.
+          <li class="process-alpine__item">
+            <button class="process-alpine__btn" @click="open = open===4 ? null : 4" :aria-expanded="open===4">
+              <span><span class="process-alpine__n" aria-hidden="true">4</span>Apr&egrave;s la remise</span>
+              <svg class="process-alpine__chevron" :style="open===4?'transform:rotate(180deg)':''" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>
+            </button>
+            <div class="process-alpine__body" x-show="open===4" x-transition.duration.200ms>
+              Une petite marge d&rsquo;ajustement est pr&eacute;vue &mdash; correction de coquille, retouche de formulation &mdash; parce qu&rsquo;un tel geste ne se fige jamais tout &agrave; fait du premier coup. Au-del&agrave;, toute &eacute;volution majeure fait l&rsquo;objet d&rsquo;un devis compl&eacute;mentaire transparent.
+            </div>
           </li>
         </ol>
       </section>
@@ -179,5 +214,15 @@
       }
     });
   </script>  <script src="script.js?v=26" defer></script>
+  <script>
+    (function () {
+      if (typeof gsap === "undefined") return;
+      var tl = gsap.timeline({ defaults: { ease: "power3.out" } });
+      var title = document.querySelector(".page-title");
+      var lead  = document.querySelector(".brief-lead, .page-intro");
+      if (title) tl.from(title, { opacity: 0, y: 22, duration: 0.65 });
+      if (lead)  tl.from(lead,  { opacity: 0, y: 14, duration: 0.5 }, "-=0.3");
+    })();
+  </script>
 </body>
 </html>

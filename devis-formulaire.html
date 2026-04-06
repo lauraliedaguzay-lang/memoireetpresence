@@ -15,6 +15,7 @@
   <link rel="stylesheet" href="https://unpkg.com/aos@2.3.4/dist/aos.css">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/glightbox@3.3.0/dist/css/glightbox.min.css">
   <link rel="stylesheet" href="style.css?v=83">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
 </head>
 <body>
   <a class="skip-link" href="#contenu-principal">Aller au contenu</a>
@@ -264,5 +265,15 @@
       }
     });
   </script>  <script src="script.js?v=26" defer></script>
+  <script>
+    (function () {
+      if (typeof gsap === "undefined") return;
+      var tl = gsap.timeline({ defaults: { ease: "power3.out" } });
+      var title = document.querySelector(".page-title");
+      var lead  = document.querySelector(".brief-lead, .page-intro");
+      if (title) tl.from(title, { opacity: 0, y: 22, duration: 0.65 });
+      if (lead)  tl.from(lead,  { opacity: 0, y: 14, duration: 0.5 }, "-=0.3");
+    })();
+  </script>
 </body>
 </html>

@@ -12,9 +12,12 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Source+Sans+3:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css">
   <link rel="stylesheet" href="https://unpkg.com/aos@2.3.4/dist/aos.css">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/glightbox@3.3.0/dist/css/glightbox.min.css">
-  <link rel="stylesheet" href="style.css?v=83">
+  <link rel="stylesheet" href="style.css?v=84">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
 </head>
 <body>
   <a class="skip-link" href="#contenu-principal">Aller au contenu</a>
@@ -90,32 +93,78 @@
         <p>Nous travaillons ensemble sur chaque projet, de la première conversation jusqu'à la livraison. <strong>Pas de sous-traitance sur le cœur du métier.</strong> Ce que vous nous confiez reste entre nous.</p>
       </section>
 
-      <section class="page-section" aria-labelledby="qs-valeurs">
+      <style>
+        .team-swiper-wrap{margin:1rem 0 2rem}
+        .team-card{background:#f7f4f0;border-radius:12px;padding:1.4rem 1.6rem}
+        .team-card h3{font-size:1rem;font-weight:700;color:#2c3e41;margin:0 0 .5rem}
+        .team-card p{font-size:.9rem;color:#4a5568;line-height:1.6;margin:0}
+        .team-swiper-wrap .swiper-pagination{margin-top:.75rem;position:static;text-align:center}
+        .team-swiper-wrap .swiper-pagination-bullet-active{background:#6e8870}
+        @media(min-width:640px){.team-swiper-wrap{display:none}}
+      </style>
+      <div class="team-swiper-wrap" aria-label="Équipe" role="region">
+        <div class="swiper team-swiper" style="overflow:hidden">
+          <div class="swiper-wrapper">
+            <div class="swiper-slide team-card">
+              <h3>Micha&euml;l &mdash; Vid&eacute;aste</h3>
+              <p>Form&eacute; aux m&eacute;tiers de l&rsquo;image, il apporte rigueur technique et sensibilit&eacute; au cadrage. Chaque montage vid&eacute;o est r&eacute;alis&eacute; par ses mains, sans prestataire tiers.</p>
+            </div>
+            <div class="swiper-slide team-card">
+              <h3>Lauralie &mdash; Cr&eacute;atrice visuelle</h3>
+              <p>Elle con&ccedil;oit chaque page hommage en &eacute;coutant d&rsquo;abord&nbsp;: les mots des familles, le ton juste, ce qui doit &ecirc;tre dit et ce qui doit rester sous-entendu. Elle guide l&rsquo;ensemble du parcours de commande.</p>
+            </div>
+          </div>
+          <div class="swiper-pagination" style="margin-top:.75rem;position:static;"></div>
+        </div>
+      </div>
+
+
+      <style>
+.valeurs-alpine{list-style:none;padding:0;margin:0;display:grid;gap:.5rem}
+.valeurs-alpine__item{border:1px solid #dde3dd;border-radius:8px;overflow:hidden}
+.valeurs-alpine__btn{width:100%;text-align:left;background:none;border:none;padding:.85rem 1.1rem;cursor:pointer;display:flex;justify-content:space-between;align-items:center;font:inherit;font-size:.98rem;font-weight:600;color:#2c3e41;gap:.5rem}
+.valeurs-alpine__btn:hover{background:#f7f4f0}
+.valeurs-alpine__icon{flex-shrink:0;color:#6e8870;margin-right:.6rem}
+.valeurs-alpine__chevron{transition:transform .25s;flex-shrink:0}
+.valeurs-alpine__body{padding:.2rem 1.1rem .9rem 2.8rem;color:#4a5568;line-height:1.6;font-size:.93rem}
+</style>      <section class="page-section" aria-labelledby="qs-valeurs">
         <h2 id="qs-valeurs">Ce qui guide notre travail</h2>
-        <ul class="brief-features brief-features--2" role="list">
-          <li class="brief-features__item" data-aos="fade-up" data-aos-delay="160">
-            <span class="brief-features__icon" aria-hidden="true">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.25"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
-            </span>
-            <span><strong>Discrétion absolue.</strong> Les photos, textes et souvenirs que vous partagez ne sortent jamais de notre relation de travail.</span>
+        <ul class="valeurs-alpine" x-data="{ open: null }">
+          <li class="valeurs-alpine__item">
+            <button class="valeurs-alpine__btn" @click="open = open==='discret' ? null : 'discret'" :aria-expanded="open==='discret'">
+              <span>
+                <svg class="valeurs-alpine__icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>Discr&eacute;tion absolue
+              </span>
+              <svg class="valeurs-alpine__chevron" :style="open==='discret'?'transform:rotate(180deg)':''" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>
+            </button>
+            <div class="valeurs-alpine__body" x-show="open==='discret'" x-transition.duration.200ms>Les photos, textes et souvenirs que vous partagez ne sortent jamais de notre relation de travail. Aucune diffusion, aucun usage commercial, aucune mention sans accord explicite.</div>
           </li>
-          <li class="brief-features__item" data-aos="fade-up" data-aos-delay="240">
-            <span class="brief-features__icon" aria-hidden="true">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.25"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/></svg>
-            </span>
-            <span><strong>Soin du détail.</strong> Chaque virgule compte, chaque photo est choisie. Nous ne livrons pas quelque chose de correct — nous livrons quelque chose qui ressemble à la personne.</span>
+          <li class="valeurs-alpine__item">
+            <button class="valeurs-alpine__btn" @click="open = open==='soin' ? null : 'soin'" :aria-expanded="open==='soin'">
+              <span>
+                <svg class="valeurs-alpine__icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/></svg>Soin du d&eacute;tail
+              </span>
+              <svg class="valeurs-alpine__chevron" :style="open==='soin'?'transform:rotate(180deg)':''" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>
+            </button>
+            <div class="valeurs-alpine__body" x-show="open==='soin'" x-transition.duration.200ms>Chaque virgule compte, chaque photo est choisie. Nous ne livrons pas quelque chose de correct &mdash; nous livrons quelque chose qui ressemble &agrave; la personne.</div>
           </li>
-          <li class="brief-features__item" data-aos="fade-up" data-aos-delay="0">
-            <span class="brief-features__icon" aria-hidden="true">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.25"><circle cx="12" cy="12" r="9"/><path d="M12 7v6l4 2"/></svg>
-            </span>
-            <span><strong>Durabilité.</strong> Une page hommage doit pouvoir être consultée dans dix ans. Nous concevons nos créations pour durer, avec un hébergement stable et une technologie pérenne.</span>
+          <li class="valeurs-alpine__item">
+            <button class="valeurs-alpine__btn" @click="open = open==='durable' ? null : 'durable'" :aria-expanded="open==='durable'">
+              <span>
+                <svg class="valeurs-alpine__icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v6l4 2"/></svg>Durabilit&eacute;
+              </span>
+              <svg class="valeurs-alpine__chevron" :style="open==='durable'?'transform:rotate(180deg)':''" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>
+            </button>
+            <div class="valeurs-alpine__body" x-show="open==='durable'" x-transition.duration.200ms>Une page hommage doit pouvoir &ecirc;tre consult&eacute;e dans dix ans. Nous concevons nos cr&eacute;ations pour durer, avec un h&eacute;bergement stable et une technologie p&eacute;renne.</div>
           </li>
-          <li class="brief-features__item" data-aos="fade-up" data-aos-delay="80">
-            <span class="brief-features__icon" aria-hidden="true">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.25"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87M16 3.13a4 4 0 010 7.75"/></svg>
-            </span>
-            <span><strong>Rythme humain.</strong> Nous nous adaptons à vous — à votre deuil, à votre temps, à votre façon de raconter. Jamais de précipitation imposée.</span>
+          <li class="valeurs-alpine__item">
+            <button class="valeurs-alpine__btn" @click="open = open==='rythme' ? null : 'rythme'" :aria-expanded="open==='rythme'">
+              <span>
+                <svg class="valeurs-alpine__icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87M16 3.13a4 4 0 010 7.75"/></svg>Rythme humain
+              </span>
+              <svg class="valeurs-alpine__chevron" :style="open==='rythme'?'transform:rotate(180deg)':''" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>
+            </button>
+            <div class="valeurs-alpine__body" x-show="open==='rythme'" x-transition.duration.200ms>Nous nous adaptons &agrave; vous &mdash; &agrave; votre deuil, &agrave; votre temps, &agrave; votre fa&ccedil;on de raconter. Jamais de pr&eacute;cipitation impos&eacute;e.</div>
           </li>
         </ul>
       </section>
@@ -162,15 +211,27 @@
     </div>
   </footer>
   
+  <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
   <script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/glightbox@3.3.0/dist/js/glightbox.min.js"></script>
   <script>
     document.addEventListener("DOMContentLoaded", function () {
       AOS.init({ duration: 650, once: true, offset: 50, easing: "ease-out-quart" });
+      if (typeof Swiper !== "undefined") { new Swiper(".team-swiper", { loop: false, pagination: { el: ".team-swiper .swiper-pagination", clickable: true } }); }
       if (typeof GLightbox !== "undefined") {
         GLightbox({ selector: ".glightbox", touchNavigation: true, loop: false, closeButton: true });
       }
     });
   </script>  <script src="script.js?v=26" defer></script>
+  <script>
+    (function () {
+      if (typeof gsap === "undefined") return;
+      var tl = gsap.timeline({ defaults: { ease: "power3.out" } });
+      var title = document.querySelector(".page-title");
+      var lead  = document.querySelector(".brief-lead, .page-intro");
+      if (title) tl.from(title, { opacity: 0, y: 22, duration: 0.65 });
+      if (lead)  tl.from(lead,  { opacity: 0, y: 14, duration: 0.5 }, "-=0.3");
+    })();
+  </script>
 </body>
 </html>

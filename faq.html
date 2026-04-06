@@ -51,6 +51,7 @@
   .faq-alpine__body p { padding-bottom: 1rem; font-size: 0.86rem; color: var(--c-text-soft, #5a5248); line-height: 1.65; margin: 0; }
   [x-cloak] { display: none !important; }
 </style>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
 </head>
 <body>
   <a class="skip-link" href="#contenu-principal">Aller au contenu</a>
@@ -247,5 +248,15 @@
       }
     });
   </script>  <script src="script.js?v=26" defer></script>
+  <script>
+    (function () {
+      if (typeof gsap === "undefined") return;
+      var tl = gsap.timeline({ defaults: { ease: "power3.out" } });
+      var title = document.querySelector(".page-title");
+      var lead  = document.querySelector(".brief-lead, .page-intro");
+      if (title) tl.from(title, { opacity: 0, y: 22, duration: 0.65 });
+      if (lead)  tl.from(lead,  { opacity: 0, y: 14, duration: 0.5 }, "-=0.3");
+    })();
+  </script>
 </body>
 </html>
