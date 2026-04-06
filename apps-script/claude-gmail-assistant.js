@@ -417,6 +417,9 @@ ${bar}`;
     );
   }
 
+  // ── Notification push mobile ──────────────────────────────────
+  _sendMobileNotif(formType, formData, clientEmail, needsMichael);
+
   // ── Brouillon séparé pour Michaël (seulement si nécessaire) ──
   if (needsMichael) {
     const michaelSubject = `[MISSION] ${formType} — ${formData['Prénom et nom'] || formData['Nom'] || 'Nouveau client'}`;
@@ -440,6 +443,52 @@ Lauralie`;
 
     GmailApp.createDraft(CONFIG.EMAIL_MICHAEL, michaelSubject, michaelBody);
     Logger.log(`✅ Brief Michaël créé → ${CONFIG.EMAIL_MICHAEL}`);
+  }
+}
+
+// ─── NOTIFICATION MOBILE ──────────────────────────────────────────────────────
+
+/**
+ * Envoie un email court à Lauralie → déclenche la notif push Gmail sur son téléphone.
+ * Corps volontairement court : l'analyse complète est dans le brouillon Gmail.
+ */
+function _sendMobileNotif(formType, formData, clientEmail, needsMichael) {
+  try {
+    const nom     = formData['Prénom et nom'] || formData['Nom'] || formData['name'] || 'Client inconnu';
+    const defunt  = formData['honor_name'] || '';
+    const tel     = formData['Téléphone'] || formData['telephone'] || '';
+
+    const typeLabel = {
+      'ACCOMPAGNEMENT' : '📋 Accompagnement',
+      'DEVIS'          : '💼 Devis',
+      'VIDEO'          : '🎬 Vidéo',
+      'CONTACT'        : '✉️ Contact',
+      'SUIVI'          : '🔄 Suivi client',
+    }[formType] || formType;
+
+    const subject = `🔔 MP — ${typeLabel} · ${nom}`;
+
+    const lines = [
+      `Nouveau brouillon prêt dans Gmail.`,
+      ``,
+      `Client    : ${nom}`,
+      clientEmail ? `Email     : ${clientEmail}` : `Email     : ⚠️ non renseigné`,
+      tel         ? `Tél       : ${tel}`         : '',
+      defunt      ? `Défunt    : ${defunt}`      : '',
+      needsMichael ? `Michaël   : brief à envoyer` : '',
+      ``,
+      `→ Ouvrir Gmail, aller dans Brouillons, relire et envoyer.`,
+    ].filter(l => l !== undefined && !(l === '' && lines && lines[lines.length-1] === ''));
+
+    MailApp.sendEmail({
+      to     : CONFIG.MON_EMAIL,
+      subject: subject,
+      body   : lines.join('\n'),
+    });
+
+    Logger.log(`📱 Notif mobile envoyée : ${subject}`);
+  } catch (e) {
+    Logger.log(`⚠️ Notif mobile échouée : ${e.message}`);
   }
 }
 
