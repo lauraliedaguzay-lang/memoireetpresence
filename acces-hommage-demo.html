@@ -1,1 +1,133 @@
-﻿<!DOCTYPE html><html lang="fr"><head>  <meta charset="UTF-8">  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">  <meta name="robots" content="index, follow">  <meta name="theme-color" content="#f7f4ef">  <meta name="description" content="Comment fonctionne la porte d’accès des pages hommage de démonstration — code d’essai, session navigateur, liens vers les maquettes.">  <link rel="canonical" href="https://www.memoire-et-presence.fr/acces-hommage-demo.html">  <link rel="icon" href="favicon.svg" type="image/svg+xml">  <title>Démo accès réservé — pages hommage — Mémoire &amp; Présence</title>  <link rel="preconnect" href="https://fonts.googleapis.com">  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Source+Sans+3:wght@300;400;500;600&display=swap" rel="stylesheet">  <link rel="stylesheet" href="style.css?v=81"></head><body>  <a class="skip-link" href="#contenu-principal">Aller au contenu</a>  <header class="site-header site-header--premium">    <div class="site-header__inner">      <a class="brand-lockup brand-lockup--integrated" href="index.html" aria-label="Mémoire &amp; Présence — accueil">        <img class="brand-lockup__img" src="images/logo-marque.svg" alt="Mémoire &amp; Présence" width="240" height="80" decoding="async">      </a>      <button type="button" class="nav-toggle" id="nav-toggle" aria-expanded="false" aria-controls="nav-principale" aria-label="Ouvrir le menu">        <span class="nav-toggle__bar" aria-hidden="true"></span>        <span class="nav-toggle__bar" aria-hidden="true"></span>        <span class="nav-toggle__bar" aria-hidden="true"></span>      </button>      <nav class="site-nav" id="nav-principale" aria-label="Navigation principale">        <ul class="site-nav__list site-nav__list--full">          <li class="site-nav__group" aria-hidden="true">            <span class="site-nav__group-title">Offre &amp; contenus</span>          </li>          <li><a href="index.html">Accueil</a></li>          <li><a href="offre.html#parcours-delais">Parcours &amp; délais</a></li>          <li><a href="video-hommage.html">Vidéo hommage</a></li>          <li><a href="plaques-qr.html">Plaques &amp; QR</a></li>          <li class="nav-secondary"><a href="accompagnement.html">Accompagnement</a></li>          <li class="nav-secondary"><a href="demo-fictive.html">Démo parcours</a></li>          <li class="nav-secondary"><a href="hommage/exemple-defunt/">Exemple défunt fictif</a></li>          <li class="nav-secondary"><a href="acces-hommage-demo.html" aria-current="page">Démo accès réservé</a></li>          <li class="site-nav__group" aria-hidden="true">            <span class="site-nav__group-title">Confiance</span>          </li>          <li><a href="qui-sommes-nous.html">Qui sommes-nous</a></li>          <li class="nav-secondary"><a href="securite.html">Sécurité</a></li>          <li class="nav-secondary"><a href="faq.html">FAQ</a></li>          <li class="site-nav__group" aria-hidden="true">            <span class="site-nav__group-title">Écrire &amp; commander</span>          </li>          <li><a href="contact.html">Contact</a></li>          <li class="nav-secondary"><a href="devis-formulaire.html">Formulaire de devis</a></li>        </ul>      </nav>      <a class="btn btn--header site-header__cta" href="devis.html" aria-label="Demander un devis"><span class="site-header__cta-short" aria-hidden="true">Devis</span><span class="site-header__cta-full">Demander un devis</span></a>    </div>  </header>  <main class="page-main site-main" id="contenu-principal">    <article class="page-inner page-inner--wide fade-in-section">      <p class="eyebrow">Maquette — comportement type production</p>      <h1 class="page-title">La porte d’accès sur les pages hommage de démonstration</h1>      <p class="page-intro">        Les vraies pages hommage livrées aux familles peuvent être protégées par un <strong>code</strong> avant d’afficher le contenu. Les maquettes en ligne reproduisent ce dispositif&nbsp;: vous voyez d’abord l’écran «&nbsp;Accès réservé&nbsp;», puis la page après saisie du bon code.      </p>      <section class="page-section fade-in-section" aria-labelledby="demo-code-title">        <h2 id="demo-code-title">Code d’essai (démonstration uniquement)</h2>        <p>          Pour <strong>toutes</strong> nos URLs de démo listées ci-dessous, le code factice est le même (saisie en minuscules)&nbsp;:        </p>        <p class="why-quote"><strong>memoire</strong></p>        <p class="form-section__intro">          Après une saisie correcte, l’accès reste ouvert pour la durée de votre <strong>session</strong> sur cet appareil (stockage <code>sessionStorage</code> du navigateur). Fermer l’onglet ou le navigateur peut redemander le code.        </p>      </section>      <section class="page-section fade-in-section" aria-labelledby="demo-urls-title">        <h2 id="demo-urls-title">Pages à tester</h2>        <ul class="brief-features brief-features--2" role="list">          <li class="brief-features__item"><a href="hommage/famille-martin/"><strong>Maquette «&nbsp;Famille Martin&nbsp;»</strong></a> — structure sobre, texte centré sur la mise en page technique.</li>          <li class="brief-features__item"><a href="hommage/exemple-defunt/"><strong>Exemple «&nbsp;Claire Fontenay&nbsp;»</strong></a> — texte de souvenir fictif, encadré type cérémonie (données inventées).</li>        </ul>      </section>      <section class="page-section fade-in-section" aria-labelledby="demo-prod-title">        <h2 id="demo-prod-title">En production</h2>        <p>          Le code réel est choisi avec la famille et ne figure pas sur le site public. Pour une sécurité forte, une vérification côté serveur est recommandée ; les fichiers statiques illustrent uniquement le parcours et l’interface.        </p>      </section>      <p class="page-section fade-in-section">        <a class="btn btn--primary" href="hommage/exemple-defunt/">Ouvrir l’exemple défunt fictif</a>        <a class="btn btn--ghost" href="demo-fictive.html">Démo parcours projet</a>      </p>    </article>  </main>  <footer class="site-footer site-footer--full" id="pied-global">    <div class="site-footer__inner">      <div class="site-footer__grid">        <div class="site-footer__block">          <p class="site-footer__brand">Mémoire &amp; Présence</p>          <p class="site-footer__tagline">Hommages numériques et plaques QR personnalisées</p>        </div>        <div class="site-footer__block">          <p class="site-footer__label">Téléphone</p>          <p><a class="site-footer__link-tel" href="tel:+33786173715">07&nbsp;86&nbsp;17&nbsp;37&nbsp;15</a></p>          <p class="site-footer__label">E-mail</p>          <p><a class="site-footer__link-tel" href="mailto:memoire.presence.contact@gmail.com">memoire.presence.contact@gmail.com</a></p>        </div>        <div class="site-footer__block">          <p class="site-footer__label">Zone</p>          <p>Accompagnement à distance — livraison en France entière.</p>          <p class="site-footer__siret">SIRET : <span class="placeholder-inline">à compléter</span></p>        </div>      </div>      <nav class="site-footer__legal" aria-label="Informations légales">        <a href="mentions-legales.html">Mentions légales</a>        <a href="confidentialite.html">Politique de confidentialité</a>        <a href="cgv.html">CGV</a>      </nav>      <p class="site-footer__meta">© <span id="year"></span> Mémoire &amp; Présence — Tous droits réservés.</p>    </div>  </footer>  <script src="script.js?v=25" defer></script></body></html>
+﻿<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <meta name="robots" content="index, follow">
+  <meta name="theme-color" content="#f7f4ef">
+  <meta name="description" content="Comment fonctionne la porte d’accès des pages hommage de démonstration — code d’essai, session navigateur, liens vers les maquettes.">
+  <link rel="canonical" href="https://www.memoire-et-presence.fr/acces-hommage-demo.html">
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <title>Démo accès réservé — pages hommage — Mémoire &amp; Présence</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Source+Sans+3:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css?v=82">
+</head>
+<body>
+  <a class="skip-link" href="#contenu-principal">Aller au contenu</a>
+
+  <header class="site-header site-header--premium">
+    <div class="site-header__inner">
+      <a class="brand-lockup brand-lockup--integrated" href="index.html" aria-label="Mémoire &amp; Présence — accueil">
+        <img class="brand-lockup__icon" src="images/logo-icon.svg" alt="" width="56" height="56" decoding="async"><span class="brand-wordmark">Mémoire&nbsp;&amp;&nbsp;Présence</span>
+      </a>
+
+      <button type="button" class="nav-toggle" id="nav-toggle" aria-expanded="false" aria-controls="nav-principale" aria-label="Ouvrir le menu">
+        <span class="nav-toggle__bar" aria-hidden="true"></span>
+        <span class="nav-toggle__bar" aria-hidden="true"></span>
+        <span class="nav-toggle__bar" aria-hidden="true"></span>
+      </button>
+
+      <nav class="site-nav" id="nav-principale" aria-label="Navigation principale">
+        <ul class="site-nav__list site-nav__list--full">
+          <li class="site-nav__group" aria-hidden="true">
+            <span class="site-nav__group-title">Offre &amp; contenus</span>
+          </li>
+          <li class="nav-secondary"><a href="index.html">Accueil</a></li>
+          <li><a href="offre.html#parcours-delais">Parcours &amp; délais</a></li>
+          <li><a href="video-hommage.html">Vidéo hommage</a></li>
+          <li><a href="plaques-qr.html">Plaques &amp; QR</a></li>
+          <li class="nav-secondary"><a href="accompagnement.html">Accompagnement</a></li>
+          <li class="nav-secondary"><a href="demo-fictive.html">Démo parcours</a></li>
+          <li class="nav-secondary"><a href="hommage/exemple-defunt/">Exemple défunt fictif</a></li>
+          <li class="nav-secondary"><a href="acces-hommage-demo.html" aria-current="page">Démo accès réservé</a></li>
+          <li class="site-nav__group" aria-hidden="true">
+            <span class="site-nav__group-title">Confiance</span>
+          </li>
+          <li><a href="qui-sommes-nous.html">Qui sommes-nous</a></li>
+          <li class="nav-secondary"><a href="securite.html">Sécurité</a></li>
+          <li class="nav-secondary"><a href="faq.html">FAQ</a></li>
+          <li class="site-nav__group" aria-hidden="true">
+            <span class="site-nav__group-title">Écrire &amp; commander</span>
+          </li>
+          <li><a href="contact.html">Contact</a></li>
+          <li class="nav-secondary"><a href="devis-formulaire.html">Formulaire de devis</a></li>
+        </ul>
+      </nav>
+      <a class="btn btn--header site-header__cta" href="devis.html" aria-label="Demander un devis"><span class="site-header__cta-short" aria-hidden="true">Devis</span><span class="site-header__cta-full">Demander un devis</span></a>
+    </div>
+  </header>
+
+  <main class="page-main site-main" id="contenu-principal">
+    <article class="page-inner page-inner--wide fade-in-section">
+      <p class="eyebrow">Maquette — comportement type production</p>
+      <h1 class="page-title">La porte d’accès sur les pages hommage de démonstration</h1>
+      <p class="page-intro">
+        Les vraies pages hommage livrées aux familles peuvent être protégées par un <strong>code</strong> avant d’afficher le contenu. Les maquettes en ligne reproduisent ce dispositif&nbsp;: vous voyez d’abord l’écran «&nbsp;Accès réservé&nbsp;», puis la page après saisie du bon code.
+      </p>
+
+      <section class="page-section fade-in-section" aria-labelledby="demo-code-title">
+        <h2 id="demo-code-title">Code d’essai (démonstration uniquement)</h2>
+        <p>
+          Pour <strong>toutes</strong> nos URLs de démo listées ci-dessous, le code factice est le même (saisie en minuscules)&nbsp;:
+        </p>
+        <p class="why-quote"><strong>memoire</strong></p>
+        <p class="form-section__intro">
+          Après une saisie correcte, l’accès reste ouvert pour la durée de votre <strong>session</strong> sur cet appareil (stockage <code>sessionStorage</code> du navigateur). Fermer l’onglet ou le navigateur peut redemander le code.
+        </p>
+      </section>
+
+      <section class="page-section fade-in-section" aria-labelledby="demo-urls-title">
+        <h2 id="demo-urls-title">Pages à tester</h2>
+        <ul class="brief-features brief-features--2" role="list">
+          <li class="brief-features__item"><a href="hommage/famille-martin/"><strong>Maquette «&nbsp;Famille Martin&nbsp;»</strong></a> — structure sobre, texte centré sur la mise en page technique.</li>
+          <li class="brief-features__item"><a href="hommage/exemple-defunt/"><strong>Exemple «&nbsp;Claire Fontenay&nbsp;»</strong></a> — texte de souvenir fictif, encadré type cérémonie (données inventées).</li>
+        </ul>
+      </section>
+
+      <section class="page-section fade-in-section" aria-labelledby="demo-prod-title">
+        <h2 id="demo-prod-title">En production</h2>
+        <p>
+          Le code réel est choisi avec la famille et ne figure pas sur le site public. Pour une sécurité forte, une vérification côté serveur est recommandée ; les fichiers statiques illustrent uniquement le parcours et l’interface.
+        </p>
+      </section>
+
+      <p class="page-section fade-in-section">
+        <a class="btn btn--primary" href="hommage/exemple-defunt/">Ouvrir l’exemple défunt fictif</a>
+        <a class="btn btn--ghost" href="demo-fictive.html">Démo parcours projet</a>
+      </p>
+    </article>
+  </main>
+
+  <footer class="site-footer site-footer--full" id="pied-global">
+    <div class="site-footer__inner">
+      <div class="site-footer__grid">
+        <div class="site-footer__block">
+          <p class="site-footer__brand">Mémoire &amp; Présence</p>
+          <p class="site-footer__tagline">Hommages numériques et plaques QR personnalisées</p>
+        </div>
+        <div class="site-footer__block">
+          <p class="site-footer__label">Téléphone</p>
+          <p><a class="site-footer__link-tel" href="tel:+33786173715">07&nbsp;86&nbsp;17&nbsp;37&nbsp;15</a></p>
+          <p class="site-footer__label">E-mail</p>
+          <p><a class="site-footer__link-tel" href="mailto:memoire.presence.contact@gmail.com">memoire.presence.contact@gmail.com</a></p>
+        </div>
+        <div class="site-footer__block">
+          <p class="site-footer__label">Zone</p>
+          <p>Accompagnement à distance — livraison en France entière.</p>
+          <p class="site-footer__siret">SIRET : <span class="placeholder-inline">à compléter</span></p>
+        </div>
+      </div>
+      <nav class="site-footer__legal" aria-label="Informations légales">
+        <a href="mentions-legales.html">Mentions légales</a>
+        <a href="confidentialite.html">Politique de confidentialité</a>
+        <a href="cgv.html">CGV</a>
+      </nav>
+      <p class="site-footer__meta">© <span id="year"></span> Mémoire &amp; Présence — Tous droits réservés.</p>
+    </div>
+  </footer>
+
+  <script src="script.js?v=25" defer></script>
+</body>
+</html>
