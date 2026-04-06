@@ -24,7 +24,8 @@
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600;1,700&family=Jost:ital,wght@0,300;0,400;0,500&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://unpkg.com/aos@2.3.4/dist/aos.css">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/glightbox@3.3.0/dist/css/glightbox.min.css">
-  <link rel="stylesheet" href="style.css?v=83">
+  <link rel="stylesheet" href="style.css?v=85">
+  <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
 </head>
 <body class="page-site">
   <a class="skip-link" href="#contenu-principal">Aller au contenu</a>
@@ -65,59 +66,171 @@
     </div>
   </header>
 
+    <style>
+    .demo-banner{background:#fdf8f0;border:1px solid #e8dcc8;border-radius:10px;padding:.8rem 1.1rem;font-size:.82rem;color:#7a6a50;margin-bottom:2rem;display:flex;gap:.6rem;align-items:flex-start}
+    .demo-banner__icon{flex-shrink:0;margin-top:.1rem}
+    .livraison-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:1rem;margin-top:1.25rem}
+    .livraison-card{background:#f7f4f0;border-radius:12px;padding:1.25rem 1.4rem;display:flex;flex-direction:column;gap:.5rem}
+    .livraison-card__icon{width:36px;height:36px;color:#6e8870}
+    .livraison-card__title{font-weight:600;font-size:.95rem;color:#2c3e41}
+    .livraison-card__desc{font-size:.85rem;color:#4a5568;line-height:1.5;margin:0}
+    .parcours-alpine{list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:.5rem}
+    .parcours-item{border:1px solid #dde3dd;border-radius:10px;overflow:hidden}
+    .parcours-btn{width:100%;text-align:left;background:none;border:none;padding:.9rem 1.1rem;cursor:pointer;display:flex;align-items:center;gap:.75rem;font:inherit;font-size:.97rem;font-weight:600;color:#2c3e41}
+    .parcours-btn:hover{background:#f7f4f0}
+    .parcours-n{display:inline-flex;align-items:center;justify-content:center;width:1.8em;height:1.8em;border-radius:50%;background:#6e8870;color:#fff;font-size:.8rem;font-weight:700;flex-shrink:0}
+    .parcours-chevron{margin-left:auto;transition:transform .22s;flex-shrink:0}
+    .parcours-body{padding:.2rem 1.1rem 1rem 3.5rem;color:#4a5568;line-height:1.65;font-size:.92rem}
+    .parcours-body strong{color:#2c3e41}
+    .parcours-tag{display:inline-block;background:#e8f0e8;color:#4a7c54;font-size:.72rem;font-weight:600;letter-spacing:.06em;border-radius:4px;padding:.15em .5em;margin-left:.5rem;vertical-align:middle}
+    .temo-fictif{background:#fff;border-radius:14px;border:1px solid #e4ddd2;padding:1.75rem 2rem;margin-top:1.5rem;position:relative}
+    .temo-fictif::before{content:'\201C';font-family:var(--font-display,Georgia,serif);font-size:5rem;color:#c8d8ca;position:absolute;top:-.5rem;left:1rem;line-height:1}
+    .temo-fictif__text{font-family:var(--font-display,Georgia,serif);font-style:italic;font-size:1.05rem;line-height:1.65;color:#2c3e41;margin:0 0 .9rem;padding-left:.5rem}
+    .temo-fictif__author{font-size:.8rem;color:#6e8870;letter-spacing:.05em}
+    .temo-fictif__note{font-size:.72rem;color:#aaa;margin-top:.5rem;font-style:italic}
+    .demo-browser{border-radius:12px;overflow:hidden;box-shadow:0 8px 40px rgba(60,80,60,.14);border:1px solid #d0cac0;max-width:760px;margin:1.5rem auto}
+    .demo-browser__bar{background:#f0ede8;padding:.55rem 1rem;display:flex;align-items:center;gap:.5rem;border-bottom:1px solid #ddd}
+    .demo-browser__dots{display:flex;gap:.35rem}
+    .demo-browser__dot{width:10px;height:10px;border-radius:50%;background:#ddd}
+    .demo-browser__dot:nth-child(1){background:#f08080}
+    .demo-browser__dot:nth-child(2){background:#f0c060}
+    .demo-browser__dot:nth-child(3){background:#70b870}
+    .demo-browser__url{flex:1;background:#fff;border-radius:5px;padding:.3rem .75rem;font-size:.72rem;color:#888;font-family:monospace;border:1px solid #e0e0e0;margin:0 .5rem}
+    .demo-browser__frame{display:block;width:100%;height:520px;border:none;background:#faf8f5}
+    .demo-browser__note{text-align:center;font-size:.75rem;color:#999;padding:.65rem;background:#f7f4f0;margin:0;font-style:italic}
+    @media(max-width:600px){.demo-browser__frame{height:360px}}
+  </style>
+
   <main class="page-main site-main" id="contenu-principal">
-    <article class="page-inner page-inner--wide fade-in-section">
-      <p class="eyebrow">Maquette — aucune donnée réelle</p>
-      <h1 class="page-title">Démonstration fictive</h1>
-      <p class="brief-lead fade-in-section">
-        Cette page illustre, avec des <strong>exemples entièrement imaginaires</strong>, comment un projet peut se présenter du côté famille : du premier échange à la page en ligne reliée au QR. Elle sert de support de lecture pour nos interlocuteurs — pas de publication de personnes réelles.
+    <article class="page-inner page-inner--wide">
+
+      <p class="page-title__kicker" data-aos="fade-up">Parcours complet &mdash; maquette fictive</p>
+      <h1 class="page-title" data-aos="fade-up">Du premier &eacute;change &agrave; la plaque livr&eacute;e</h1>
+      <p class="brief-lead" data-aos="fade-up">
+        Tous les noms, dates et visuels de cette page sont <strong>enti&egrave;rement invent&eacute;s</strong>. L&rsquo;objectif&nbsp;: vous montrer concr&egrave;tement comment se d&eacute;roule un projet, de l&rsquo;appel initial &agrave; la page hommage en ligne reli&eacute;e au QR grav&eacute;.
       </p>
 
-      <p class="why-quote fade-in-section">
-        Tous les noms, dates, lieux et visuels cités ci-dessous sont <strong>fictifs</strong>. Les <a href="hommage/exemple-defunt/">pages hommage de démonstration</a> reproduisent une <strong>porte d’accès</strong> (code d’essai <strong>memoire</strong> — voir <a href="acces-hommage-demo.html">la page dédiée</a>) ; le <a href="hommage/famille-martin/">modèle technique minimal</a> utilise le même dispositif.
-      </p>
+      <div class="demo-banner" data-aos="fade-up">
+        <svg class="demo-banner__icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M12 8v4m0 4h.01"/></svg>
+        <span>Maquette de d&eacute;monstration &mdash; aucune donn&eacute;e r&eacute;elle. La page hommage ci-dessous est accessible avec le code <strong>memoire</strong>.</span>
+      </div>
 
-      <section class="page-section fade-in-section" aria-labelledby="demo-fictif-projet">
-        <h2 id="demo-fictif-projet">Le projet «&nbsp;La Roseraie&nbsp;» — fiction</h2>
-        <p>
-          <strong>Contexte inventé.</strong> La famille souhaite un hommage discret pour une personne qui aimait son jardin. Elle choisit une plaque en pierre naturelle, format sobre, avec un QR gravé. La page en ligne regroupe un texte de présentation, une dizaine de photos, et un espace pour laisser un mot (selon les options retenues au devis).
-        </p>
-        <p>
-          <strong>Ce qui est montré ailleurs sur le site.</strong> Le rendu type «&nbsp;page au défunt&nbsp;» est visible sur l’<a href="hommage/exemple-defunt/">exemple Claire Fontenay</a> — personnage, dates et lieux sont entièrement inventés ; l’accès y est ouvert pour la visite.
-        </p>
+      <section class="page-section" aria-labelledby="df-contexte" data-aos="fade-up">
+        <h2 id="df-contexte">Le projet &laquo;&nbsp;La Roseraie&nbsp;&raquo;</h2>
+        <p>La famille Fontaine souhaite un hommage discret pour leur m&egrave;re, <strong>&Eacute;lise Fontaine</strong>, d&eacute;c&eacute;d&eacute;e en janvier 2026 &agrave; 78&nbsp;ans. Elle aimait son jardin, ses petits-enfants, les romans policiers et le silence du dimanche matin. La famille veut que chaque visiteur du cimeti&egrave;re puisse, en scannant la plaque, retrouver quelque chose de vrai sur elle.</p>
+        <p>Ils choisissent&nbsp;: une <strong>plaque en pierre naturelle</strong>, un <strong>QR grav&eacute; discret</strong>, et une page hommage sobre avec texte biographique, galerie photos et espace pour laisser un message.</p>
       </section>
 
-      <section class="page-section fade-in-section" aria-labelledby="demo-fictif-etapes">
-        <h2 id="demo-fictif-etapes">Déroulé imaginaire en quatre temps</h2>
-        <ol class="process-list">
-          <li><strong>Échange.</strong> Appel ou message : la famille décrit le ton souhaité (sobre, poétique, familial…) et transmet des éléments visuels (photos, dates, citation éventuelle).</li>
-          <li><strong>Proposition.</strong> Un document récapitule le type de plaque, l’esprit de la page, les délais indicatifs et le budget — rien n’est fabriqué sans accord.</li>
-          <li><strong>Réalisation.</strong> Mise en page de la page, tests du QR, fabrication et envoi du support à l’adresse indiquée.</li>
-          <li><strong>Remise.</strong> La famille reçoit le lien définitif et les consignes simples pour faire découvrir l’hommage à qui elle le souhaite.</li>
+      <section class="page-section" aria-labelledby="df-parcours" data-aos="fade-up">
+        <h2 id="df-parcours">Les quatre &eacute;tapes du projet</h2>
+        <ol class="parcours-alpine" x-data="{ open: 1 }">
+          <li class="parcours-item">
+            <button class="parcours-btn" @click="open = open===1 ? null : 1" :aria-expanded="open===1">
+              <span class="parcours-n" aria-hidden="true">1</span>
+              <span>Premier &eacute;change <span class="parcours-tag">Sem. 1</span></span>
+              <svg class="parcours-chevron" :style="open===1?'transform:rotate(180deg)':''" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>
+            </button>
+            <div class="parcours-body" x-show="open===1" x-transition.duration.200ms>
+              <strong>Ce qui se passe&nbsp;:</strong> Sophie Fontaine envoie un message via le formulaire de contact. Nous la rappelons le lendemain. En 20&nbsp;minutes, nous cadrons l&rsquo;esprit de la page (sobre, intime, sans musique), le type de plaque souhait&eacute;, le nombre de photos disponibles (12), et la date souhait&eacute;e (avant le 3 avril &mdash; premier anniversaire du d&eacute;c&egrave;s).<br><br>
+              <strong>Ce que nous demandons&nbsp;:</strong> quelques photos num&eacute;riques, une courte biographie libre, une ou deux citations si la famille en a envie. Rien d&rsquo;autre.
+            </div>
+          </li>
+          <li class="parcours-item">
+            <button class="parcours-btn" @click="open = open===2 ? null : 2" :aria-expanded="open===2">
+              <span class="parcours-n" aria-hidden="true">2</span>
+              <span>Proposition &eacute;crite <span class="parcours-tag">Sem. 1&ndash;2</span></span>
+              <svg class="parcours-chevron" :style="open===2?'transform:rotate(180deg)':''" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>
+            </button>
+            <div class="parcours-body" x-show="open===2" x-transition.duration.200ms>
+              <strong>Ce que re&ccedil;oit la famille&nbsp;:</strong> un document PDF de 2 pages. Il pr&eacute;cise le type de plaque retenu (ardoise 20&times;30&nbsp;cm, QR grav&eacute; au laser), l&rsquo;esprit de la page hommage (ton sobre, photo de portrait en banni&egrave;re, galerie 8 photos, livre d&rsquo;or avec mod&eacute;ration), le d&eacute;lai (3&nbsp;semaines), et le montant total, ferme, sans surprise.<br><br>
+              <strong>Rien n&rsquo;est lanc&eacute; sans leur validation explicite.</strong> La famille peut r&eacute;viser un point, poser des questions, ou simplement dire oui.
+            </div>
+          </li>
+          <li class="parcours-item">
+            <button class="parcours-btn" @click="open = open===3 ? null : 3" :aria-expanded="open===3">
+              <span class="parcours-n" aria-hidden="true">3</span>
+              <span>R&eacute;alisation <span class="parcours-tag">Sem. 2&ndash;4</span></span>
+              <svg class="parcours-chevron" :style="open===3?'transform:rotate(180deg)':''" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>
+            </button>
+            <div class="parcours-body" x-show="open===3" x-transition.duration.200ms>
+              La page hommage est mise en ligne sur un lien provisoire. La famille la consulte, demande deux ajustements (formulation d&rsquo;un paragraphe, ordre des photos). Nous corrigeons sous 48&nbsp;h.<br><br>
+              En parall&egrave;le, la plaque est grav&eacute;e. Le QR est test&eacute; sur trois t&eacute;l&eacute;phones diff&eacute;rents avant l&rsquo;envoi. La plaque part en colissimo suivi, emball&eacute;e avec soin.
+            </div>
+          </li>
+          <li class="parcours-item">
+            <button class="parcours-btn" @click="open = open===4 ? null : 4" :aria-expanded="open===4">
+              <span class="parcours-n" aria-hidden="true">4</span>
+              <span>Remise &amp; apr&egrave;s <span class="parcours-tag">Sem. 4</span></span>
+              <svg class="parcours-chevron" :style="open===4?'transform:rotate(180deg)':''" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>
+            </button>
+            <div class="parcours-body" x-show="open===4" x-transition.duration.200ms>
+              La famille re&ccedil;oit la plaque et un e-mail r&eacute;capitulatif avec&nbsp;: le lien d&eacute;finitif de la page, le code d&rsquo;acc&egrave;s si elle a choisi un acc&egrave;s priv&eacute;, les consignes pour partager le QR &agrave; d&rsquo;autres proches.<br><br>
+              <strong>Apr&egrave;s la remise&nbsp;:</strong> une petite fen&ecirc;tre d&rsquo;ajustement est incluse (correction de coquille, retouche de formulation). Au-del&agrave;, toute &eacute;volution majeure fait l&rsquo;objet d&rsquo;un avenant transparent.
+            </div>
+          </li>
         </ol>
       </section>
 
-      <section class="page-section fade-in-section" aria-labelledby="demo-fictif-fiche">
-        <h2 id="demo-fictif-fiche">Fiche projet fictive (extrait)</h2>
-        <div class="demo-fictive-card fade-in-section">
-          <p class="demo-fictive-card__label">Référence maquette</p>
-          <p class="demo-fictive-card__value">MP-DEMO-2026-ROSE (inventée)</p>
-          <p class="demo-fictive-card__label">Support</p>
-          <p class="demo-fictive-card__value">Plaque pierre — QR discret — livraison fictive «&nbsp;Bretagne&nbsp;»</p>
-          <p class="demo-fictive-card__label">Page en ligne</p>
-          <p class="demo-fictive-card__value">URL du type <code class="home-fold__code">/hommage/…</code> — non listée sur le site public</p>
+      <section class="page-section" aria-labelledby="df-livrables" data-aos="fade-up">
+        <h2 id="df-livrables">Ce que re&ccedil;oit la famille Fontaine</h2>
+        <div class="livraison-grid">
+          <div class="livraison-card" data-aos="fade-up" data-aos-delay="0">
+            <svg class="livraison-card__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true"><rect x="3" y="3" width="18" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg>
+            <p class="livraison-card__title">Page hommage en ligne</p>
+            <p class="livraison-card__desc">URL priv&eacute;e s&eacute;curis&eacute;e, accessible par code ou lien. H&eacute;bergement inclus sur la dur&eacute;e convenue au devis.</p>
+          </div>
+          <div class="livraison-card" data-aos="fade-up" data-aos-delay="80">
+            <svg class="livraison-card__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg>
+            <p class="livraison-card__title">Plaque avec QR grav&eacute;</p>
+            <p class="livraison-card__desc">Ardoise naturelle 20&times;30&nbsp;cm, QR au laser, livraison colissimo suivi. Installation simple.</p>
+          </div>
+          <div class="livraison-card" data-aos="fade-up" data-aos-delay="160">
+            <svg class="livraison-card__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87M16 3.13a4 4 0 010 7.75"/></svg>
+            <p class="livraison-card__title">Livre d&rsquo;or num&eacute;rique</p>
+            <p class="livraison-card__desc">Les proches peuvent laisser un mot depuis leur t&eacute;l&eacute;phone, apr&egrave;s validation (option retenue ici).</p>
+          </div>
+          <div class="livraison-card" data-aos="fade-up" data-aos-delay="240">
+            <svg class="livraison-card__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+            <p class="livraison-card__title">Acc&egrave;s s&eacute;curis&eacute;</p>
+            <p class="livraison-card__desc">Code personnel transmis uniquement aux proches d&eacute;sign&eacute;s. Aucun acc&egrave;s public sans autorisation.</p>
+          </div>
         </div>
       </section>
 
-      <section class="page-section page-section--cta fade-in-section">
-        <p class="page-cta-wrap">
-          <a class="btn btn--primary" href="hommage/exemple-defunt/">Voir la page hommage fictive</a>
-          <a class="btn btn--ghost" href="devis.html">Demander un devis réel</a>
+      <section class="page-section" aria-labelledby="df-maquette" data-aos="fade-up">
+        <h2 id="df-maquette">La page hommage &mdash; aperçu en direct</h2>
+        <p style="margin-bottom:1rem;font-size:.93rem;color:#4a5568;">Ci-dessous, la maquette de la page hommage &laquo;&nbsp;Claire Fontenay&nbsp;&raquo; &mdash; personnage fictif. Code d&rsquo;acc&egrave;s&nbsp;: <strong>memoire</strong>.</p>
+        <div class="demo-browser">
+          <div class="demo-browser__bar" aria-hidden="true">
+            <div class="demo-browser__dots">
+              <span class="demo-browser__dot"></span><span class="demo-browser__dot"></span><span class="demo-browser__dot"></span>
+            </div>
+            <span class="demo-browser__url">memoire-et-presence.fr/hommage/claire-fontenay/</span>
+          </div>
+          <iframe class="demo-browser__frame" src="hommage/exemple-defunt/" title="Maquette page hommage Claire Fontenay fictive" loading="lazy" sandbox="allow-scripts allow-same-origin allow-forms"></iframe>
+          <p class="demo-browser__note">Maquette de d&eacute;monstration &mdash; donn&eacute;es fictives &mdash; code d&rsquo;acc&egrave;s&nbsp;: <strong>memoire</strong></p>
+        </div>
+      </section>
+
+      <section class="page-section" aria-labelledby="df-temo" data-aos="fade-up">
+        <h2 id="df-temo">Ce que dit la famille &mdash; fiction</h2>
+        <div class="temo-fictif">
+          <p class="temo-fictif__text">&laquo;&nbsp;On avait peur que &ccedil;a soit compliqu&eacute; ou froid. En fait, c&rsquo;est exactement l&rsquo;inverse&nbsp;: c&rsquo;est doux, &ccedil;a ressemble &agrave; maman. Les enfants scannent le QR &agrave; chaque visite. &Ccedil;a leur donne quelque chose de concret &agrave; faire devant la plaque.&nbsp;&raquo;</p>
+          <p class="temo-fictif__author">&mdash; Sophie F., fille a&icirc;n&eacute;e &mdash; projet &laquo;&nbsp;La Roseraie&nbsp;&raquo;</p>
+          <p class="temo-fictif__note">T&eacute;moignage fictif &mdash; personnage enti&egrave;rement invent&eacute; pour cette d&eacute;monstration.</p>
+        </div>
+      </section>
+
+      <section class="page-section page-section--cta" data-aos="fade-up">
+        <p class="page-cta-wrap page-cta-wrap--row">
+          <a class="btn btn--primary" href="devis.html">Demander un devis</a>
+          <a class="btn btn--ghost" href="contact.html">Nous poser une question</a>
         </p>
-        <p class="form-section__intro mt-1 form-section__intro--center">
-          <a href="offre.html#parcours-delais">Parcours &amp; délais</a> · <a href="contact.html">Nous écrire</a> · <a href="index.html">Retour à l’accueil</a>
+        <p class="form-section__intro" style="text-align:center;margin-top:.6rem;">
+          <a href="offre.html#parcours-delais">Parcours &amp; d&eacute;lais</a> &middot; <a href="plaques-qr.html">Plaques &amp; QR</a> &middot; <a href="fiche-projet-moreau.html">Autre exemple de fiche projet</a>
         </p>
       </section>
+
     </article>
   </main>
 
