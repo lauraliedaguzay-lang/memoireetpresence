@@ -853,33 +853,4 @@
     });
   }
 
-  // #region agent log — background lines debug
-  if (document.body.classList.contains('page-home')) {
-    window.addEventListener('load', function() {
-      var data = {};
-      // H-A: check body::after noise SVG tiling visible
-      var bodyAfterStyle = window.getComputedStyle(document.body, '::after');
-      data.bodyAfterBg = bodyAfterStyle.backgroundImage ? bodyAfterStyle.backgroundImage.substring(0, 80) : 'none';
-      data.bodyAfterBgSize = bodyAfterStyle.backgroundSize;
-      data.bodyAfterBgRepeat = bodyAfterStyle.backgroundRepeat;
-      // H-B: check if .home-atelier element still exists in DOM
-      var atelierEl = document.querySelector('.home-atelier');
-      data.atelierExists = !!atelierEl;
-      data.atelierLineCount = document.querySelectorAll('.home-atelier__line').length;
-      // H-C: check body::before bg-sable
-      var bodyBeforeStyle = window.getComputedStyle(document.body, '::before');
-      data.bodyBeforeBg = bodyBeforeStyle.backgroundImage ? bodyBeforeStyle.backgroundImage.substring(0, 60) : 'none';
-      // H-D: find any elements between hero and home-fold
-      var main = document.querySelector('.home-main');
-      data.mainChildCount = main ? main.children.length : -1;
-      data.mainChildTags = main ? Array.from(main.children).map(function(c){return c.tagName+'.'+c.className.split(' ')[0];}).join(',') : '';
-      // H-E: check hero footnote border visibility
-      var footnote = document.querySelector('.hero__footnote');
-      var fnStyle = footnote ? window.getComputedStyle(footnote) : null;
-      data.footnoteBorderTop = fnStyle ? fnStyle.borderTop : 'none';
-      fetch('http://127.0.0.1:7663/ingest/c8e2fa91-cc20-488f-8140-94baae723e29',{method:'POST',headers:{'Content-Type':'application/json','X-Debug-Session-Id':'238fac'},body:JSON.stringify({sessionId:'238fac',location:'script.js:856',message:'background lines audit',data:data,runId:'run1',hypothesisId:'A-B-C-D-E',timestamp:Date.now()})}).catch(function(){});
-    });
-  }
-  // #endregion
-
 })();
