@@ -1,4 +1,4 @@
-/**
+﻿/**
  * Pinapp — Générateur de contenu social media
  * Google Apps Script — coller dans script.google.com (compte lauralie.daguzay@gmail.com)
  *
@@ -88,27 +88,60 @@ RÉUNION CRITIQUE 5 AGENTS
 
 Après les posts, simuler la réunion critique :
 
-===CRITIQUE_AGENTS===
 
-?? AGENT DIRECTION ARTISTIQUE
-Vérifie cohérence palette, typo, premium vs cheap.
-Verdict : ✅ / ⚠️ / ❌ pour chaque post.
+FORMAT TIKTOK — SCRIPT COMPLET
+Durée cible : 45-75 secondes. Filmable avec smartphone.
 
-?? AGENT COPYWRITING
-Vérifie accroche, émotion, sincérité, absence de clichés.
-Reformulation si nécessaire.
+===TIKTOK_[N]===
+HORAIRE : [Mercredi/Vendredi + heure]
+DURÉE : [X secondes]
 
-?? AGENT COHÉRENCE MARQUE
-Vérifie alignement avec les valeurs pinapp, ton correct.
-Point de veto si le post ne correspond pas à la marque.
+HOOK (0:00-0:05) :
+[Phrase exacte percutante. Pas de "POV:" ni clichés.]
+[Indication caméra : angle, expression, geste]
 
-?? AGENT PERFORMANCE RÉSEAUX
-Score de portée estimée (1–10), hashtags optimisés, horaire.
+PLAN DE TOURNAGE :
+Scène 1 — [0:00-0:xx]
+  PAROLE  : "[Texte exact]"
+  VISUEL  : [Ce qu'on voit — plan, B-roll, objet]
+  DÉCOR   : [Où filmer]
+  NOTE    : [Ton, émotion]
+[Répéter pour chaque scène]
 
-?? VERDICT FINAL
-X approuvés / Y à corriger / Z retirés + liste des corrections.
+INCRUSTÉS : [Timecode] → "[Texte]" — police, couleur
+SON : [Style musical, volume, son tendance ou non]
+MONTAGE : [Rythme, transitions, points de coupe]
 
-===FIN_CRITIQUE===`;
+LÉGENDE : [50-100 mots, hook fort]
+HASHTAGS : [5-8 ciblés]
+===FIN_TIKTOK_[N]===
+
+FORMAT STORY
+===STORY_[N]===
+DIRECTION VISUELLE : [1080×1920, fond, texte, sticker interactif]
+TEXTE : [Max 2 lignes]
+LIEN : [URL si applicable]
+===FIN_STORY_[N]===
+
+RÉUNION CRITIQUE — 12 AGENTS
+===REUNION_CRITIQUE===
+[Chaque agent analyse TOUS les posts]
+
+Agent Direction Artistique Premium → visuels premium ou cheap ? Verdict + corrections.
+Agent Copywriting Émotionnel → légendes sincères ? Réécriture si nécessaire.
+Agent Cohérence Marque Pinapp → alignement avec les valeurs pinapp ? Veto si non.
+Agent Luxe & Raffinement → qu'est-ce qui est sobre vs qu'est-ce qui fait "template" ?
+Agent Scène Visuelle → directions Canva réalisables et beaux plans TikTok ?
+Agent Émotion Utilisateur → ce que ressent la cible en voyant chaque post ?
+Agent Business Premium → ces posts positionnent-ils pinapp comme service premium ?
+Agent Performance Réseaux → score portée 1-10, hashtags, horaire optimal.
+Agent SEO Éditorial → mots-clés, originalité, anti-doublon.
+Agent UX Premium → chaque post donne-t-il envie de cliquer / sauvegarder ?
+Agent Cohérence Multi-Canaux → cohérence avec le site et les emails clients ?
+Agent Secteur → rien qui choque ou qui soit hors-sujet pour la cible ?
+
+VERDICT FINAL : posts approuvés / à corriger / retirés · note globale /10
+===FIN_REUNION===`;
 
 // ─── GÉNÉRATEUR HEBDOMADAIRE ──────────────────────────────────────────────────
 
@@ -168,7 +201,60 @@ function _callClaudeSM_PP(userContent) {
 function _parseSMOutput_PP(text) {
   const postMatches = [...text.matchAll(/---POST \d+---([\s\S]*?)---FIN POST \d+---/g)];
   const posts       = postMatches.map(m => m[1].trim());
-  const critiqueM   = text.match(/===CRITIQUE_AGENTS===([\s\S]*?)===FIN_CRITIQUE===/);
+  const critiqueM   = text.match(/
+FORMAT TIKTOK — SCRIPT COMPLET
+Durée cible : 45-75 secondes. Filmable avec smartphone.
+
+===TIKTOK_[N]===
+HORAIRE : [Mercredi/Vendredi + heure]
+DURÉE : [X secondes]
+
+HOOK (0:00-0:05) :
+[Phrase exacte percutante. Pas de "POV:" ni clichés.]
+[Indication caméra : angle, expression, geste]
+
+PLAN DE TOURNAGE :
+Scène 1 — [0:00-0:xx]
+  PAROLE  : "[Texte exact]"
+  VISUEL  : [Ce qu'on voit — plan, B-roll, objet]
+  DÉCOR   : [Où filmer]
+  NOTE    : [Ton, émotion]
+[Répéter pour chaque scène]
+
+INCRUSTÉS : [Timecode] → "[Texte]" — police, couleur
+SON : [Style musical, volume, son tendance ou non]
+MONTAGE : [Rythme, transitions, points de coupe]
+
+LÉGENDE : [50-100 mots, hook fort]
+HASHTAGS : [5-8 ciblés]
+===FIN_TIKTOK_[N]===
+
+FORMAT STORY
+===STORY_[N]===
+DIRECTION VISUELLE : [1080×1920, fond, texte, sticker interactif]
+TEXTE : [Max 2 lignes]
+LIEN : [URL si applicable]
+===FIN_STORY_[N]===
+
+RÉUNION CRITIQUE — 12 AGENTS
+===REUNION_CRITIQUE===
+[Chaque agent analyse TOUS les posts]
+
+Agent Direction Artistique Premium → visuels premium ou cheap ? Verdict + corrections.
+Agent Copywriting Émotionnel → légendes sincères ? Réécriture si nécessaire.
+Agent Cohérence Marque Pinapp → alignement avec les valeurs pinapp ? Veto si non.
+Agent Luxe & Raffinement → qu'est-ce qui est sobre vs qu'est-ce qui fait "template" ?
+Agent Scène Visuelle → directions Canva réalisables et beaux plans TikTok ?
+Agent Émotion Utilisateur → ce que ressent la cible en voyant chaque post ?
+Agent Business Premium → ces posts positionnent-ils pinapp comme service premium ?
+Agent Performance Réseaux → score portée 1-10, hashtags, horaire optimal.
+Agent SEO Éditorial → mots-clés, originalité, anti-doublon.
+Agent UX Premium → chaque post donne-t-il envie de cliquer / sauvegarder ?
+Agent Cohérence Multi-Canaux → cohérence avec le site et les emails clients ?
+Agent Secteur → rien qui choque ou qui soit hors-sujet pour la cible ?
+
+VERDICT FINAL : posts approuvés / à corriger / retirés · note globale /10
+===FIN_REUNION===/);
   const critique    = critiqueM ? critiqueM[1].trim() : '[Critique non générée]';
   return { posts, critique };
 }
