@@ -253,6 +253,10 @@ function processThread(thread) {
 
   Logger.log(`Traitement [${formType}] : ${JSON.stringify(formData)}`);
 
+  // AR automatique envoyé immédiatement — avant l'appel Claude
+  const clientEmailForAR = extractClientEmail(formData);
+  _sendAutoReply(clientEmailForAR, formData, formType);
+
   const claudeOutput              = callClaude(formData, formType, rawBody);
   const { analyse, briefMichael, brouillon } = parseClaudeOutput(claudeOutput);
   const clientEmail               = extractClientEmail(formData);
@@ -443,6 +447,72 @@ Lauralie`;
 
     GmailApp.createDraft(CONFIG.EMAIL_MICHAEL, michaelSubject, michaelBody);
     Logger.log(`✅ Brief Michaël créé → ${CONFIG.EMAIL_MICHAEL}`);
+  }
+}
+
+// ─── ACCUSÉ DE RÉCEPTION AUTOMATIQUE ─────────────────────────────────────────
+
+/**
+ * Envoyé immédiatement au client dès réception du formulaire.
+ * Avant l'appel Claude — le client sait qu'on l'a reçu sans attendre.
+ * La vraie réponse personnalisée reste dans le brouillon, sous validation Lauralie.
+ */
+function _sendAutoReply(clientEmail, formData, formType) {
+  if (!clientEmail) return;
+
+  const nom      = formData['Prénom et nom'] || formData['Nom'] || formData['name'] || '';
+  const defunt   = formData['honor_name'] || '';
+  const civilite = nom ? nom.split(' ')[0] : '';
+  const hasDefunt = defunt.length > 0 || formType === 'ACCOMPAGNEMENT';
+
+  const prenom = civilite || 'Madame, Monsieur,';
+  const salut  = civilite ? `${civilite},` : 'Madame, Monsieur,';
+
+  let body;
+
+  if (hasDefunt) {
+    // Ton doux — deuil ou accompagnement
+    body =
+`${salut}
+
+Nous avons bien reçu votre message et nous vous en remercions.
+
+Nous savons que ce type de démarche demande un effort particulier dans des moments difficiles. Nous lisons votre demande avec attention et nous vous répondons en principe sous 24 h.
+
+Lauralie
+Mémoire & Présence
+memoirepresence@gmail.com — 07 86 17 37 15`;
+
+  } else if (formType === 'DEVIS') {
+    body =
+`${salut}
+
+Votre demande de devis a bien été reçue. Nous l'étudions et vous répondons en principe sous 24 h avec une proposition adaptée à votre projet.
+
+Lauralie
+Mémoire & Présence
+memoirepresence@gmail.com — 07 86 17 37 15`;
+
+  } else {
+    body =
+`${salut}
+
+Votre message a bien été reçu. Nous vous répondons en principe sous 24 h.
+
+Lauralie
+Mémoire & Présence
+memoirepresence@gmail.com — 07 86 17 37 15`;
+  }
+
+  const subject = hasDefunt
+    ? 'Nous avons bien reçu votre message — Mémoire & Présence'
+    : 'Votre demande — Mémoire & Présence';
+
+  try {
+    GmailApp.sendEmail(clientEmail, subject, body);
+    Logger.log(`✅ AR automatique envoyé → ${clientEmail}`);
+  } catch (e) {
+    Logger.log(`⚠️ AR échoué : ${e.message}`);
   }
 }
 
