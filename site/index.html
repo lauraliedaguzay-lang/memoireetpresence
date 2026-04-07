@@ -327,7 +327,28 @@
     document.addEventListener("DOMContentLoaded", function () {
       AOS.init({ duration: 650, once: true, offset: 50, easing: "ease-out-quart" });
       if (typeof Swiper !== "undefined") {
-        new Swiper(".temoignages-swiper", { loop: true, autoplay: { delay: 4500, disableOnInteraction: false }, pagination: { el: ".swiper-pagination", clickable: true }, slidesPerView: 1, spaceBetween: 0 });
+        var reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+        new Swiper(".temoignages-swiper", {
+          loop: true,
+          speed: reduceMotion ? 200 : 520,
+          grabCursor: true,
+          slidesPerView: 1,
+          spaceBetween: 0,
+          watchSlidesProgress: true,
+          touchStartPreventDefault: false,
+          resistanceRatio: 0.75,
+          autoplay: reduceMotion
+            ? false
+            : { delay: 4500, disableOnInteraction: false, pauseOnMouseEnter: true },
+          pagination: { el: ".swiper-pagination", clickable: true, dynamicBullets: true, dynamicMainBullets: 3 },
+          keyboard: { enabled: true },
+          a11y: {
+            enabled: true,
+            prevSlideMessage: "Témoignage précédent",
+            nextSlideMessage: "Témoignage suivant",
+            paginationBulletMessage: "Aller au témoignage {{index}}",
+          },
+        });
       }
       if (typeof GLightbox !== "undefined") {
         GLightbox({ selector: ".glightbox", touchNavigation: true, loop: false, closeButton: true });

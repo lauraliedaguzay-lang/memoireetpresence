@@ -279,7 +279,19 @@
   <script>
     document.addEventListener("DOMContentLoaded", function () {
       AOS.init({ duration: 650, once: true, offset: 50, easing: "ease-out-quart" });
-      if (typeof Swiper !== "undefined") { new Swiper(".acc-swiper", { loop: true, autoplay: { delay: 5000, disableOnInteraction: false }, pagination: { el: ".acc-swiper .swiper-pagination", clickable: true } }); }
+      if (typeof Swiper !== "undefined") {
+        new Swiper(".acc-swiper", {
+          loop: true,
+          speed: 520,
+          grabCursor: true,
+          touchStartPreventDefault: false,
+          resistanceRatio: 0.72,
+          followFinger: true,
+          longSwipesRatio: 0.2,
+          autoplay: { delay: 5200, disableOnInteraction: false },
+          pagination: { el: ".acc-swiper .swiper-pagination", clickable: true, dynamicBullets: true }
+        });
+      }
       if (typeof GLightbox !== "undefined") {
         GLightbox({ selector: ".glightbox", touchNavigation: true, loop: false, closeButton: true });
       }
