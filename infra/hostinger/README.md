@@ -12,6 +12,22 @@ Ce dossier contient une configuration **prête à déployer sur un VPS Hostinger
 - Un nom de domaine avec un sous-domaine dédié, ex. `n8n.memoire-et-presence.fr`
 - Ports ouverts vers le VPS : **80** et **443**
 
+### Variante sans domaine (temporaire)
+Si vous n'avez pas encore de domaine, vous pouvez démarrer n8n en HTTP sur l'IP du VPS (moins sécurisé) :
+- Compose : `docker-compose.ip.yml`
+- Accès : `http://IP_DU_VPS:5678`
+
+Commandes :
+
+```bash
+cp .env.example .env
+# éditer .env et définir au minimum POSTGRES_PASSWORD et N8N_ENCRYPTION_KEY
+docker compose -f docker-compose.ip.yml up -d
+docker compose -f docker-compose.ip.yml ps
+```
+
+Quand le domaine est prêt, repasser sur `docker-compose.yml` (Traefik + HTTPS).
+
 ### 1) Copier les fichiers sur le VPS
 Copier ce dossier `infra/hostinger/` sur le VPS (par ex. dans `/opt/mp/`).
 
