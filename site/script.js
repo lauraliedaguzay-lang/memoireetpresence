@@ -488,12 +488,22 @@
     var params = new URLSearchParams();
     params.append("form-name", form.getAttribute("name") || "");
     new FormData(form).forEach(function(val, key) { params.append(key, val); });
-    fetch("/", {
+    return fetch("/", {
       method: "POST",
       headers: { "Content-Type": "application/x-www-form-urlencoded" },
       body: params.toString()
     })
-    .then(function() {
+    .then(function(res) {
+      // Netlify Forms only works when the site is served by Netlify.
+      // GitHub Pages may still return 200 for "/" but will NOT capture submissions.
+      var nfId = res.headers.get("x-nf-request-id");
+      var server = res.headers.get("server") || "";
+      var looksLikeNetlify = !!nfId || /netlify/i.test(server);
+      if (!res.ok || !looksLikeNetlify) {
+        var err = new Error("not_netlify");
+        err.code = "not_netlify";
+        throw err;
+      }
       if (feedback) {
         feedback.innerHTML = successMsg;
         feedback.classList.add("form-feedback--success");
@@ -508,6 +518,31 @@
         feedback.hidden = false;
       }
     });
+  }
+
+  function openMailtoFromForm(form, subject) {
+    try {
+      var fd = new FormData(form);
+      var lines = [];
+      fd.forEach(function (val, key) {
+        if (key === "form-name") return;
+        var v = String(val == null ? "" : val).trim();
+        if (!v) return;
+        lines.push(key + " : " + v);
+      });
+      var body = lines.join("\n");
+      var href =
+        "mailto:" +
+        encodeURIComponent(CONTACT_EMAIL) +
+        "?subject=" +
+        encodeURIComponent(subject || "Demande Mémoire & Présence") +
+        "&body=" +
+        encodeURIComponent(body);
+      window.location.href = href;
+      return true;
+    } catch (e) {
+      return false;
+    }
   }
 
   const contactForm = document.getElementById("contact-form");
@@ -589,7 +624,18 @@
           return;
         }
       }
-      submitToNetlify(accompagnementForm, accFeedback, "Formulaire envoy\u00e9 \u2014 nous vous recontactons rapidement.");
+      submitToNetlify(accompagnementForm, accFeedback, "Formulaire envoy\u00e9 \u2014 nous vous recontactons rapidement.")
+        .catch(function () {
+          // Fallback (ex: GitHub Pages / local): open an email draft with the recap.
+          var ok = openMailtoFromForm(accompagnementForm, "Accompagnement — Mémoire & Présence");
+          if (accFeedback) {
+            accFeedback.innerHTML = ok
+              ? "Votre messagerie s'ouvre avec le r\u00e9capitulatif. Envoyez l'e-mail pour finaliser."
+              : "Impossible d'ouvrir la messagerie. \u00c9crivez-nous \u00e0 <a href=\"mailto:" + CONTACT_EMAIL + "\">" + CONTACT_EMAIL + "</a>.";
+            accFeedback.classList.add("form-feedback--success");
+            accFeedback.hidden = false;
+          }
+        });
     });
   }
 
@@ -611,7 +657,17 @@
         if (devisFeedback) { devisFeedback.textContent = "L'adresse e-mail ne semble pas valide. V\u00e9rifiez-la avant d'envoyer."; devisFeedback.hidden = false; }
         return;
       }
-      submitToNetlify(devisForm, devisFeedback, "Demande de devis re\u00e7ue \u2014 nous vous r\u00e9pondons sous 48\u00a0h.");
+      submitToNetlify(devisForm, devisFeedback, "Demande de devis re\u00e7ue \u2014 nous vous r\u00e9pondons sous 48\u00a0h.")
+        .catch(function () {
+          var ok = openMailtoFromForm(devisForm, "Demande de devis — Mémoire & Présence");
+          if (devisFeedback) {
+            devisFeedback.innerHTML = ok
+              ? "Votre messagerie s'ouvre avec le r\u00e9capitulatif. Envoyez l'e-mail pour finaliser."
+              : "Impossible d'ouvrir la messagerie. \u00c9crivez-nous \u00e0 <a href=\"mailto:" + CONTACT_EMAIL + "\">" + CONTACT_EMAIL + "</a>.";
+            devisFeedback.classList.add("form-feedback--success");
+            devisFeedback.hidden = false;
+          }
+        });
     });
   }
 
