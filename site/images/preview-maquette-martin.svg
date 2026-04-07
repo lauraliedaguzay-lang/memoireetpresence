@@ -1,0 +1,63 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="900" viewBox="0 0 1200 900" role="img" aria-label="Aperçu maquette Famille Martin  entrée par code puis page hommage">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#F7F4EF"/>
+      <stop offset="1" stop-color="#EDE4D3"/>
+    </linearGradient>
+    <linearGradient id="card" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#FFFFFF"/>
+      <stop offset="1" stop-color="#FBFAF7"/>
+    </linearGradient>
+    <filter id="shadow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="18" stdDeviation="22" flood-color="#2C3E41" flood-opacity=".12"/>
+    </filter>
+  </defs>
+  <rect width="1200" height="900" fill="url(#bg)"/>
+
+  <!-- Top bar -->
+  <rect x="0" y="0" width="1200" height="92" fill="#FFFFFF" opacity=".92"/>
+  <rect x="56" y="28" width="210" height="36" rx="10" fill="#2C3E41" opacity=".10"/>
+  <rect x="320" y="34" width="120" height="14" rx="7" fill="#2C3E41" opacity=".12"/>
+  <rect x="460" y="34" width="120" height="14" rx="7" fill="#2C3E41" opacity=".12"/>
+  <rect x="600" y="34" width="120" height="14" rx="7" fill="#2C3E41" opacity=".12"/>
+  <rect x="980" y="26" width="164" height="40" rx="14" fill="#3D6B4F" opacity=".92"/>
+
+  <!-- Main card -->
+  <g filter="url(#shadow)">
+    <rect x="110" y="150" width="980" height="640" rx="28" fill="url(#card)"/>
+  </g>
+
+  <!-- Badge -->
+  <rect x="170" y="206" width="222" height="40" rx="14" fill="#3D6B4F" opacity=".14"/>
+  <text x="182" y="233" font-family="system-ui, -apple-system, Segoe UI, Roboto, Arial" font-size="16" fill="#3D6B4F" font-weight="700">ACCÈS PAR CODE</text>
+
+  <!-- Title -->
+  <text x="170" y="305" font-family="Georgia, 'Times New Roman', serif" font-size="46" fill="#2C3E41" font-weight="700">Famille Martin</text>
+  <text x="170" y="345" font-family="system-ui, -apple-system, Segoe UI, Roboto, Arial" font-size="18" fill="#4A5568">Entrée discrète, puis page hommage complète</text>
+
+  <!-- Gate preview -->
+  <rect x="170" y="395" width="420" height="310" rx="18" fill="#F7F4F0" stroke="#DDE3DD"/>
+  <rect x="210" y="440" width="340" height="18" rx="9" fill="#2C3E41" opacity=".12"/>
+  <rect x="210" y="480" width="270" height="12" rx="6" fill="#2C3E41" opacity=".10"/>
+  <rect x="210" y="512" width="300" height="12" rx="6" fill="#2C3E41" opacity=".10"/>
+  <rect x="210" y="562" width="340" height="54" rx="16" fill="#FFFFFF" stroke="#DDE3DD"/>
+  <text x="232" y="596" font-family="system-ui, -apple-system, Segoe UI, Roboto, Arial" font-size="16" fill="#8A8070">Code daccès</text>
+  <rect x="210" y="630" width="210" height="52" rx="16" fill="#3D6B4F" opacity=".92"/>
+  <text x="232" y="664" font-family="system-ui, -apple-system, Segoe UI, Roboto, Arial" font-size="16" fill="#FFFFFF" font-weight="700">Valider</text>
+
+  <!-- Page preview -->
+  <rect x="640" y="395" width="390" height="310" rx="18" fill="#FFFFFF" stroke="#DDE3DD"/>
+  <rect x="680" y="430" width="110" height="110" rx="22" fill="#2C3E41" opacity=".10"/>
+  <rect x="810" y="438" width="190" height="16" rx="8" fill="#2C3E41" opacity=".12"/>
+  <rect x="810" y="468" width="160" height="12" rx="6" fill="#2C3E41" opacity=".10"/>
+  <rect x="680" y="565" width="320" height="12" rx="6" fill="#2C3E41" opacity=".10"/>
+  <rect x="680" y="590" width="290" height="12" rx="6" fill="#2C3E41" opacity=".10"/>
+  <rect x="680" y="615" width="310" height="12" rx="6" fill="#2C3E41" opacity=".10"/>
+
+  <!-- Gallery strips -->
+  <rect x="170" y="730" width="980" height="20" rx="10" fill="#2C3E41" opacity=".06"/>
+  <rect x="170" y="758" width="680" height="14" rx="7" fill="#2C3E41" opacity=".05"/>
+
+  <!-- Corner note -->
+  <text x="170" y="820" font-family="system-ui, -apple-system, Segoe UI, Roboto, Arial" font-size="14" fill="#6E8870">Aperçu (illustration)  la maquette réelle souvre en cliquant.</text>
+</svg>

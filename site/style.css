@@ -115,6 +115,56 @@ body {
   will-change: transform;
 }
 
+/* Previews maquettes (acces-hommage-demo) */
+.demo-preview-swiper {
+  margin: 1.2rem 0 1.5rem;
+}
+.demo-preview-card {
+  background: rgba(255, 255, 255, 0.72);
+  border: 1px solid rgba(100, 82, 56, 0.18);
+  border-radius: 14px;
+  overflow: hidden;
+  box-shadow: var(--shadow-zone-lumiere);
+}
+.demo-preview-card__img {
+  display: block;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 16 / 10;
+  object-fit: cover;
+  background: #f7f4f0;
+}
+.demo-preview-card__body {
+  padding: 0.95rem 1rem 1.05rem;
+}
+.demo-preview-card__kicker {
+  font-size: 0.75rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: #6e8870;
+  margin: 0 0 0.35rem;
+}
+.demo-preview-card__title {
+  margin: 0 0 0.45rem;
+  color: #2c3e41;
+  font-size: 1.05rem;
+  font-weight: 700;
+}
+.demo-preview-card__desc {
+  margin: 0;
+  color: #4a5568;
+  font-size: 0.92rem;
+  line-height: 1.55;
+}
+.demo-preview-swiper .swiper-pagination {
+  margin-top: 0.85rem;
+  position: static;
+  text-align: center;
+}
+.demo-preview-swiper .swiper-pagination-bullet-active {
+  background: #6e8870;
+}
+
 
 /* Scroll fluide sur ancres — respecte les préférences utilisateur */
 @media (prefers-reduced-motion: no-preference) {
