@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <meta name="robots" content="noindex, nofollow" />
+  <meta name="theme-color" content="#070A12" />
+  <meta name="description" content="Atelier Aurora — studio fictif : landing premium, effets lumière et animations sobres. Template démonstration." />
+  <title>Atelier Aurora — Template (fictif)</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <a class="skip" href="#main">Aller au contenu</a>
+
+  <header class="top" data-glow>
+    <div class="top__inner">
+      <a class="brand" href="#" aria-label="Atelier Aurora — accueil">
+        <span class="brand__mark" aria-hidden="true"></span>
+        <span class="brand__text">Atelier Aurora</span>
+      </a>
+
+      <nav class="nav" aria-label="Navigation">
+        <a href="#offre">Offre</a>
+        <a href="#preuves">Preuves</a>
+        <a href="#process">Process</a>
+        <a class="nav__cta" href="#contact">Demander un audit</a>
+      </nav>
+
+      <button class="navbtn" type="button" aria-label="Ouvrir le menu" aria-expanded="false" aria-controls="navpanel">
+        <span aria-hidden="true"></span><span aria-hidden="true"></span>
+      </button>
+    </div>
+    <div class="navpanel" id="navpanel" hidden>
+      <a href="#offre">Offre</a>
+      <a href="#preuves">Preuves</a>
+      <a href="#process">Process</a>
+      <a class="btn btn--primary" href="#contact">Demander un audit</a>
+    </div>
+  </header>
+
+  <main id="main">
+    <section class="hero" aria-labelledby="h1">
+      <div class="hero__bg" aria-hidden="true">
+        <div class="orb orb--a"></div>
+        <div class="orb orb--b"></div>
+        <div class="grid"></div>
+      </div>
+      <div class="hero__inner">
+        <p class="kicker">Template fictif · landing premium</p>
+        <h1 id="h1">Un site lumineux, rapide, et fait pour convertir sans crier.</h1>
+        <p class="lead">Atelier Aurora est une démonstration : typographie nette, effets de lumière, animations maîtrisées, et une structure orientée décision.</p>
+        <div class="actions">
+          <a class="btn btn--primary" href="#contact">Demander un audit</a>
+          <a class="btn btn--ghost" href="#preuves">Voir les preuves</a>
+        </div>
+        <div class="stats" role="list">
+          <div class="stat" role="listitem"><span class="stat__n">90+</span><span class="stat__l">Score Lighthouse cible</span></div>
+          <div class="stat" role="listitem"><span class="stat__n">0</span><span class="stat__l">Framework imposé</span></div>
+          <div class="stat" role="listitem"><span class="stat__n">3</span><span class="stat__l">CTA max / écran</span></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="offre" aria-labelledby="offre-title">
+      <div class="wrap">
+        <h2 id="offre-title">Ce que ce template démontre</h2>
+        <p class="sub">Une page lisible, premium, avec des micro-interactions utiles (et un mode réduit si l’utilisateur le souhaite).</p>
+        <div class="cards">
+          <article class="card">
+            <h3>Effets lumière “premium”</h3>
+            <p>Dégradés subtils, orbes animés, grain, sans sacrifier les performances.</p>
+          </article>
+          <article class="card">
+            <h3>Accessibilité</h3>
+            <p>Skip link, contrastes, focus visibles, navigation clavier, aria.</p>
+          </article>
+          <article class="card">
+            <h3>Structure conversion</h3>
+            <p>Une promesse → preuves → process → CTA. Friction réduite.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section section--alt" id="preuves" aria-labelledby="preuves-title">
+      <div class="wrap">
+        <h2 id="preuves-title">Preuves (démonstration)</h2>
+        <div class="testi" aria-label="Témoignages fictifs">
+          <blockquote class="quote">
+            <p>“On a enfin un site qui respire. Les gens comprennent et agissent.”</p>
+            <footer>— Client fictif, secteur premium</footer>
+          </blockquote>
+          <blockquote class="quote">
+            <p>“Le ressenti est haut de gamme, mais la page charge vite.”</p>
+            <footer>— Client fictif, service local</footer>
+          </blockquote>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="process" aria-labelledby="process-title">
+      <div class="wrap">
+        <h2 id="process-title">Process clair</h2>
+        <ol class="steps">
+          <li><strong>Audit</strong> — message, offre, friction.</li>
+          <li><strong>Design</strong> — direction, lumière, composants.</li>
+          <li><strong>Build</strong> — HTML/CSS/JS propre, rapide.</li>
+          <li><strong>Livraison</strong> — déploiement, analytics, itérations.</li>
+        </ol>
+      </div>
+    </section>
+
+    <section class="section section--cta" id="contact" aria-labelledby="contact-title">
+      <div class="wrap">
+        <h2 id="contact-title">Demander un audit (fictif)</h2>
+        <form class="form" action="#" method="post" novalidate>
+          <label>
+            <span>Votre email</span>
+            <input type="email" inputmode="email" autocomplete="email" placeholder="vous@exemple.fr" required />
+          </label>
+          <label>
+            <span>Objectif</span>
+            <input type="text" placeholder="Plus de demandes / plus premium / plus clair…" required />
+          </label>
+          <button class="btn btn--primary" type="submit">Envoyer</button>
+          <p class="fine">Ce template est fictif (portfolio), aucun envoi n’est traité ici.</p>
+        </form>
+        <p class="back"><a href="../../realisations.html">← Retour aux réalisations</a></p>
+      </div>
+    </section>
+  </main>
+
+  <script src="app.js" defer></script>
+</body>
+</html>
