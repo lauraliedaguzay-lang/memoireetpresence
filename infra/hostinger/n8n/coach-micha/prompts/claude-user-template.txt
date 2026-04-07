@@ -1,0 +1,25 @@
+Tu vas générer un seul message Telegram pour Micha.
+
+Contexte dossier (JSON):
+{{PROJECT_JSON}}
+
+Dernier message de Micha (si existant):
+{{LAST_MICHA_MESSAGE}}
+
+Nouvel événement (lead / étape / blocage):
+{{EVENT_JSON}}
+
+Contraintes:
+- 1 action maximum (2 si et seulement si la 2e dépend strictement de la 1re)
+- Toujours proposer des boutons (réponses courtes) avec EXACTEMENT ce format:
+  BOUTONS: ["✅ Fait","📎 Coller lien","❓ Je bloque","🔁 Relancer","⏳ Attendre"]
+- Si Micha clique/écrit "❓ Je bloque" : poser UNE question unique (oui/non ou choix A/B) qui débloque.
+- Si un prix client est demandé: appliquer la règle "prix selon stade" du système.
+
+Sortie attendue: un JSON strict (pas de markdown) avec:
+{
+  "message": "texte Telegram court",
+  "buttons": ["..."],
+  "next_state_patch": { ... },
+  "micha_learning": "1 phrase: ce que Micha apprend"
+}
