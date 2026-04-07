@@ -136,6 +136,73 @@
 
       <form id="accompagnement-form" class="form" method="post" action="/" name="accompagnement" data-netlify="true" novalidate aria-describedby="acc-intro"><input type="hidden" name="form-name" value="accompagnement">
 
+        <section class="form-section" aria-labelledby="acc-goal">
+          <h2 class="form-section__title" id="acc-goal">Ce que vous souhaitez (à cocher)</h2>
+          <p class="form-section__intro">
+            Pour que nous puissions répondre vite et justement, cochez ce qui vous intéresse. Si vous hésitez, cochez simplement « page » et/ou « plaque ».
+          </p>
+          <ul class="form-choices form-choices--grid" style="grid-template-columns:repeat(auto-fit,minmax(240px,1fr));">
+            <li class="form-choice">
+              <input type="checkbox" name="services[]" id="acc-svc-page" value="page">
+              <label for="acc-svc-page">Page hommage en ligne</label>
+            </li>
+            <li class="form-choice">
+              <input type="checkbox" name="services[]" id="acc-svc-plaque" value="plaque">
+              <label for="acc-svc-plaque">Plaque + QR</label>
+            </li>
+            <li class="form-choice">
+              <input type="checkbox" name="services[]" id="acc-svc-video" value="video">
+              <label for="acc-svc-video">Vidéo hommage</label>
+            </li>
+            <li class="form-choice">
+              <input type="checkbox" name="services[]" id="acc-svc-ecriture" value="ecriture">
+              <label for="acc-svc-ecriture">Aide à l’écriture / mise en récit</label>
+            </li>
+            <li class="form-choice">
+              <input type="checkbox" name="services[]" id="acc-svc-restauration" value="restauration-photo">
+              <label for="acc-svc-restauration">Restauration photo (anciennes/abîmées)</label>
+            </li>
+          </ul>
+        </section>
+
+        <section class="form-section" aria-labelledby="acc-urgency">
+          <h2 class="form-section__title" id="acc-urgency">Cadre &amp; urgence</h2>
+          <p class="form-section__intro">Ces informations déterminent notre proposition (version rapide V1 puis enrichissement, ou projet complet d’emblée).</p>
+          <div class="form-field">
+            <label class="form-label" for="acc-date">Y a-t-il une date importante ? <span class="form-optional">(facultatif)</span></label>
+            <input class="form-input" type="text" id="acc-date" name="date_importante" placeholder="Ex. cérémonie le 12/05, anniversaire, remise de la plaque…" maxlength="140">
+          </div>
+          <div class="form-field">
+            <label class="form-label" for="acc-deadline">Échéance souhaitée <span class="form-optional">(facultatif)</span></label>
+            <input class="form-input" type="text" id="acc-deadline" name="deadline_souhaitee" placeholder="Ex. avant le 30/05, dans 10 jours, pas d’urgence…" maxlength="120">
+          </div>
+          <fieldset class="form-fieldset" aria-labelledby="acc-stade">
+            <legend class="form-fieldset__legend" id="acc-stade">Votre situation aujourd’hui <span class="form-optional">(facultatif)</span></legend>
+            <ul class="form-choices">
+              <li class="form-choice">
+                <input type="radio" name="stade" id="acc-stade-deuil" value="deuil-recent">
+                <label for="acc-stade-deuil">Deuil récent — besoin d’être guidé(e) sans pression</label>
+              </li>
+              <li class="form-choice">
+                <input type="radio" name="stade" id="acc-stade-interesse" value="interesse">
+                <label for="acc-stade-interesse">Intéressé(e) — je veux comprendre le parcours et le budget</label>
+              </li>
+              <li class="form-choice">
+                <input type="radio" name="stade" id="acc-stade-pret" value="pret">
+                <label for="acc-stade-pret">Prêt(e) — j’ai les éléments, je veux avancer</label>
+              </li>
+              <li class="form-choice">
+                <input type="radio" name="stade" id="acc-stade-hesitant" value="hesitant">
+                <label for="acc-stade-hesitant">Hésitant(e) — j’ai un frein (confidentialité, numérique, délai…)</label>
+              </li>
+            </ul>
+          </fieldset>
+          <div class="form-field">
+            <label class="form-label" for="acc-frein">Si vous avez un frein, lequel ? <span class="form-optional">(facultatif)</span></label>
+            <textarea class="form-textarea" id="acc-frein" name="frein" rows="3" maxlength="700" placeholder="Ex. confidentialité, peur que ce soit trop ‘technologique’, budget, manque de photos…"></textarea>
+          </div>
+        </section>
+
         <section class="form-section" aria-labelledby="acc-honor">
           <h2 class="form-section__title" id="acc-honor">L’être honoré</h2>
           <p class="form-section__intro">
@@ -152,6 +219,10 @@
           <div class="form-field">
             <label class="form-label" for="acc-relation">Votre lien avec elle / lui</label>
             <input class="form-input" type="text" id="acc-relation" name="relation" maxlength="200">
+          </div>
+          <div class="form-field">
+            <label class="form-label" for="acc-honor-bio">Quelques lignes de portrait <span class="form-optional">(facultatif)</span></label>
+            <textarea class="form-textarea" id="acc-honor-bio" name="honor_bio" rows="4" maxlength="1400" placeholder="Ce qui la/le caractérise, ce que vous voudriez transmettre, un trait, une phrase…"></textarea>
           </div>
         </section>
 
@@ -206,6 +277,106 @@
           </fieldset>
         </section>
 
+        <section class="form-section" aria-labelledby="acc-assets">
+          <h2 class="form-section__title" id="acc-assets">Éléments disponibles (photos, vidéos, texte)</h2>
+          <p class="form-section__intro">Même approximatif, cela nous aide à proposer le bon niveau (V1 rapide ou hommage complet) et à estimer le temps de production.</p>
+          <div class="form-field">
+            <label class="form-label" for="acc-photos-count">Nombre de photos <span class="form-optional">(facultatif)</span></label>
+            <input class="form-input" type="text" id="acc-photos-count" name="photos_nombre" placeholder="Ex. 10, 30–50, +100…" maxlength="40" inputmode="numeric">
+          </div>
+          <div class="form-field">
+            <label class="form-label" for="acc-videos-count">Vidéos (si vous en avez) <span class="form-optional">(facultatif)</span></label>
+            <input class="form-input" type="text" id="acc-videos-count" name="videos_duree" placeholder="Ex. 5 minutes au total, 2 vidéos, 1h d’archives…" maxlength="80">
+          </div>
+          <div class="form-field">
+            <label class="form-label" for="acc-assets-link">Lien de dépôt (Drive/WeTransfer/Dropbox) <span class="form-optional">(facultatif)</span></label>
+            <input class="form-input" type="url" id="acc-assets-link" name="lien_depot" placeholder="https://…" maxlength="400" inputmode="url">
+          </div>
+          <div class="form-field">
+            <label class="form-label" for="acc-music">Musique souhaitée <span class="form-optional">(facultatif)</span></label>
+            <input class="form-input" type="text" id="acc-music" name="musique" placeholder="Titre/artiste ou ‘à choisir’" maxlength="200">
+          </div>
+        </section>
+
+        <section class="form-section" aria-labelledby="acc-plaque" id="acc-plaque-section" hidden>
+          <h2 class="form-section__title" id="acc-plaque">Plaque + QR (si demandé)</h2>
+          <p class="form-section__intro">Ces champs servent à cadrer rapidement la fabrication (matière, format, livraison). Si vous ne savez pas, laissez vide — on vous guidera.</p>
+          <div class="form-field">
+            <label class="form-label" for="acc-plaque-matiere">Matière préférée <span class="form-optional">(facultatif)</span></label>
+            <select class="form-input" id="acc-plaque-matiere" name="plaque_matiere">
+              <option value="">Je ne sais pas / à conseiller</option>
+              <option value="ardoise">Ardoise</option>
+              <option value="inox">Métal (inox/alu)</option>
+              <option value="pierre">Pierre / granit</option>
+              <option value="autre">Autre</option>
+            </select>
+          </div>
+          <div class="form-field">
+            <label class="form-label" for="acc-plaque-format">Format souhaité <span class="form-optional">(facultatif)</span></label>
+            <input class="form-input" type="text" id="acc-plaque-format" name="plaque_format" placeholder="Ex. 12×8, 20×15, petit/standard/grand…" maxlength="120">
+          </div>
+          <div class="form-field">
+            <label class="form-label" for="acc-plaque-texte">Texte à graver <span class="form-optional">(facultatif)</span></label>
+            <textarea class="form-textarea" id="acc-plaque-texte" name="plaque_texte" rows="3" maxlength="600" placeholder="Ex. ‘À jamais dans nos cœurs’ + prénom…"></textarea>
+          </div>
+          <div class="form-field">
+            <label class="form-label" for="acc-livraison">Ville de livraison <span class="form-optional">(facultatif)</span></label>
+            <input class="form-input" type="text" id="acc-livraison" name="livraison_ville" placeholder="Ex. Lyon, Bordeaux…" maxlength="120">
+          </div>
+        </section>
+
+        <section class="form-section" aria-labelledby="acc-video" id="acc-video-section" hidden>
+          <h2 class="form-section__title" id="acc-video">Vidéo hommage (si demandée)</h2>
+          <div class="form-field">
+            <label class="form-label" for="acc-video-duree">Durée souhaitée <span class="form-optional">(facultatif)</span></label>
+            <input class="form-input" type="text" id="acc-video-duree" name="video_duree_souhaitee" placeholder="Ex. 2–3 min, 5–7 min…" maxlength="60">
+          </div>
+          <fieldset class="form-fieldset" aria-labelledby="acc-voixoff">
+            <legend class="form-fieldset__legend" id="acc-voixoff">Voix off <span class="form-optional">(facultatif)</span></legend>
+            <ul class="form-choices">
+              <li class="form-choice">
+                <input type="radio" name="video_voixoff" id="acc-voixoff-non" value="non" checked>
+                <label for="acc-voixoff-non">Non</label>
+              </li>
+              <li class="form-choice">
+                <input type="radio" name="video_voixoff" id="acc-voixoff-oui" value="oui">
+                <label for="acc-voixoff-oui">Oui (à écrire/enregistrer)</label>
+              </li>
+              <li class="form-choice">
+                <input type="radio" name="video_voixoff" id="acc-voixoff-deja" value="deja">
+                <label for="acc-voixoff-deja">Déjà enregistrée / texte fourni</label>
+              </li>
+            </ul>
+          </fieldset>
+        </section>
+
+        <section class="form-section" aria-labelledby="acc-budget">
+          <h2 class="form-section__title" id="acc-budget">Budget indicatif <span class="form-optional">(facultatif)</span></h2>
+          <p class="form-section__intro">Si vous pouvez, même une fourchette nous aide à proposer la bonne option sans perte de temps (cela n’engage à rien).</p>
+          <ul class="form-choices form-choices--grid" style="grid-template-columns:repeat(auto-fit,minmax(200px,1fr));">
+            <li class="form-choice">
+              <input type="radio" name="budget" id="acc-budget-unk" value="non-precise" checked>
+              <label for="acc-budget-unk">Je préfère ne pas préciser</label>
+            </li>
+            <li class="form-choice">
+              <input type="radio" name="budget" id="acc-budget-1" value="moins-700">
+              <label for="acc-budget-1">Moins de 700 €</label>
+            </li>
+            <li class="form-choice">
+              <input type="radio" name="budget" id="acc-budget-2" value="700-1500">
+              <label for="acc-budget-2">700 à 1 500 €</label>
+            </li>
+            <li class="form-choice">
+              <input type="radio" name="budget" id="acc-budget-3" value="1500-3000">
+              <label for="acc-budget-3">1 500 à 3 000 €</label>
+            </li>
+            <li class="form-choice">
+              <input type="radio" name="budget" id="acc-budget-4" value="3000-plus">
+              <label for="acc-budget-4">3 000 € et +</label>
+            </li>
+          </ul>
+        </section>
+
         <section class="form-section" aria-labelledby="acc-contact">
           <h2 class="form-section__title" id="acc-contact">Vos coordonnées pour la réponse</h2>
           <p class="form-section__intro">Indispensable pour vous renvoyer une proposition ou poser une question complémentaire.</p>
@@ -217,6 +388,27 @@
             <label class="form-label" for="acc-your-email">Votre e-mail</label>
             <input class="form-input" type="email" id="acc-your-email" name="your_email" autocomplete="email" required maxlength="120" inputmode="email">
           </div>
+          <div class="form-field">
+            <label class="form-label" for="acc-your-phone">Téléphone <span class="form-optional">(facultatif)</span></label>
+            <input class="form-input" type="tel" id="acc-your-phone" name="your_phone" autocomplete="tel" maxlength="40" inputmode="tel" placeholder="Ex. 06 00 00 00 00">
+          </div>
+          <fieldset class="form-fieldset" aria-labelledby="acc-pref">
+            <legend class="form-fieldset__legend" id="acc-pref">Préférence de contact <span class="form-optional">(facultatif)</span></legend>
+            <ul class="form-choices">
+              <li class="form-choice">
+                <input type="radio" name="contact_pref" id="acc-pref-mail" value="email" checked>
+                <label for="acc-pref-mail">E-mail</label>
+              </li>
+              <li class="form-choice">
+                <input type="radio" name="contact_pref" id="acc-pref-tel" value="telephone">
+                <label for="acc-pref-tel">Téléphone</label>
+              </li>
+              <li class="form-choice">
+                <input type="radio" name="contact_pref" id="acc-pref-sms" value="sms">
+                <label for="acc-pref-sms">SMS</label>
+              </li>
+            </ul>
+          </fieldset>
           <div class="form-field">
             <label class="form-label" for="acc-notes">Précisions utiles <span class="form-optional">(facultatif)</span></label>
             <textarea class="form-textarea" id="acc-notes" name="notes" rows="4" maxlength="1200" placeholder="Date souhaitée, contraintes, questions…"></textarea>

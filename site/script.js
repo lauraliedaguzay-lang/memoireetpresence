@@ -578,6 +578,23 @@
     const pageRadios = accompagnementForm.querySelectorAll(
       'input[name="page_souvenir"]'
     );
+    const svcPage = document.getElementById("acc-svc-page");
+    const svcPlaque = document.getElementById("acc-svc-plaque");
+    const svcVideo = document.getElementById("acc-svc-video");
+    const plaqueSection = document.getElementById("acc-plaque-section");
+    const videoSection = document.getElementById("acc-video-section");
+
+    function setSectionEnabled(section, enabled) {
+      if (!section) return;
+      section.hidden = !enabled;
+      section
+        .querySelectorAll("input, select, textarea, button")
+        .forEach(function (el) {
+          // Keep submit/print enabled
+          if (el.type === "submit") return;
+          el.disabled = !enabled;
+        });
+    }
 
     function setPageDetailsOpen(open) {
       if (!pageDetails) return;
@@ -597,6 +614,24 @@
     pageRadios.forEach((r) => r.addEventListener("change", syncPageSouvenir));
     syncPageSouvenir();
 
+    function syncServices() {
+      // If "page" service is checked, default the page_souvenir to "oui" (without forcing).
+      if (svcPage && svcPage.checked) {
+        const oui = document.getElementById("acc-page-oui");
+        if (oui && !oui.checked) oui.checked = true;
+      }
+      const wantsPlaque = !!(svcPlaque && svcPlaque.checked);
+      const wantsVideo = !!(svcVideo && svcVideo.checked);
+      setSectionEnabled(plaqueSection, wantsPlaque);
+      setSectionEnabled(videoSection, wantsVideo);
+    }
+
+    [svcPage, svcPlaque, svcVideo].forEach(function (el) {
+      if (!el) return;
+      el.addEventListener("change", syncServices);
+    });
+    syncServices();
+
     const printBtn = document.getElementById("accompagnement-print");
     if (printBtn) {
       printBtn.addEventListener("click", () => window.print());
@@ -609,6 +644,8 @@
       const yourName = String(fd.get("your_name") || "").trim();
       const yourEmail = String(fd.get("your_email") || "").trim();
       const pageSouvenir = String(fd.get("page_souvenir") || "non").trim();
+      const honorName = String(fd.get("honor_name") || "").trim();
+      const services = fd.getAll("services[]").map((v) => String(v || "").trim()).filter(Boolean);
       if (!yourName || !yourEmail) {
         if (accFeedback) { accFeedback.textContent = "Merci d'indiquer votre nom et votre e-mail pour que nous puissions vous r\u00e9pondre."; accFeedback.hidden = false; }
         return;
@@ -617,10 +654,38 @@
         if (accFeedback) { accFeedback.textContent = "L'adresse e-mail ne semble pas valide. V\u00e9rifiez-la avant d'envoyer."; accFeedback.hidden = false; }
         return;
       }
+      if (!services.length) {
+        if (accFeedback) { accFeedback.textContent = "Merci de cocher au moins un élément (page, plaque, vidéo…)."; accFeedback.hidden = false; }
+        return;
+      }
+      if (!honorName) {
+        if (accFeedback) { accFeedback.textContent = "Pour cadrer l'hommage, merci d'indiquer au minimum le prénom et le nom de l’être honoré."; accFeedback.hidden = false; }
+        return;
+      }
       if (pageSouvenir === "oui") {
         const access = String(fd.get("access_type") || "").trim();
         if (!access) {
           if (accFeedback) { accFeedback.textContent = "Vous avez choisi une page en ligne\u00a0: merci de pr\u00e9ciser le type d'acc\u00e8s souhait\u00e9."; accFeedback.hidden = false; }
+          return;
+        }
+      }
+      // If user asked for plaque or video, ensure they provided at least ONE concrete detail,
+      // otherwise Claude will have nothing actionable.
+      if (services.includes("plaque")) {
+        const mat = String(fd.get("plaque_matiere") || "").trim();
+        const fmt = String(fd.get("plaque_format") || "").trim();
+        const txt = String(fd.get("plaque_texte") || "").trim();
+        const city = String(fd.get("livraison_ville") || "").trim();
+        if (!mat && !fmt && !txt && !city) {
+          if (accFeedback) { accFeedback.textContent = "Vous avez coché « Plaque + QR » : merci d’indiquer au moins un détail (matière, format, texte ou ville de livraison)."; accFeedback.hidden = false; }
+          return;
+        }
+      }
+      if (services.includes("video")) {
+        const wish = String(fd.get("video_duree_souhaitee") || "").trim();
+        const avail = String(fd.get("videos_duree") || "").trim();
+        if (!wish && !avail) {
+          if (accFeedback) { accFeedback.textContent = "Vous avez coché « Vidéo hommage » : merci d’indiquer soit la durée souhaitée, soit ce que vous avez déjà (durée/nb de vidéos)."; accFeedback.hidden = false; }
           return;
         }
       }
