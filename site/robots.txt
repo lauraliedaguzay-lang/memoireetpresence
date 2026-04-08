@@ -3,4 +3,4 @@ Allow: /
 # Hommages : accès par lien / QR ; pas d’indexation générale du dossier (complément aux meta noindex par page).
 Disallow: /hommage/
 
-Sitemap: https://www.memoire-et-presence.fr/sitemap.xml
+Sitemap: /sitemap.xml

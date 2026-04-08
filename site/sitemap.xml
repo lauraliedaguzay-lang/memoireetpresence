@@ -46,6 +46,26 @@
     <priority>0.8</priority>
   </url>
   <url>
+    <loc>https://www.memoire-et-presence.fr/partage-hommage.html</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.65</priority>
+  </url>
+  <url>
+    <loc>https://www.memoire-et-presence.fr/transmission-modeles.html</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://www.memoire-et-presence.fr/acces-hommage-demo.html</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.55</priority>
+  </url>
+  <url>
+    <loc>https://www.memoire-et-presence.fr/demo-fictive.html</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
     <loc>https://www.memoire-et-presence.fr/offre.html</loc>
     <changefreq>monthly</changefreq>
     <priority>0.75</priority>
