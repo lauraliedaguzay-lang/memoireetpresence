@@ -174,6 +174,13 @@
       document.documentElement.classList.toggle("site-nav-is-open", open);
       syncNavBackdrop(open);
       applyBodyScrollLock(open);
+      // Accessibility: keep focus inside nav when opened on mobile.
+      if (open && window.matchMedia("(max-width: 767px)").matches) {
+        try {
+          var firstLink = nav.querySelector("a");
+          if (firstLink) firstLink.focus({ preventScroll: true });
+        } catch (e) {}
+      }
     }
 
     closeMainNav = function () {
