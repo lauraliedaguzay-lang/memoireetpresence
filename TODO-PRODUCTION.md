@@ -12,9 +12,9 @@ Ce qu'il faut me fournir :
 - [ ] **Raison sociale** (ex. "Mémoire & Présence" ou ton nom si auto-entrepreneur)
 - [ ] **Forme juridique** (ex. Entreprise Individuelle, SASU, SAS…)
 - [ ] **Adresse du siège** (même une boîte postale ou adresse perso)
-- [ ] **SIRET** (14 chiffres)
+- [x] **SIRET** : 52388489800017
 - [x] **SIREN** : 523884898
-- [ ] **Nom du directeur de publication** (ton nom complet)
+- [x] **Nom du directeur de publication** : Michael Bouilhac
 
 > Je remplis tout en une passe automatique dès réception.
 
