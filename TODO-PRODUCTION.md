@@ -13,7 +13,7 @@ Ce qu'il faut me fournir :
 - [ ] **Forme juridique** (ex. Entreprise Individuelle, SASU, SAS…)
 - [ ] **Adresse du siège** (même une boîte postale ou adresse perso)
 - [ ] **SIRET** (14 chiffres)
-- [ ] **SIREN** (9 premiers chiffres du SIRET)
+- [x] **SIREN** : 523884898
 - [ ] **Nom du directeur de publication** (ton nom complet)
 
 > Je remplis tout en une passe automatique dès réception.

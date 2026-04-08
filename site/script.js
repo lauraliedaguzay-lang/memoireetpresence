@@ -37,6 +37,20 @@
     yearEl.textContent = String(new Date().getFullYear());
   }
 
+  // Footer legal: inject SIREN everywhere, keep SIRET placeholder until provided.
+  (function injectLegalIds() {
+    var el = document.querySelector(".site-footer__siret");
+    if (!el) return;
+    var siren = "523\u00a0884\u00a0898";
+    // Preserve existing placeholder for SIRET if present.
+    var hasSiretPlaceholder = /SIRET/i.test(el.textContent || "");
+    if (!hasSiretPlaceholder) return;
+    el.innerHTML =
+      "SIREN : " +
+      siren +
+      " \u00b7 SIRET : <span class=\"placeholder-inline\">à compléter</span>";
+  })();
+
   const nav = document.getElementById("nav-principale");
   const toggle = document.getElementById("nav-toggle");
   const headerInner = document.querySelector(".site-header__inner");
