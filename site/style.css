@@ -20,7 +20,8 @@
   --c-divider: rgba(100, 82, 56, 0.34);
   --c-sand-shadow: 139, 115, 75;
   --font-display: "Cormorant Garamond", Georgia, "Times New Roman", serif;
-  --font-body: "Jost", system-ui, sans-serif;
+  /* Keep body font aligned with loaded font family (Google Fonts). */
+  --font-body: "Source Sans 3", system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
   --ease: cubic-bezier(0.4, 0, 0.2, 1);
   --shadow-portee: 0 4px 16px rgba(139, 115, 75, 0.12), 0 1px 3px rgba(139, 115, 75, 0.08);
   --shadow-card-hover: 0 8px 32px rgba(139, 115, 75, 0.18), 0 2px 8px rgba(139, 115, 75, 0.1),
