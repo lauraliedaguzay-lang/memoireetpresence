@@ -224,7 +224,20 @@
   <script>
     document.addEventListener("DOMContentLoaded", function () {
       AOS.init({ duration: 650, once: true, offset: 50, easing: "ease-out-quart" });
-      if (typeof Swiper !== "undefined") { new Swiper(".team-swiper", { loop: false, pagination: { el: ".team-swiper .swiper-pagination", clickable: true } }); }
+      if (typeof Swiper !== "undefined") {
+        const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+        new Swiper(".team-swiper", {
+          loop: false,
+          slidesPerView: 1,
+          spaceBetween: 0,
+          speed: reduceMotion ? 200 : 520,
+          resistanceRatio: 0.7,
+          watchSlidesProgress: true,
+          grabCursor: true,
+          pagination: { el: ".team-swiper .swiper-pagination", clickable: true, dynamicBullets: true, dynamicMainBullets: 3 },
+          keyboard: { enabled: true },
+        });
+      }
       if (typeof GLightbox !== "undefined") {
         GLightbox({ selector: ".glightbox", touchNavigation: true, loop: false, closeButton: true });
       }

@@ -83,9 +83,46 @@
       <section class="page-section fade-in-section acces-demo" aria-labelledby="acces-demo-maquettes">
         <h2 id="acces-demo-maquettes">Deux maquettes — accès réservé et accès libre</h2>
         <p class="acces-demo__compare-lead">Même qualité de page, deux intentions&nbsp;: montrer le design sans friction, ou reproduire le <strong>moment d’entrée</strong> d’un hommage un peu plus intime.</p>
-        <div class="acces-demo__grid">
+        <!-- Mobile: carrousel avec preview visuelle -->
+        <div class="acces-demo-swiper-wrap" aria-label="Aperçus des maquettes (mobile)" role="region">
+          <div class="swiper acces-demo-swiper" style="overflow:hidden">
+            <div class="swiper-wrapper">
+              <div class="swiper-slide">
+                <article class="acces-demo__card acces-demo__card--with-thumb">
+                  <span class="acces-demo__card-badge acces-demo__card-badge--reserved">Accès réservé (démo)</span>
+                  <a class="acces-demo__thumb" href="hommage/famille-martin/" aria-label="Ouvrir la maquette Martin (aperçu)">
+                    <img src="hommage/famille-martin/portrait.png" alt="Aperçu visuel (portrait) — maquette Famille Martin" width="1200" height="900" loading="lazy" decoding="async">
+                  </a>
+                  <h3 class="acces-demo__card-title">Famille Martin</h3>
+                  <p class="acces-demo__card-desc">Maquette sobre&nbsp;: portrait, textes, panneau souvenir, carrousel — avec <strong>porte d’entrée par code</strong> pour illustrer un hommage transmis en privé.</p>
+                  <p class="acces-demo__card-meta"><strong>Pour montrer le déverrouillage</strong>&nbsp;: ouvrez la maquette Martin, tapez <strong>presence</strong> dans le champ, cliquez sur <strong>Valider et afficher l’hommage</strong> — la page s’ouvre.</p>
+                  <a class="btn btn--primary acces-demo__card-btn" href="hommage/famille-martin/">Ouvrir la maquette Martin</a>
+                </article>
+              </div>
+              <div class="swiper-slide">
+                <article class="acces-demo__card acces-demo__card--with-thumb">
+                  <span class="acces-demo__card-badge acces-demo__card-badge--libre">Accès libre (démo)</span>
+                  <a class="acces-demo__thumb" href="hommage/exemple-defunt/" aria-label="Ouvrir la maquette Fontenay (aperçu)">
+                    <img src="hommage/exemple-defunt/portrait-fontenay.png" alt="Aperçu visuel (portrait) — maquette Claire Fontenay" width="1200" height="900" loading="lazy" decoding="async">
+                  </a>
+                  <h3 class="acces-demo__card-title">Claire Fontenay</h3>
+                  <p class="acces-demo__card-desc">Maquette plus <strong>éditoriale</strong>&nbsp;: souvenir, encadré type cérémonie (fictif), galerie — tout le contenu est visible <strong>sans code</strong>.</p>
+                  <p class="acces-demo__card-meta">Pour comparer le rendu lorsqu’on souhaite montrer la page telle quelle (aperçu client, portfolio).</p>
+                  <a class="btn btn--primary acces-demo__card-btn" href="hommage/exemple-defunt/">Ouvrir la maquette Fontenay</a>
+                </article>
+              </div>
+            </div>
+            <div class="swiper-pagination" style="margin-top:.75rem;position:static;"></div>
+          </div>
+        </div>
+
+        <!-- Desktop: grille -->
+        <div class="acces-demo__grid acces-demo__grid--desktop">
           <article class="acces-demo__card">
             <span class="acces-demo__card-badge acces-demo__card-badge--reserved">Accès réservé (démo)</span>
+            <a class="acces-demo__thumb" href="hommage/famille-martin/" aria-label="Ouvrir la maquette Martin (aperçu)">
+              <img src="hommage/famille-martin/portrait.png" alt="Aperçu visuel (portrait) — maquette Famille Martin" width="1200" height="900" loading="lazy" decoding="async">
+            </a>
             <h3 class="acces-demo__card-title">Famille Martin</h3>
             <p class="acces-demo__card-desc">Maquette sobre&nbsp;: portrait, textes, panneau souvenir, carrousel — avec <strong>porte d’entrée par code</strong> pour illustrer un hommage transmis en privé.</p>
             <p class="acces-demo__card-meta"><strong>Pour montrer le déverrouillage</strong>&nbsp;: ouvrez la maquette Martin, tapez <strong>presence</strong> dans le champ, cliquez sur <strong>Valider et afficher l’hommage</strong> — la page s’ouvre. (Sur un vrai projet, le mot de passe serait celui que vous choisissez ou que nous vous transmettons.)</p>
@@ -94,6 +131,9 @@
           </article>
           <article class="acces-demo__card">
             <span class="acces-demo__card-badge acces-demo__card-badge--libre">Accès libre (démo)</span>
+            <a class="acces-demo__thumb" href="hommage/exemple-defunt/" aria-label="Ouvrir la maquette Fontenay (aperçu)">
+              <img src="hommage/exemple-defunt/portrait-fontenay.png" alt="Aperçu visuel (portrait) — maquette Claire Fontenay" width="1200" height="900" loading="lazy" decoding="async">
+            </a>
             <h3 class="acces-demo__card-title">Claire Fontenay</h3>
             <p class="acces-demo__card-desc">Maquette plus <strong>éditoriale</strong>&nbsp;: souvenir, encadré type cérémonie (fictif), galerie — tout le contenu est visible <strong>sans code</strong>.</p>
             <p class="acces-demo__card-meta">Pour comparer le rendu lorsqu’on souhaite montrer la page telle quelle (aperçu client, portfolio).</p>
@@ -152,9 +192,23 @@
   
   <script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/glightbox@3.3.0/dist/js/glightbox.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
   <script>
     document.addEventListener("DOMContentLoaded", function () {
       AOS.init({ duration: 650, once: true, offset: 50, easing: "ease-out-quart" });
+      if (typeof Swiper !== "undefined") {
+        const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+        new Swiper(".acces-demo-swiper", {
+          loop: false,
+          slidesPerView: 1,
+          spaceBetween: 0,
+          speed: reduceMotion ? 220 : 520,
+          resistanceRatio: 0.75,
+          watchSlidesProgress: true,
+          grabCursor: true,
+          pagination: { el: ".acces-demo-swiper .swiper-pagination", clickable: true, dynamicBullets: true, dynamicMainBullets: 3 },
+        });
+      }
       if (typeof GLightbox !== "undefined") {
         GLightbox({ selector: ".glightbox", touchNavigation: true, loop: false, closeButton: true });
       }

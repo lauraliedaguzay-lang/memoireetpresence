@@ -1,0 +1,165 @@
+{
+  "name": "Coach Micha (Telegram → Claude → 1 action + boutons)",
+  "nodes": [
+    {
+      "parameters": {
+        "updates": [
+          "message",
+          "callback_query"
+        ],
+        "additionalFields": {}
+      },
+      "id": "Telegram Trigger",
+      "name": "Telegram Trigger",
+      "type": "n8n-nodes-base.telegramTrigger",
+      "typeVersion": 1,
+      "position": [
+        240,
+        280
+      ],
+      "credentials": {
+        "telegramApi": {
+          "id": "={{$env.TELEGRAM_CREDENTIAL_ID || ''}}",
+          "name": "Telegram account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "functionCode": "const isCallback = !!$json.callback_query;\n\nconst messageText = $json.message?.text || '';\nconst chatIdFromMessage = $json.message?.chat?.id;\nconst fromMessage = $json.message?.from || {};\n\nconst callbackData = $json.callback_query?.data || '';\nconst chatIdFromCallback = $json.callback_query?.message?.chat?.id;\nconst fromCallback = $json.callback_query?.from || {};\n\nconst chatId = chatIdFromCallback || chatIdFromMessage;\nconst from = isCallback ? fromCallback : fromMessage;\n\nconst text = isCallback ? String(callbackData || '') : String(messageText || '');\n\n// Minimal state: embed in the workflow data (staticData). For production, replace with DB.\nconst staticData = this.getWorkflowStaticData('global');\nif (!staticData.projects) staticData.projects = {};\n\nconst key = String(chatId || 'unknown');\nif (!staticData.projects[key]) {\n  staticData.projects[key] = {\n    project_json: {\n      status: 'new',\n      created_at: new Date().toISOString(),\n      steps_done: {}\n    },\n    last_micha_message: null\n  };\n}\n\nconst projectState = staticData.projects[key];\nprojectState.last_micha_message = text;\n\n// Very small event object\nlet event = { type: isCallback ? 'telegram_button' : 'telegram_message', text };\nif (!isCallback && /^\\/start\\b/.test(text)) event = { type: 'start' };\nif (text.includes('Je bloque') || text.includes('❓')) event = { type: 'blocked', text };\nif (text === '✅ Fait') event = { type: 'done' };\nif (text === '📎 Coller lien') event = { type: 'need_link' };\nif (text === '📨 Copier message') event = { type: 'copy_message' };\n\nreturn [{\n  chat_id: chatId,\n  micha: { id: from.id, username: from.username, first_name: from.first_name },\n  project_state: projectState.project_json,\n  last_micha_message: projectState.last_micha_message,\n  event\n}];"
+      },
+      "id": "Build Context",
+      "name": "Build Context",
+      "type": "n8n-nodes-base.function",
+      "typeVersion": 2,
+      "position": [
+        520,
+        280
+      ]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://api.anthropic.com/v1/messages",
+        "authentication": "headerAuth",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "x-api-key",
+              "value": "={{$env.ANTHROPIC_API_KEY}}"
+            },
+            {
+              "name": "anthropic-version",
+              "value": "2023-06-01"
+            },
+            {
+              "name": "content-type",
+              "value": "application/json"
+            }
+          ]
+        },
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={\n  \"model\": \"claude-3-5-sonnet-20241022\",\n  \"max_tokens\": 700,\n  \"temperature\": 0.2,\n  \"system\": $env.CLAUDE_SYSTEM_PROMPT || \"\",\n  \"messages\": [\n    {\n      \"role\": \"user\",\n      \"content\": ($env.CLAUDE_USER_TEMPLATE || \"\")\n        .replace(\"{{PROJECT_JSON}}\", JSON.stringify($json.project_state || {}, null, 2))\n        .replace(\"{{LAST_MICHA_MESSAGE}}\", String($json.last_micha_message || \"\"))\n        .replace(\"{{EVENT_JSON}}\", JSON.stringify($json.event || {}, null, 2))\n    }\n  ]\n} "
+      },
+      "id": "Claude",
+      "name": "Claude",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4,
+      "position": [
+        800,
+        280
+      ]
+    },
+    {
+      "parameters": {
+        "functionCode": "const raw = $json?.content?.[0]?.text || '';\nlet parsed;\ntry {\n  parsed = JSON.parse(raw);\n} catch (e) {\n  // Fallback: produce a safe minimal message\n  parsed = {\n    next_state_patch: {},\n    message: {\n      text: \"Action: colle le lien du dossier (Drive/WeTransfer) pour ce projet.\",\n      buttons: [\"📎 Coller lien\", \"❓ Je bloque\"]\n    },\n    next_if_blocked: {\n      question: \"Tu préfères déposer où ?\",\n      buttons: [\"Drive\", \"WeTransfer\"]\n    }\n  };\n}\n\nconst text = parsed.message?.text || 'Action: réponds OK.';\nconst buttons = parsed.message?.buttons || [\"✅ Fait\", \"❓ Je bloque\"];\n\n// Telegram inline keyboard expects array of rows.\nconst rows = buttons.map(b => [{ text: b, callback_data: b }]);\n\nreturn [{\n  chat_id: $node[\"Build Context\"].json.chat_id,\n  text,\n  inline_keyboard: { inline_keyboard: rows },\n  state_patch: parsed.state_patch || parsed.next_state_patch || {}\n}];"
+      },
+      "id": "Parse Claude JSON",
+      "name": "Parse Claude JSON",
+      "type": "n8n-nodes-base.function",
+      "typeVersion": 2,
+      "position": [
+        1060,
+        280
+      ]
+    },
+    {
+      "parameters": {
+        "operation": "sendMessage",
+        "chatId": "={{$json.chat_id}}",
+        "text": "={{$json.text}}",
+        "additionalFields": {
+          "replyMarkup": "={{$json.inline_keyboard}}"
+        }
+      },
+      "id": "Send Telegram",
+      "name": "Send Telegram",
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1,
+      "position": [
+        1320,
+        280
+      ],
+      "credentials": {
+        "telegramApi": {
+          "id": "={{$env.TELEGRAM_CREDENTIAL_ID || ''}}",
+          "name": "Telegram account"
+        }
+      }
+    }
+  ],
+  "connections": {
+    "Telegram Trigger": {
+      "main": [
+        [
+          {
+            "node": "Build Context",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Build Context": {
+      "main": [
+        [
+          {
+            "node": "Claude",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Claude": {
+      "main": [
+        [
+          {
+            "node": "Parse Claude JSON",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Parse Claude JSON": {
+      "main": [
+        [
+          {
+            "node": "Send Telegram",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionTimeout": 60
+  },
+  "versionId": "1"
+}
+

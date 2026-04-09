@@ -37,6 +37,19 @@
     yearEl.textContent = String(new Date().getFullYear());
   }
 
+  // Footer legal: inject SIREN/SIRET everywhere (from INSEE).
+  (function injectLegalIds() {
+    var el = document.querySelector(".site-footer__siret");
+    if (!el) return;
+    var siren = "523\u00a0884\u00a0898";
+    var siret = "523\u00a0884\u00a0898\u00a000017";
+    el.innerHTML =
+      "SIREN : " +
+      siren +
+      " \u00b7 SIRET : " +
+      siret;
+  })();
+
   const nav = document.getElementById("nav-principale");
   const toggle = document.getElementById("nav-toggle");
   const headerInner = document.querySelector(".site-header__inner");
@@ -161,6 +174,13 @@
       document.documentElement.classList.toggle("site-nav-is-open", open);
       syncNavBackdrop(open);
       applyBodyScrollLock(open);
+      // Accessibility: keep focus inside nav when opened on mobile.
+      if (open && window.matchMedia("(max-width: 767px)").matches) {
+        try {
+          var firstLink = nav.querySelector("a");
+          if (firstLink) firstLink.focus({ preventScroll: true });
+        } catch (e) {}
+      }
     }
 
     closeMainNav = function () {
@@ -488,12 +508,22 @@
     var params = new URLSearchParams();
     params.append("form-name", form.getAttribute("name") || "");
     new FormData(form).forEach(function(val, key) { params.append(key, val); });
-    fetch("/", {
+    return fetch("/", {
       method: "POST",
       headers: { "Content-Type": "application/x-www-form-urlencoded" },
       body: params.toString()
     })
-    .then(function() {
+    .then(function(res) {
+      // Netlify Forms only works when the site is served by Netlify.
+      // GitHub Pages may still return 200 for "/" but will NOT capture submissions.
+      var nfId = res.headers.get("x-nf-request-id");
+      var server = res.headers.get("server") || "";
+      var looksLikeNetlify = !!nfId || /netlify/i.test(server);
+      if (!res.ok || !looksLikeNetlify) {
+        var err = new Error("not_netlify");
+        err.code = "not_netlify";
+        throw err;
+      }
       if (feedback) {
         feedback.innerHTML = successMsg;
         feedback.classList.add("form-feedback--success");
@@ -510,6 +540,31 @@
     });
   }
 
+  function openMailtoFromForm(form, subject) {
+    try {
+      var fd = new FormData(form);
+      var lines = [];
+      fd.forEach(function (val, key) {
+        if (key === "form-name") return;
+        var v = String(val == null ? "" : val).trim();
+        if (!v) return;
+        lines.push(key + " : " + v);
+      });
+      var body = lines.join("\n");
+      var href =
+        "mailto:" +
+        encodeURIComponent(CONTACT_EMAIL) +
+        "?subject=" +
+        encodeURIComponent(subject || "Demande Mémoire & Présence") +
+        "&body=" +
+        encodeURIComponent(body);
+      window.location.href = href;
+      return true;
+    } catch (e) {
+      return false;
+    }
+  }
+
   const contactForm = document.getElementById("contact-form");
   if (contactForm) {
     const feedback = document.getElementById("contact-form-feedback");
@@ -520,8 +575,10 @@
       const name = String(fd.get("name") || "").trim();
       const email = String(fd.get("email") || "").trim();
       const message = String(fd.get("message") || "").trim();
-      if (!name || !email || !message) {
-        if (feedback) { feedback.textContent = "Merci de renseigner au minimum votre nom, votre e-mail et votre message."; feedback.hidden = false; }
+      const services = fd.getAll("services[]").map(v => String(v || "").trim()).filter(Boolean);
+      const stade = String(fd.get("stade") || "").trim();
+      if (!name || !email || !message || services.length === 0 || !stade) {
+        if (feedback) { feedback.textContent = "Merci d'indiquer votre nom, votre e-mail, votre message et de cocher au moins un besoin."; feedback.hidden = false; }
         return;
       }
       if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
@@ -532,7 +589,17 @@
         if (feedback) { feedback.textContent = "Quelques lignes de plus nous aideront \u00e0 mieux vous r\u00e9pondre (minimum 20 caract\u00e8res)."; feedback.hidden = false; }
         return;
       }
-      submitToNetlify(contactForm, feedback, "Message envoy\u00e9 \u2014 nous vous r\u00e9pondons sous 24\u00a0\u00e0\u00a048\u00a0h.");
+      submitToNetlify(contactForm, feedback, "Message envoy\u00e9 \u2014 nous vous r\u00e9pondons sous 24\u00a0\u00e0\u00a048\u00a0h.")
+        .catch(function () {
+          var ok = openMailtoFromForm(contactForm, "Contact — Mémoire & Présence");
+          if (feedback) {
+            feedback.innerHTML = ok
+              ? "Votre messagerie s'ouvre avec le r\u00e9capitulatif. Envoyez l'e-mail pour finaliser."
+              : "Impossible d'ouvrir la messagerie. \u00c9crivez-nous \u00e0 <a href=\"mailto:" + CONTACT_EMAIL + "\">" + CONTACT_EMAIL + "</a>.";
+            feedback.classList.add("form-feedback--success");
+            feedback.hidden = false;
+          }
+        });
     });
   }
 
@@ -543,6 +610,24 @@
     const pageRadios = accompagnementForm.querySelectorAll(
       'input[name="page_souvenir"]'
     );
+    const callSection = document.getElementById("acc-call-section");
+    const svcPage = document.getElementById("acc-svc-page");
+    const svcPlaque = document.getElementById("acc-svc-plaque");
+    const svcVideo = document.getElementById("acc-svc-video");
+    const plaqueSection = document.getElementById("acc-plaque-section");
+    const videoSection = document.getElementById("acc-video-section");
+
+    function setSectionEnabled(section, enabled) {
+      if (!section) return;
+      section.hidden = !enabled;
+      section
+        .querySelectorAll("input, select, textarea, button")
+        .forEach(function (el) {
+          // Keep submit/print enabled
+          if (el.type === "submit") return;
+          el.disabled = !enabled;
+        });
+    }
 
     function setPageDetailsOpen(open) {
       if (!pageDetails) return;
@@ -562,6 +647,42 @@
     pageRadios.forEach((r) => r.addEventListener("change", syncPageSouvenir));
     syncPageSouvenir();
 
+    function setCallSectionOpen(open) {
+      if (!callSection) return;
+      callSection.hidden = !open;
+      callSection.querySelectorAll("input, select, textarea, button").forEach(function (el) {
+        el.disabled = !open;
+      });
+    }
+
+    function syncContactPreference() {
+      const pref = String(new FormData(accompagnementForm).get("contact_pref") || "email").trim();
+      setCallSectionOpen(pref === "telephone");
+    }
+
+    accompagnementForm.querySelectorAll('input[name="contact_pref"]').forEach(function (r) {
+      r.addEventListener("change", syncContactPreference);
+    });
+    syncContactPreference();
+
+    function syncServices() {
+      // If "page" service is checked, default the page_souvenir to "oui" (without forcing).
+      if (svcPage && svcPage.checked) {
+        const oui = document.getElementById("acc-page-oui");
+        if (oui && !oui.checked) oui.checked = true;
+      }
+      const wantsPlaque = !!(svcPlaque && svcPlaque.checked);
+      const wantsVideo = !!(svcVideo && svcVideo.checked);
+      setSectionEnabled(plaqueSection, wantsPlaque);
+      setSectionEnabled(videoSection, wantsVideo);
+    }
+
+    [svcPage, svcPlaque, svcVideo].forEach(function (el) {
+      if (!el) return;
+      el.addEventListener("change", syncServices);
+    });
+    syncServices();
+
     const printBtn = document.getElementById("accompagnement-print");
     if (printBtn) {
       printBtn.addEventListener("click", () => window.print());
@@ -574,12 +695,28 @@
       const yourName = String(fd.get("your_name") || "").trim();
       const yourEmail = String(fd.get("your_email") || "").trim();
       const pageSouvenir = String(fd.get("page_souvenir") || "non").trim();
+      const honorName = String(fd.get("honor_name") || "").trim();
+      const services = fd.getAll("services[]").map((v) => String(v || "").trim()).filter(Boolean);
+      const contactPref = String(fd.get("contact_pref") || "email").trim();
+      const yourPhone = String(fd.get("your_phone") || "").trim();
       if (!yourName || !yourEmail) {
         if (accFeedback) { accFeedback.textContent = "Merci d'indiquer votre nom et votre e-mail pour que nous puissions vous r\u00e9pondre."; accFeedback.hidden = false; }
         return;
       }
       if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(yourEmail)) {
         if (accFeedback) { accFeedback.textContent = "L'adresse e-mail ne semble pas valide. V\u00e9rifiez-la avant d'envoyer."; accFeedback.hidden = false; }
+        return;
+      }
+      if (contactPref === "telephone" && !yourPhone) {
+        if (accFeedback) { accFeedback.textContent = "Vous avez choisi un échange téléphonique : merci d’indiquer votre numéro de téléphone."; accFeedback.hidden = false; }
+        return;
+      }
+      if (!services.length) {
+        if (accFeedback) { accFeedback.textContent = "Merci de cocher au moins un élément (page, plaque, vidéo…)."; accFeedback.hidden = false; }
+        return;
+      }
+      if (!honorName) {
+        if (accFeedback) { accFeedback.textContent = "Pour cadrer l'hommage, merci d'indiquer au minimum le prénom et le nom de l’être honoré."; accFeedback.hidden = false; }
         return;
       }
       if (pageSouvenir === "oui") {
@@ -589,7 +726,38 @@
           return;
         }
       }
-      submitToNetlify(accompagnementForm, accFeedback, "Formulaire envoy\u00e9 \u2014 nous vous recontactons rapidement.");
+      // If user asked for plaque or video, ensure they provided at least ONE concrete detail,
+      // otherwise Claude will have nothing actionable.
+      if (services.includes("plaque")) {
+        const mat = String(fd.get("plaque_matiere") || "").trim();
+        const fmt = String(fd.get("plaque_format") || "").trim();
+        const txt = String(fd.get("plaque_texte") || "").trim();
+        const city = String(fd.get("livraison_ville") || "").trim();
+        if (!mat && !fmt && !txt && !city) {
+          if (accFeedback) { accFeedback.textContent = "Vous avez coché « Plaque + QR » : merci d’indiquer au moins un détail (matière, format, texte ou ville de livraison)."; accFeedback.hidden = false; }
+          return;
+        }
+      }
+      if (services.includes("video")) {
+        const wish = String(fd.get("video_duree_souhaitee") || "").trim();
+        const avail = String(fd.get("videos_duree") || "").trim();
+        if (!wish && !avail) {
+          if (accFeedback) { accFeedback.textContent = "Vous avez coché « Vidéo hommage » : merci d’indiquer soit la durée souhaitée, soit ce que vous avez déjà (durée/nb de vidéos)."; accFeedback.hidden = false; }
+          return;
+        }
+      }
+      submitToNetlify(accompagnementForm, accFeedback, "Formulaire envoy\u00e9 \u2014 nous vous recontactons rapidement.")
+        .catch(function () {
+          // Fallback (ex: GitHub Pages / local): open an email draft with the recap.
+          var ok = openMailtoFromForm(accompagnementForm, "Accompagnement — Mémoire & Présence");
+          if (accFeedback) {
+            accFeedback.innerHTML = ok
+              ? "Votre messagerie s'ouvre avec le r\u00e9capitulatif. Envoyez l'e-mail pour finaliser."
+              : "Impossible d'ouvrir la messagerie. \u00c9crivez-nous \u00e0 <a href=\"mailto:" + CONTACT_EMAIL + "\">" + CONTACT_EMAIL + "</a>.";
+            accFeedback.classList.add("form-feedback--success");
+            accFeedback.hidden = false;
+          }
+        });
     });
   }
 
@@ -611,7 +779,17 @@
         if (devisFeedback) { devisFeedback.textContent = "L'adresse e-mail ne semble pas valide. V\u00e9rifiez-la avant d'envoyer."; devisFeedback.hidden = false; }
         return;
       }
-      submitToNetlify(devisForm, devisFeedback, "Demande de devis re\u00e7ue \u2014 nous vous r\u00e9pondons sous 48\u00a0h.");
+      submitToNetlify(devisForm, devisFeedback, "Demande de devis re\u00e7ue \u2014 nous vous r\u00e9pondons sous 48\u00a0h.")
+        .catch(function () {
+          var ok = openMailtoFromForm(devisForm, "Demande de devis — Mémoire & Présence");
+          if (devisFeedback) {
+            devisFeedback.innerHTML = ok
+              ? "Votre messagerie s'ouvre avec le r\u00e9capitulatif. Envoyez l'e-mail pour finaliser."
+              : "Impossible d'ouvrir la messagerie. \u00c9crivez-nous \u00e0 <a href=\"mailto:" + CONTACT_EMAIL + "\">" + CONTACT_EMAIL + "</a>.";
+            devisFeedback.classList.add("form-feedback--success");
+            devisFeedback.hidden = false;
+          }
+        });
     });
   }
 
