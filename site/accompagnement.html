@@ -203,6 +203,23 @@
           </div>
         </section>
 
+        <section class="form-section" aria-labelledby="acc-people">
+          <h2 class="form-section__title" id="acc-people">Qui participe &amp; qui décide <span class="form-optional">(facultatif)</span></h2>
+          <p class="form-section__intro">Pour éviter les allers-retours, dites-nous qui valide et qui peut fournir des éléments.</p>
+          <div class="form-field">
+            <label class="form-label" for="acc-decider">Personne de référence (validation)</label>
+            <input class="form-input" type="text" id="acc-decider" name="personne_validation" placeholder="Ex. moi / mon frère / la famille à plusieurs…" maxlength="160">
+          </div>
+          <div class="form-field">
+            <label class="form-label" for="acc-others">Autres proches à associer <span class="form-optional">(facultatif)</span></label>
+            <textarea class="form-textarea" id="acc-others" name="proches_associer" rows="3" maxlength="900" placeholder="Prénoms + rôle (ex. fournit des photos, relit les textes, valide la plaque…)"></textarea>
+          </div>
+          <div class="form-field">
+            <label class="form-label" for="acc-sensitive">Sujets sensibles / à éviter <span class="form-optional">(facultatif)</span></label>
+            <textarea class="form-textarea" id="acc-sensitive" name="sujets_sensibles" rows="3" maxlength="900" placeholder="Ex. séparation, maladie, conflit familial, éléments à ne pas mentionner…"></textarea>
+          </div>
+        </section>
+
         <section class="form-section" aria-labelledby="acc-honor">
           <h2 class="form-section__title" id="acc-honor">L’être honoré</h2>
           <p class="form-section__intro">
@@ -223,6 +240,22 @@
           <div class="form-field">
             <label class="form-label" for="acc-honor-bio">Quelques lignes de portrait <span class="form-optional">(facultatif)</span></label>
             <textarea class="form-textarea" id="acc-honor-bio" name="honor_bio" rows="4" maxlength="1400" placeholder="Ce qui la/le caractérise, ce que vous voudriez transmettre, un trait, une phrase…"></textarea>
+          </div>
+          <div class="form-field">
+            <label class="form-label" for="acc-honor-death">Date de décès <span class="form-optional">(facultatif)</span></label>
+            <input class="form-input" type="text" id="acc-honor-death" name="honor_death" placeholder="JJ/MM/AAAA ou année seule" maxlength="80">
+          </div>
+          <div class="form-field">
+            <label class="form-label" for="acc-places">Lieux importants <span class="form-optional">(facultatif)</span></label>
+            <input class="form-input" type="text" id="acc-places" name="lieux_importants" placeholder="Ex. ville d’enfance, lieu de vie, pays, ‘la maison familiale’…" maxlength="240">
+          </div>
+          <div class="form-field">
+            <label class="form-label" for="acc-timeline">Repères de vie (dates/chapitres) <span class="form-optional">(facultatif)</span></label>
+            <textarea class="form-textarea" id="acc-timeline" name="reperes_vie" rows="5" maxlength="1800" placeholder="Ex. 1978 naissance, 2001 rencontre, 2008 enfant, passions, métiers, moments clés…"></textarea>
+          </div>
+          <div class="form-field">
+            <label class="form-label" for="acc-qualities">Ce que vous voulez transmettre (valeurs, mots-clés) <span class="form-optional">(facultatif)</span></label>
+            <textarea class="form-textarea" id="acc-qualities" name="mots_cles_valeurs" rows="4" maxlength="1400" placeholder="Ex. ‘douceur’, ‘courage’, ‘humour’, ‘générosité’, ‘fidélité’, ‘liberté’…"></textarea>
           </div>
         </section>
 
@@ -274,7 +307,95 @@
                 <label for="acc-mod-aucun">Pas de livre d’or / pas de messages visiteurs</label>
               </li>
             </ul>
+
+            <div class="form-field" style="margin-top: 1.1rem;">
+              <label class="form-label" for="acc-visitors">Qui pourra recevoir le lien / scanner le QR ? <span class="form-optional">(facultatif)</span></label>
+              <textarea class="form-textarea" id="acc-visitors" name="public_cible" rows="3" maxlength="900" placeholder="Ex. famille proche, amis, association, collègues, cercle élargi…"></textarea>
+            </div>
+            <div class="form-field">
+              <label class="form-label" for="acc-confidential">Niveau de confidentialité souhaité <span class="form-optional">(facultatif)</span></label>
+              <select class="form-input" id="acc-confidential" name="confidentialite">
+                <option value="">Je ne sais pas / à conseiller</option>
+                <option value="tres-prive">Très privé (accès limité, mots de passe, pas de diffusion)</option>
+                <option value="prive">Privé (cercle défini)</option>
+                <option value="semi-public">Semi-public (partage possible mais maîtrisé)</option>
+                <option value="public">Public (tout le monde peut voir)</option>
+              </select>
+            </div>
           </fieldset>
+        </section>
+
+        <section class="form-section" aria-labelledby="acc-brief">
+          <h2 class="form-section__title" id="acc-brief">Le style de l’hommage (ton, structure, intentions) <span class="form-optional">(facultatif)</span></h2>
+          <p class="form-section__intro">Même quelques mots suffisent. Cela nous aide à proposer un rendu juste, sans phrases trop « génériques ».</p>
+          <fieldset class="form-fieldset" aria-labelledby="acc-tone">
+            <legend class="form-fieldset__legend" id="acc-tone">Ton recherché</legend>
+            <ul class="form-choices form-choices--grid" style="grid-template-columns:repeat(auto-fit,minmax(220px,1fr));">
+              <li class="form-choice">
+                <input type="checkbox" name="ton[]" id="acc-tone-doux" value="doux">
+                <label for="acc-tone-doux">Doux &amp; apaisant</label>
+              </li>
+              <li class="form-choice">
+                <input type="checkbox" name="ton[]" id="acc-tone-lumineux" value="lumineux">
+                <label for="acc-tone-lumineux">Lumineux &amp; reconnaissant</label>
+              </li>
+              <li class="form-choice">
+                <input type="checkbox" name="ton[]" id="acc-tone-solennel" value="solennel">
+                <label for="acc-tone-solennel">Solennel</label>
+              </li>
+              <li class="form-choice">
+                <input type="checkbox" name="ton[]" id="acc-tone-simple" value="simple">
+                <label for="acc-tone-simple">Simple &amp; direct</label>
+              </li>
+              <li class="form-choice">
+                <input type="checkbox" name="ton[]" id="acc-tone-poetique" value="poetique">
+                <label for="acc-tone-poetique">Poétique</label>
+              </li>
+              <li class="form-choice">
+                <input type="checkbox" name="ton[]" id="acc-tone-humour" value="humour">
+                <label for="acc-tone-humour">Avec une touche d’humour</label>
+              </li>
+            </ul>
+          </fieldset>
+          <div class="form-field">
+            <label class="form-label" for="acc-structure">Structure souhaitée <span class="form-optional">(facultatif)</span></label>
+            <select class="form-input" id="acc-structure" name="structure">
+              <option value="">Je ne sais pas / à proposer</option>
+              <option value="chronologique">Chronologique (repères de vie)</option>
+              <option value="themes">Par thèmes (famille, passions, valeurs…)</option>
+              <option value="lettre">Sous forme de lettre (aux proches / à la personne)</option>
+              <option value="mixte">Mixte (chapitres + thèmes)</option>
+            </select>
+          </div>
+          <div class="form-field">
+            <label class="form-label" for="acc-quotes">Phrases / citations / prières à intégrer <span class="form-optional">(facultatif)</span></label>
+            <textarea class="form-textarea" id="acc-quotes" name="citations" rows="4" maxlength="1400" placeholder="Vous pouvez coller ici une ou plusieurs phrases (même brutes)."></textarea>
+          </div>
+          <div class="form-field">
+            <label class="form-label" for="acc-nonnegotiables">Incontournables (à inclure) <span class="form-optional">(facultatif)</span></label>
+            <textarea class="form-textarea" id="acc-nonnegotiables" name="a_inclure" rows="4" maxlength="1400" placeholder="Ex. une photo précise, un passage, un moment, un message aux petits-enfants…"></textarea>
+          </div>
+          <div class="form-field">
+            <label class="form-label" for="acc-avoid">À éviter (style, mots, sujets) <span class="form-optional">(facultatif)</span></label>
+            <textarea class="form-textarea" id="acc-avoid" name="a_eviter" rows="3" maxlength="900" placeholder="Ex. pas de clichés, pas de religion, pas de certains termes…"></textarea>
+          </div>
+          <div class="form-field">
+            <label class="form-label" for="acc-lang">Langue(s) <span class="form-optional">(facultatif)</span></label>
+            <input class="form-input" type="text" id="acc-lang" name="langues" placeholder="Ex. français, français + portugais, tutoiement/vouvoiement…" maxlength="200">
+          </div>
+        </section>
+
+        <section class="form-section" aria-labelledby="acc-ceremony">
+          <h2 class="form-section__title" id="acc-ceremony">Cérémonie &amp; partage <span class="form-optional">(facultatif)</span></h2>
+          <p class="form-section__intro">Si l’hommage est lié à un moment (cérémonie, date), on peut adapter une version rapide puis enrichir.</p>
+          <div class="form-field">
+            <label class="form-label" for="acc-ceremony-date">Date et contexte</label>
+            <input class="form-input" type="text" id="acc-ceremony-date" name="ceremonie" placeholder="Ex. cérémonie le 12/05 à 14h, messe, rassemblement familial…" maxlength="200">
+          </div>
+          <div class="form-field">
+            <label class="form-label" for="acc-reading">Texte à lire / message à partager <span class="form-optional">(facultatif)</span></label>
+            <textarea class="form-textarea" id="acc-reading" name="texte_a_lire" rows="4" maxlength="1400" placeholder="Si vous souhaitez un texte ‘prêt à lire’, indiquez le type (2 min / 5 min) et le ton."></textarea>
+          </div>
         </section>
 
         <section class="form-section" aria-labelledby="acc-assets">
@@ -285,16 +406,32 @@
             <input class="form-input" type="text" id="acc-photos-count" name="photos_nombre" placeholder="Ex. 10, 30–50, +100…" maxlength="40" inputmode="numeric">
           </div>
           <div class="form-field">
+            <label class="form-label" for="acc-photos-style">Style des photos <span class="form-optional">(facultatif)</span></label>
+            <input class="form-input" type="text" id="acc-photos-style" name="photos_style" placeholder="Ex. portraits, famille, voyages, enfance, ‘beaucoup d’anciennes’…" maxlength="220">
+          </div>
+          <div class="form-field">
             <label class="form-label" for="acc-videos-count">Vidéos (si vous en avez) <span class="form-optional">(facultatif)</span></label>
             <input class="form-input" type="text" id="acc-videos-count" name="videos_duree" placeholder="Ex. 5 minutes au total, 2 vidéos, 1h d’archives…" maxlength="80">
+          </div>
+          <div class="form-field">
+            <label class="form-label" for="acc-texts">Textes déjà prêts <span class="form-optional">(facultatif)</span></label>
+            <textarea class="form-textarea" id="acc-texts" name="textes_disponibles" rows="4" maxlength="1400" placeholder="Ex. faire-part, discours, notes, messages de proches, biographie, lettres…"></textarea>
           </div>
           <div class="form-field">
             <label class="form-label" for="acc-assets-link">Lien de dépôt (Drive/WeTransfer/Dropbox) <span class="form-optional">(facultatif)</span></label>
             <input class="form-input" type="url" id="acc-assets-link" name="lien_depot" placeholder="https://…" maxlength="400" inputmode="url">
           </div>
           <div class="form-field">
+            <label class="form-label" for="acc-deposit-access">Accès au dépôt <span class="form-optional">(facultatif)</span></label>
+            <input class="form-input" type="text" id="acc-deposit-access" name="depot_acces" placeholder="Ex. mot de passe, expiration, droits, dossier à privilégier…" maxlength="200">
+          </div>
+          <div class="form-field">
             <label class="form-label" for="acc-music">Musique souhaitée <span class="form-optional">(facultatif)</span></label>
             <input class="form-input" type="text" id="acc-music" name="musique" placeholder="Titre/artiste ou ‘à choisir’" maxlength="200">
+          </div>
+          <div class="form-field">
+            <label class="form-label" for="acc-rights">Droits / autorisations <span class="form-optional">(facultatif)</span></label>
+            <textarea class="form-textarea" id="acc-rights" name="droits" rows="3" maxlength="900" placeholder="Ex. photos de famille OK, musique à éviter, pas d’images de personnes vivantes sans accord…"></textarea>
           </div>
         </section>
 
@@ -323,6 +460,10 @@
             <label class="form-label" for="acc-livraison">Ville de livraison <span class="form-optional">(facultatif)</span></label>
             <input class="form-input" type="text" id="acc-livraison" name="livraison_ville" placeholder="Ex. Lyon, Bordeaux…" maxlength="120">
           </div>
+          <div class="form-field">
+            <label class="form-label" for="acc-plaque-fix">Fixation / emplacement <span class="form-optional">(facultatif)</span></label>
+            <input class="form-input" type="text" id="acc-plaque-fix" name="plaque_fixation" placeholder="Ex. sur pierre tombale, à visser, adhésif, à poser…" maxlength="160">
+          </div>
         </section>
 
         <section class="form-section" aria-labelledby="acc-video" id="acc-video-section" hidden>
@@ -330,6 +471,10 @@
           <div class="form-field">
             <label class="form-label" for="acc-video-duree">Durée souhaitée <span class="form-optional">(facultatif)</span></label>
             <input class="form-input" type="text" id="acc-video-duree" name="video_duree_souhaitee" placeholder="Ex. 2–3 min, 5–7 min…" maxlength="60">
+          </div>
+          <div class="form-field">
+            <label class="form-label" for="acc-video-style">Style de montage <span class="form-optional">(facultatif)</span></label>
+            <input class="form-input" type="text" id="acc-video-style" name="video_style" placeholder="Ex. simple, cinématique, très sobre, avec titres, transitions légères…" maxlength="200">
           </div>
           <fieldset class="form-fieldset" aria-labelledby="acc-voixoff">
             <legend class="form-fieldset__legend" id="acc-voixoff">Voix off <span class="form-optional">(facultatif)</span></legend>
@@ -348,6 +493,10 @@
               </li>
             </ul>
           </fieldset>
+          <div class="form-field">
+            <label class="form-label" for="acc-video-message">Message central <span class="form-optional">(facultatif)</span></label>
+            <textarea class="form-textarea" id="acc-video-message" name="video_message" rows="4" maxlength="1400" placeholder="Ex. ce que vous voulez que la vidéo laisse comme émotion / souvenir."></textarea>
+          </div>
         </section>
 
         <section class="form-section" aria-labelledby="acc-budget">
@@ -409,9 +558,34 @@
               </li>
             </ul>
           </fieldset>
+          <fieldset class="form-fieldset" id="acc-call-section" hidden>
+            <legend class="form-fieldset__legend">Si vous préférez un échange téléphonique</legend>
+            <p class="form-section__intro" style="margin-top:.25rem;">Choisissez ce qui vous convient, nous confirmerons par SMS ou e-mail.</p>
+            <div class="form-field">
+              <label class="form-label" for="acc-call-slot">Créneaux possibles <span class="form-optional">(facultatif)</span></label>
+              <input class="form-input" type="text" id="acc-call-slot" name="tel_creneaux" placeholder="Ex. aujourd’hui 18h–20h, demain 12h–14h, samedi matin…" maxlength="240">
+            </div>
+            <div class="form-field">
+              <label class="form-label" for="acc-call-duration">Durée idéale <span class="form-optional">(facultatif)</span></label>
+              <select class="form-input" id="acc-call-duration" name="tel_duree">
+                <option value="">À proposer</option>
+                <option value="10">10 minutes</option>
+                <option value="20">20 minutes</option>
+                <option value="30">30 minutes</option>
+              </select>
+            </div>
+            <div class="form-field">
+              <label class="form-label" for="acc-call-goal">Ce que vous attendez de l’appel <span class="form-optional">(facultatif)</span></label>
+              <textarea class="form-textarea" id="acc-call-goal" name="tel_objectif" rows="3" maxlength="900" placeholder="Ex. cadrer la page, choisir l’accès, parler de la plaque, clarifier les délais…"></textarea>
+            </div>
+          </fieldset>
           <div class="form-field">
             <label class="form-label" for="acc-notes">Précisions utiles <span class="form-optional">(facultatif)</span></label>
             <textarea class="form-textarea" id="acc-notes" name="notes" rows="4" maxlength="1200" placeholder="Date souhaitée, contraintes, questions…"></textarea>
+          </div>
+          <div class="form-field">
+            <label class="form-label" for="acc-consent">Consentement &amp; autorisation <span class="form-optional">(facultatif)</span></label>
+            <textarea class="form-textarea" id="acc-consent" name="consentement" rows="3" maxlength="900" placeholder="Ex. ‘J’ai l’accord de la famille pour publier la page’, ‘accès strictement privé’, ‘préserver l’anonymat’…"></textarea>
           </div>
         </section>
 

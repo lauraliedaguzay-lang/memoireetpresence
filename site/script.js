@@ -610,6 +610,7 @@
     const pageRadios = accompagnementForm.querySelectorAll(
       'input[name="page_souvenir"]'
     );
+    const callSection = document.getElementById("acc-call-section");
     const svcPage = document.getElementById("acc-svc-page");
     const svcPlaque = document.getElementById("acc-svc-plaque");
     const svcVideo = document.getElementById("acc-svc-video");
@@ -646,6 +647,24 @@
     pageRadios.forEach((r) => r.addEventListener("change", syncPageSouvenir));
     syncPageSouvenir();
 
+    function setCallSectionOpen(open) {
+      if (!callSection) return;
+      callSection.hidden = !open;
+      callSection.querySelectorAll("input, select, textarea, button").forEach(function (el) {
+        el.disabled = !open;
+      });
+    }
+
+    function syncContactPreference() {
+      const pref = String(new FormData(accompagnementForm).get("contact_pref") || "email").trim();
+      setCallSectionOpen(pref === "telephone");
+    }
+
+    accompagnementForm.querySelectorAll('input[name="contact_pref"]').forEach(function (r) {
+      r.addEventListener("change", syncContactPreference);
+    });
+    syncContactPreference();
+
     function syncServices() {
       // If "page" service is checked, default the page_souvenir to "oui" (without forcing).
       if (svcPage && svcPage.checked) {
@@ -678,12 +697,18 @@
       const pageSouvenir = String(fd.get("page_souvenir") || "non").trim();
       const honorName = String(fd.get("honor_name") || "").trim();
       const services = fd.getAll("services[]").map((v) => String(v || "").trim()).filter(Boolean);
+      const contactPref = String(fd.get("contact_pref") || "email").trim();
+      const yourPhone = String(fd.get("your_phone") || "").trim();
       if (!yourName || !yourEmail) {
         if (accFeedback) { accFeedback.textContent = "Merci d'indiquer votre nom et votre e-mail pour que nous puissions vous r\u00e9pondre."; accFeedback.hidden = false; }
         return;
       }
       if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(yourEmail)) {
         if (accFeedback) { accFeedback.textContent = "L'adresse e-mail ne semble pas valide. V\u00e9rifiez-la avant d'envoyer."; accFeedback.hidden = false; }
+        return;
+      }
+      if (contactPref === "telephone" && !yourPhone) {
+        if (accFeedback) { accFeedback.textContent = "Vous avez choisi un échange téléphonique : merci d’indiquer votre numéro de téléphone."; accFeedback.hidden = false; }
         return;
       }
       if (!services.length) {
