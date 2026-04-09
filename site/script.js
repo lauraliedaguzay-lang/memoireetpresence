@@ -575,8 +575,10 @@
       const name = String(fd.get("name") || "").trim();
       const email = String(fd.get("email") || "").trim();
       const message = String(fd.get("message") || "").trim();
-      if (!name || !email || !message) {
-        if (feedback) { feedback.textContent = "Merci de renseigner au minimum votre nom, votre e-mail et votre message."; feedback.hidden = false; }
+      const services = fd.getAll("services[]").map(v => String(v || "").trim()).filter(Boolean);
+      const stade = String(fd.get("stade") || "").trim();
+      if (!name || !email || !message || services.length === 0 || !stade) {
+        if (feedback) { feedback.textContent = "Merci d'indiquer votre nom, votre e-mail, votre message et de cocher au moins un besoin."; feedback.hidden = false; }
         return;
       }
       if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
@@ -587,7 +589,17 @@
         if (feedback) { feedback.textContent = "Quelques lignes de plus nous aideront \u00e0 mieux vous r\u00e9pondre (minimum 20 caract\u00e8res)."; feedback.hidden = false; }
         return;
       }
-      submitToNetlify(contactForm, feedback, "Message envoy\u00e9 \u2014 nous vous r\u00e9pondons sous 24\u00a0\u00e0\u00a048\u00a0h.");
+      submitToNetlify(contactForm, feedback, "Message envoy\u00e9 \u2014 nous vous r\u00e9pondons sous 24\u00a0\u00e0\u00a048\u00a0h.")
+        .catch(function () {
+          var ok = openMailtoFromForm(contactForm, "Contact — Mémoire & Présence");
+          if (feedback) {
+            feedback.innerHTML = ok
+              ? "Votre messagerie s'ouvre avec le r\u00e9capitulatif. Envoyez l'e-mail pour finaliser."
+              : "Impossible d'ouvrir la messagerie. \u00c9crivez-nous \u00e0 <a href=\"mailto:" + CONTACT_EMAIL + "\">" + CONTACT_EMAIL + "</a>.";
+            feedback.classList.add("form-feedback--success");
+            feedback.hidden = false;
+          }
+        });
     });
   }
 
